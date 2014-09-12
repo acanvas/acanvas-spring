@@ -1,0 +1,8 @@
+name: spring_dart
+version: 0.1.0
+description: dart port of spring actionscript framework
+dependencies:
+  dart_commons:
+    git: https://github.com/blockforest/dart-commons
+    #path: /Volumes/Daten/nilsdoehring/git/dart-commons
+
