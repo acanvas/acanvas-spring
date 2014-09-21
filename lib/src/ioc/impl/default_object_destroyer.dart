@@ -27,13 +27,13 @@
 		 IApplicationContext _applicationContext;
 		 static const String NAMELESS = "nameless_object";
 
-		 RockdotLogger logger;
+		 Logger logger;
 
 		/**
 		 * Creates a new <code>DefaultObjectDestroyer</code> instance.
 		 */
 	 DefaultObjectDestroyer(IApplicationContext context):super() {
-			logger = new RockdotLogger("DefaultObjectDestroyer");
+			logger = new Logger("DefaultObjectDestroyer");
 			_managedObjects = new Map();
 			_applicationContext = context;
 		}

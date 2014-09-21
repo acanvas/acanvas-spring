@@ -38,7 +38,7 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
   static const String NON_LAZY_SINGLETON_CTOR_ARGS_ERROR = "The object definition for '{0}' is not lazy. Constructor arguments can only be supplied for lazy instantiating objects.";
   static const String OBJECT_DEFINITION_NOT_FOUND_ERROR = "An object definition for '{0}' was not found.";
 
-  RockdotLogger logger;
+  Logger logger;
 
   /**
 		 * Creates a new <code>DefaultObjectFactory</code> instance.
@@ -46,7 +46,7 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
 		 *
 		 */
   DefaultObjectFactory() : super() {
-    logger = new RockdotLogger("DefaultObjectFactory");
+    logger = new Logger("DefaultObjectFactory");
   }
 
   IAutowireProcessor _autowireProcessor;

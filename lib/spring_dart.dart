@@ -18,6 +18,7 @@ part 'src/context/impl/spring_application_context.dart';
 part 'src/context/i_application_context.dart';
 part 'src/context/i_application_context_aware.dart';
 part 'src/context/i_application_context_initializer.dart';
+
 //ioc
 part 'src/ioc/autowire/i_autowire_processor.dart';
 part 'src/ioc/autowire/i_autowire_processor_aware.dart';
@@ -56,7 +57,9 @@ part 'src/ioc/objectdefinition/impl/default_object_definition_registry.dart';
 part 'src/ioc/objectdefinition/impl/property_definition.dart';
 part 'src/ioc/objectdefinition/impl/object_definition.dart';
 //mvc
+part 'src/mvc/impl/controller.dart';
 part 'src/mvc/i_controller.dart';
+part 'src/mvc/processor/mvccontroller_object_factory_post_processor.dart';
 //util
 part 'src/util/context_utils.dart';
 part 'src/util/multiline_string.dart';

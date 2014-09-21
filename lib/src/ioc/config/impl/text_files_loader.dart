@@ -26,7 +26,7 @@
 		 static const String QUESTION_MARK = '?';
 		 static const String AMPERSAND = "&";
 
-		 RockdotLogger logger;
+		 Logger logger;
 
 		 List<IOperation> _requiredOperations;
 		 List<String> _results;
@@ -37,7 +37,7 @@
 		 * @param name An optional name for the current <code>TextFilesLoader</code>.
 		 */
 	 TextFilesLoader([String name=""]):super(name) {
-			logger = new RockdotLogger("TextFilesLoader");
+			logger = new Logger("TextFilesLoader");
 			_results = new List<String>();
 			_requiredOperations = new List<IOperation>();
 		}

@@ -52,7 +52,7 @@
 		 static const String DOUBLE_BACKWARD_SLASH = '\\';
 		 static const String NEWLINE_CHAR = "\n";
 		 static final RegExp NEWLINE_REGEX = new RegExp(r'\\n');// /\\n/gm;
-		 static final RockdotLogger logger = new RockdotLogger("KeyValuePropertiesParser");
+		 static final Logger logger = new Logger("KeyValuePropertiesParser");
 
 		/**
 		 * Constructs a new <code>PropertiesParser</code> instance.

@@ -28,7 +28,7 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
   static const String OBJECT_DEFINITION_NAME_EXISTS_ERROR = "Object definition with name '{0}' has already been registered and no overrides are allowed.";
 
   //static ILogger logger = getClassLogger(DefaultObjectDefinitionRegistry);
-  RockdotLogger logger;
+  Logger logger;
 
   static String generateRegistryId() {
     int len = 20;
@@ -45,7 +45,7 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
 		 *
 		 */
   DefaultObjectDefinitionRegistry() : super() {
-    logger = new RockdotLogger("DefaultObjectDefinitionRegistry");
+    logger = new Logger("DefaultObjectDefinitionRegistry");
     _objectDefinitions = {};
     _objectDefinitionList = new List<IObjectDefinition>();
     _objectDefinitionNames = new List<String>();

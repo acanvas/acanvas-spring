@@ -27,7 +27,7 @@ part of spring_dart;
 class DefaultApplicationContextInitializer extends EventDispatcher implements IApplicationContextInitializer, IDisposable {
   static const String APPLICATION_CONTEXT_PROPERTIES_LOADER_NAME = "applicationContextTextFilesLoader";
   static const String DEFINITION_PROVIDER_QUEUE_NAME = "definitionProviderQueue";
-  RockdotLogger LOGGER;
+  Logger LOGGER;
   static const String NEWLINE_CHAR = "\n";
   static const String OBJECT_FACTORY_POST_PROCESSOR_QUEUE_NAME = "objectFactoryPostProcessorQueue";
 
@@ -35,7 +35,7 @@ class DefaultApplicationContextInitializer extends EventDispatcher implements IA
 		 * Creates a new <code>DefaultApplicationContextInitializer</code> instance.
 		 */
   DefaultApplicationContextInitializer([/*I*/EventDispatcher target = null]) : super(/*target*/) {
-    LOGGER = new RockdotLogger("DefaultApplicationContextInitializer");
+    LOGGER = new Logger("DefaultApplicationContextInitializer");
   }
 
   IApplicationContext _applicationContext;

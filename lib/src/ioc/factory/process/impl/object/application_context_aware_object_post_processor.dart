@@ -23,7 +23,7 @@ part of spring_dart;
 	 */
 class ApplicationContextAwareObjectPostProcessor implements IObjectPostProcessor {
 
-  static final RockdotLogger logger = new RockdotLogger("ApplicationContextAwareObjectPostProcessor");
+  static final Logger logger = new Logger("ApplicationContextAwareObjectPostProcessor");
 
   IApplicationContext _applicationContext;
 

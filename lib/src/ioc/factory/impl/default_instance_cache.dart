@@ -42,13 +42,13 @@ part of spring_dart;
 	 */
 class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, IDisposable {
 
-  RockdotLogger logger;
+  Logger logger;
 
   /**
 		 * Creates a new <code>DefaultInstanceCache</code> instance.
 		 */
   DefaultInstanceCache() : super() {
-    logger = new RockdotLogger("DefaultInstanceCache");
+    logger = new Logger("DefaultInstanceCache");
     initialize();
   }
 

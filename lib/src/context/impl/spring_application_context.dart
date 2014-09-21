@@ -49,7 +49,7 @@ class SpringApplicationContext extends EventDispatcher implements IApplicationCo
 
   static const String APPLICATIONCONTEXTINITIALIZER_CHANGED_EVENT = "applicationContextInitializerChanged";
   static const String GET_ASSOCIATED_FACTORY_METHOD_NAME = "getAssociatedFactory";
-  RockdotLogger LOGGER;
+  Logger LOGGER;
   static const String MXMODULES_MODULE_MANAGER_CLASS_NAME = "mx.modules.ModuleManager";
 
   /**
@@ -59,7 +59,7 @@ class SpringApplicationContext extends EventDispatcher implements IApplicationCo
     if (objFactory == null) {
       objectFactory = createDefaultObjectFactory();
     }
-    LOGGER = new RockdotLogger("SpringApplicationContext");
+    LOGGER = new Logger("SpringApplicationContext");
     addFactoryListeners(_objectFactory);
     _definitionProviders = new List<IObjectDefinitionsProvider>();
     _rootViews = rootViews;

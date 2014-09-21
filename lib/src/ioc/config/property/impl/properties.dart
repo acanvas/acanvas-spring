@@ -25,7 +25,7 @@
 	 */
 	 class Properties implements IPropertiesProvider {
 
-		 static final RockdotLogger logger = new RockdotLogger("Properties");
+		 static final Logger logger = new Logger("Properties");
 
 		/**
 		 * Creates a new <code>Properties</code> object.
