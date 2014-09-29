@@ -63,4 +63,3 @@ part 'src/mvc/processor/mvccontroller_object_factory_post_processor.dart';
 //util
 part 'src/util/context_utils.dart';
 part 'src/util/multiline_string.dart';
-part 'src/util/numeric_stepper.dart';
