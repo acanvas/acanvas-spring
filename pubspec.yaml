@@ -1,8 +1,7 @@
-name: spring_dart
+name: stagexl_spring
 version: 0.1.0
-description: dart port of spring actionscript framework
+description: StageXL/Dart port of Spring Actionscript framework
 dependencies:
-  dart_commons:
-    git: https://github.com/blockforest/dart-commons
-    #path: /Volumes/Daten/nilsdoehring/git/dart-commons
+  stagexl_commons:
+    git: https://github.com/blockforest/stagexl-commons
 

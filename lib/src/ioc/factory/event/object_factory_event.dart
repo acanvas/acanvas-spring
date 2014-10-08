@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- part of spring_dart;
+ part of stagexl_spring;
 
 	/**
 	 * Event that is dispatched at various stages of object creation by an object factory.

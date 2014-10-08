@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- part of spring_dart;
+ part of stagexl_spring;
 
 	/**
 	 * <code>MultilineString</code> allows to access all lines of a string separately.

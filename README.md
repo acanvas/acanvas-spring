@@ -1,6 +1,6 @@
-## Spring Dart
+## Spring Framework for StageXL
 
-Port of [Spring Actionscript](http://www.springactionscript.org/) to Dart.
+Port of [Spring Actionscript](http://www.springactionscript.org/) to StageXL/Dart.
 
 ### Note that this will never become a full port!
 

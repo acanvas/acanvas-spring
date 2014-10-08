@@ -1,4 +1,4 @@
-part of spring_dart;
+part of stagexl_spring;
 
 abstract class IApplicationContextAware{
 

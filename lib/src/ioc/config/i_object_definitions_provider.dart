@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of spring_dart;
+ part of stagexl_spring;
 
 	/**
 	 * Describes an object that can create a collection of <code>ObjectDefinitions</code>, either synchronously or asynchronously.
