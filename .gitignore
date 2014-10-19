@@ -1,6 +1,6 @@
 build
 packages
-lib/spring_dart
+spring_dart
 pubspec.lock
 .DS_Store
 .settings
