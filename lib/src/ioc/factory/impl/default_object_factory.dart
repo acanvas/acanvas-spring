@@ -385,7 +385,6 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
     IObjectDefinition objectDefinition = getObjectDefinition(objectName);
 
     if (objectDefinition == null) {
-      print("argh");
       return null;
     }
 
