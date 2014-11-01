@@ -61,7 +61,7 @@ class Controller extends EventDispatcher implements IController, IApplicationCon
   /**
 		 * Initializes the current <code>Controller</code>
 		 */ void init() {
-    _eventBus = new DartEventBus();
+    _eventBus = new XLEventBus();
     clear();
   }
 

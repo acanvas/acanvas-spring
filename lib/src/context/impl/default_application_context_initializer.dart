@@ -165,7 +165,7 @@ class DefaultApplicationContextInitializer extends EventDispatcher implements IA
       }
       List<String> names = _applicationContext.objectDefinitionRegistry.getObjectDefinitionNamesForType(IEventBus);
       if (names == null) {
-        (_applicationContext as IEventBusAware).eventBus = new DartEventBus();
+        (_applicationContext as IEventBusAware).eventBus = new XLEventBus();
       } else if (names.length == 1) {
         (_applicationContext as IEventBusAware).eventBus = _applicationContext.getObject(names[0]);
       } else {
