@@ -1,5 +1,5 @@
 name: stagexl_spring
-version: 0.1.0
+version: 0.2.0
 description: StageXL/Dart port of Spring Actionscript framework
 dependencies:
   stagexl_commons:

@@ -36,7 +36,6 @@ part of stagexl_spring;
 	 * as its command factory.</p>
 	 * @inheritDoc
 	 */
-@retain
 class Controller extends EventDispatcher implements IController, IApplicationContextAware {
 
   Logger LOGGER;

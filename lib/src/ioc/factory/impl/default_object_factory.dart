@@ -443,16 +443,26 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
 
   dynamic instantiateClass(IObjectDefinition objectDefinition, List constructorArguments, String objectName) {
     logger.finer("Instantiating class: {0}", [objectDefinition.className]);
-    Type clazz = objectDefinition.clazz;
 
     if (_autowireProcessor != null) {
       _autowireProcessor.preprocessObjectDefinition(objectDefinition);
     }
-
-    try {
-      return ClassUtils.newInstance(clazz, constructorArguments);
-    } catch (Error) {
-      throw new StateError(StringUtils.substitute("Failed to instantiate class '{0}' for definition with id '{1}':{2} , original error:\n{3}", [clazz, objectName, objectDefinition]));
+    if(objectDefinition.func != null){
+      //Function.apply(objectDefinition.func, []);
+      //var obj = cache.getInstance(objectName);
+      var obj = objectDefinition.func();
+      print(obj);
+      //cache.removeInstance(objectName);
+      wire(obj);
+      return obj;
+    }
+    else{
+      Type clazz = objectDefinition.clazz;
+      try {
+        return ClassUtils.newInstance(clazz, constructorArguments);
+      } catch (Error) {
+        throw new StateError(StringUtils.substitute("Failed to instantiate class '{0}' for definition with id '{1}':{2} , original error:\n{3}", [clazz, objectName, objectDefinition]));
+      }
     }
   }
 

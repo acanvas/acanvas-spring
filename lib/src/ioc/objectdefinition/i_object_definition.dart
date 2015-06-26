@@ -50,6 +50,15 @@
 		 */
 		 void set clazz(Type value);
 
+		 /**
+		 * The class-generating <code>Function</code> of the object that the current <code>IObjectDefinition</code> describes.
+		 */
+		 Function get func;
+		/**
+		 * @
+		 */
+		 void set func(Function value);
+
 		/**
 		 * An array of arguments that will be passed to the constructor of the object.
 		 */

@@ -2,6 +2,7 @@ part of stagexl_spring;
 
 class ObjectDefinition extends IObjectDefinition {
   Type _clazz;
+  Function _func;
   String name;
   String _className;
   ObjectDefinitionScope scope;
@@ -14,6 +15,9 @@ class ObjectDefinition extends IObjectDefinition {
   
   @override
   Type get clazz => _clazz;
+
+  @override
+  Function get func => _func;
 
 
   @override
@@ -63,5 +67,10 @@ class ObjectDefinition extends IObjectDefinition {
   @override
   void set clazz(Type value) {
     _clazz = value;
+  }
+
+  @override
+  void set func(Function value) {
+    _func = value;
   }
 }

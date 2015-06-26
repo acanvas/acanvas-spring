@@ -117,7 +117,9 @@
            Assert.notNull(objectFactory, "the objectFactory argument must not be null");
            List<String> names = objectFactory.objectDefinitionRegistry.getObjectDefinitionNamesForType(IController);
            if (names == null) {
-             IController controller = objectFactory.createInstance(Controller, CONTROLLER_OBJECT_NAME);
+             IController controller = new Controller();
+						 //objectFactory.createInstance(Controller, CONTROLLER_OBJECT_NAME);
+						 objectFactory.wire(controller);
              objectFactory.cache.putInstance(CONTROLLER_OBJECT_NAME, controller);
            } else {
            }
