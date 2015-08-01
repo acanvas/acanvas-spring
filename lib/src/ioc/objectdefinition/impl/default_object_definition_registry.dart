@@ -146,7 +146,9 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
 		 * @inheritDoc
 		 */
   List<String> getObjectDefinitionNamesForType(Type type) {
+    throw new StateError(StringUtils.substitute("Failed to get Object Definition Names for Type {0} , reflection not supported in favor of dart2js filesize.", [type]));
     List<String> result;
+    /*
     for (String name in _objectDefinitionNames) {
       IObjectDefinition definition = getObjectDefinition(name);
       if (definition.clazz != null) {
@@ -155,6 +157,7 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
         }
       }
     }
+     */
     return result;
   }
 
@@ -162,12 +165,15 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
 		 * @inheritDoc
 		 */
   List<IObjectDefinition> getObjectDefinitionsForType(Type type) {
+    throw new StateError(StringUtils.substitute("Failed to get Object Definition for Type {0} , reflection not supported in favor of dart2js filesize.", [type]));
     List<IObjectDefinition> result;
+    /*
     for (IObjectDefinition definition in _objectDefinitionList) {
       if (ClassUtils.isAssignableFrom(type, definition.clazz)) {
         ((result != null) ? result : result = new List<IObjectDefinition>())[result.length] = definition;
       }
     }
+     */
     return result;
   }
 

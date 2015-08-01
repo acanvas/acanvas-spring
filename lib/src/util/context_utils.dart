@@ -25,7 +25,7 @@
 
 		 static  void disposeInstance(Object instance) {
 			if (instance is IDisposable) {
-				(instance as IDisposable).dispose();
+				instance.dispose();
 			}
 		}
 

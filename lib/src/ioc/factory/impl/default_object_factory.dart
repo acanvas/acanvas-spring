@@ -225,10 +225,14 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
 		 * @inheritDoc
 		 */
   dynamic createInstance(Type clazz, String objectName, [List constructorArguments = null]) {
+    throw new StateError(StringUtils.substitute("Failed to create instance of Type {0} for object name {1}, reflection not supported in favor of dart2js filesize.", [type, objectName]));
+    return null;
+    /*
     dynamic result = ClassUtils.newInstance(clazz, constructorArguments);
     result = manage(result, objectName);
     logger.finer("Created and injected an instance of {0}", [clazz]);
     return result;
+     */
   }
 
   /**
@@ -448,21 +452,21 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
       _autowireProcessor.preprocessObjectDefinition(objectDefinition);
     }
     if(objectDefinition.func != null){
-      //Function.apply(objectDefinition.func, []);
-      //var obj = cache.getInstance(objectName);
       var obj = objectDefinition.func();
-      print(obj);
-      //cache.removeInstance(objectName);
       wire(obj);
       return obj;
     }
     else{
+      throw new StateError(StringUtils.substitute("Failed to instantiate class '{0}' for definition with id '{1}':{2} , reflection not supported in favor of dart2js filesize.", [clazz, objectName, objectDefinition]));
+      return null;
+      /*
       Type clazz = objectDefinition.clazz;
       try {
         return ClassUtils.newInstance(clazz, constructorArguments);
       } catch (Error) {
         throw new StateError(StringUtils.substitute("Failed to instantiate class '{0}' for definition with id '{1}':{2} , original error:\n{3}", [clazz, objectName, objectDefinition]));
       }
+      */
     }
   }
 

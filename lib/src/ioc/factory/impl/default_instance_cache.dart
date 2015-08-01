@@ -115,6 +115,7 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
 
   List<String> getCachedNamesForType(Type clazz) {
     List<String> result = new List<String>();
+    /*
     for (String name in _cachedNames) {
       
       if (reflect(_cache[name]).reflectee.runtimeType == clazz) {
@@ -122,6 +123,7 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
       }
 
     }
+    */
     return result;
   }
 
