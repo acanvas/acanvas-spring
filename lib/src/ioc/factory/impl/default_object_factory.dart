@@ -241,7 +241,7 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
   void destroyObject(Object instance) {
     if (_objectDestroyer != null) {
       logger.finer("Destroying instance {0}...", [instance]);
-      _objectDestroyer.destroy(instance);
+      _objectDestroyer.dispose(instance);
     }
   }
 
@@ -255,7 +255,7 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
       if (_objectDestroyer != null) {
         List<String> names = _cache.getCachedNames();
         for (String name in names) {
-          _objectDestroyer.destroy(_cache.getInstance(name));
+          _objectDestroyer.dispose(_cache.getInstance(name));
         }
       }
       ContextUtils.disposeInstance(_objectDestroyer);

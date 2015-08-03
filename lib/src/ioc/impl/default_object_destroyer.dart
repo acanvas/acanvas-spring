@@ -39,7 +39,7 @@
 		}
 
 
-		  void destroy(Object instance) {
+		  @override void destroy(Object instance) {
 			if (_managedObjects[instance] == null) {
 				logger.info("Unregistered instance {0}, ignoring it.", [instance]);
 				return;
@@ -65,7 +65,7 @@
 			return _isDisposed;
 		}
 
-		  void dispose() {
+		  @override void dispose() {
 			if (!_isDisposed) {
 				_isDisposed = true;
 				_managedObjects = null;
