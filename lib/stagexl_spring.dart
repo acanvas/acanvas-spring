@@ -1,8 +1,5 @@
 library stagexl_spring;
 
-//@MirrorsUsed( metaTargets: const[Retain])
-//import 'dart:mirrors' show reflect, MirrorsUsed;
-
 import 'dart:math';
 import 'package:stagexl_commons/stagexl_commons.dart';
 import 'package:stagexl/stagexl.dart';
