@@ -15,7 +15,6 @@
  */
 part of stagexl_spring;
 
-
 /**
 	 *
 	 */
@@ -32,10 +31,11 @@ part of stagexl_spring;
 	 *
 	 * @author Roland Zwaga
 	 */
-class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IEventBusAware, IAutowireProcessorAware, IDisposable {
-
+class DefaultObjectFactory extends EventDispatcher
+    implements IObjectFactory, IEventBusAware, IAutowireProcessorAware, IDisposable {
   static const String OBJECT_FACTORY_PREFIX = "&";
-  static const String NON_LAZY_SINGLETON_CTOR_ARGS_ERROR = "The object definition for '{0}' is not lazy. Constructor arguments can only be supplied for lazy instantiating objects.";
+  static const String NON_LAZY_SINGLETON_CTOR_ARGS_ERROR =
+      "The object definition for '{0}' is not lazy. Constructor arguments can only be supplied for lazy instantiating objects.";
   static const String OBJECT_DEFINITION_NOT_FOUND_ERROR = "An object definition for '{0}' was not found.";
 
   Logger logger;
@@ -119,7 +119,6 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
     }
   }
 
-
   bool get isDisposed {
     return _isDisposed;
   }
@@ -170,7 +169,9 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
 		 * @inheritDoc
 		 */
   List<IObjectPostProcessor> get objectPostProcessors {
-    return (_objectPostProcessors != null) ? _objectPostProcessors : _objectPostProcessors = new List<IObjectPostProcessor>();
+    return (_objectPostProcessors != null)
+        ? _objectPostProcessors
+        : _objectPostProcessors = new List<IObjectPostProcessor>();
   }
 
   /**
@@ -179,7 +180,6 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
   IObjectFactory get parent {
     return _parent;
   }
-
 
   /**
 		 * @inheritDoc
@@ -213,7 +213,6 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
     return this;
   }
 
-
   /**
 		 * @inheritDoc
 		 */
@@ -225,7 +224,9 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
 		 * @inheritDoc
 		 */
   dynamic createInstance(Type clazz, String objectName, [List constructorArguments = null]) {
-    throw new StateError(StringUtils.substitute("Failed to create instance of Type {0} for object name {1}, reflection not supported in favor of dart2js filesize.", [type, objectName]));
+    throw new StateError(StringUtils.substitute(
+        "Failed to create instance of Type {0} for object name {1}, reflection not supported in favor of dart2js filesize.",
+        [type, objectName]));
     return null;
     /*
     dynamic result = ClassUtils.newInstance(clazz, constructorArguments);
@@ -298,13 +299,13 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
     if (_objectDestroyer != null) {
       _objectDestroyer.registerInstance(instance, objectName);
     }
-    if ((definition != null) && ((definition.scope == ObjectDefinitionScope.SINGLETON || definition.scope == ObjectDefinitionScope.REMOTE)) && (!cache.hasInstance(objectName))) {
+    if ((definition != null) &&
+        ((definition.scope == ObjectDefinitionScope.SINGLETON || definition.scope == ObjectDefinitionScope.REMOTE)) &&
+        (!cache.hasInstance(objectName))) {
       cache.putInstance(objectName, instance);
     }
     return instance;
   }
-
-
 
   /**
 		 * @inheritDoc
@@ -323,7 +324,8 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
     }
 
     if (result != null) {
-      ObjectFactoryEvent evt = new ObjectFactoryEvent(ObjectFactoryEvent.OBJECT_RETRIEVED, result, name, constructorArguments);
+      ObjectFactoryEvent evt =
+          new ObjectFactoryEvent(ObjectFactoryEvent.OBJECT_RETRIEVED, result, name, constructorArguments);
       dispatchEvent(evt);
       dispatchEventThroughEventBus(evt);
     }
@@ -340,15 +342,15 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
     return null;
   }
 
-
-
-  dynamic wire(dynamic instance, [IObjectDefinition objectDefinition = null, List constructorArguments = null, String objectName = null]) {
+  dynamic wire(dynamic instance,
+      [IObjectDefinition objectDefinition = null, List constructorArguments = null, String objectName = null]) {
     if (dependencyInjector != null) {
       dynamic wiredResult = dependencyInjector.wire(instance, this, objectDefinition, objectName);
       if (wiredResult != null) {
         instance = wiredResult;
       }
-      ObjectFactoryEvent objectWiredEvent = new ObjectFactoryEvent(ObjectFactoryEvent.OBJECT_WIRED, instance, objectName, constructorArguments);
+      ObjectFactoryEvent objectWiredEvent =
+          new ObjectFactoryEvent(ObjectFactoryEvent.OBJECT_WIRED, instance, objectName, constructorArguments);
       dispatchEvent(objectWiredEvent);
     }
 
@@ -365,13 +367,15 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
     return instance;
   }
 
-
-  dynamic attemptToInstantiate(IObjectDefinition objectDefinition, List constructorArguments, String name, String objectName) {
+  dynamic attemptToInstantiate(
+      IObjectDefinition objectDefinition, List constructorArguments, String name, String objectName) {
     dynamic result = null;
     try {
       logger.finer("Attempting to instantiate object for definition '{0}'...", [objectName]);
-      result = instantiateClass(objectDefinition, (constructorArguments == null) ? objectDefinition.constructorArguments : constructorArguments, objectName);
-      ObjectFactoryEvent objectCreatedEvent = new ObjectFactoryEvent(ObjectFactoryEvent.OBJECT_CREATED, result, name, constructorArguments);
+      result = instantiateClass(objectDefinition,
+          (constructorArguments == null) ? objectDefinition.constructorArguments : constructorArguments, objectName);
+      ObjectFactoryEvent objectCreatedEvent =
+          new ObjectFactoryEvent(ObjectFactoryEvent.OBJECT_CREATED, result, name, constructorArguments);
       dispatchEvent(objectCreatedEvent);
       dispatchEventThroughEventBus(objectCreatedEvent);
       result = wire(result, objectDefinition, constructorArguments, objectName);
@@ -380,7 +384,6 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
     }
     return result;
   }
-
 
   dynamic buildObject(String name, List constructorArguments) {
     dynamic result;
@@ -393,14 +396,19 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
     }
 
     if (objectDefinition.isInterface) {
-      throw new StateError(StringUtils.substitute("Objectdefinition {0} describes an abstract class which cannot be directly instantiated", [objectName]));
-    } else if ((objectDefinition.scope == ObjectDefinitionScope.STAGE) || (objectDefinition.scope == ObjectDefinitionScope.REMOTE)) {
+      throw new StateError(StringUtils.substitute(
+          "Objectdefinition {0} describes an abstract class which cannot be directly instantiated", [objectName]));
+    } else if ((objectDefinition.scope == ObjectDefinitionScope.STAGE) ||
+        (objectDefinition.scope == ObjectDefinitionScope.REMOTE)) {
       logger.finer("Object definition scope is '{0}', returning null", [objectDefinition.scope]);
       return null;
     }
 
-    if ((objectDefinition.scope != ObjectDefinitionScope.SINGLETON) && (objectDefinition.scope != ObjectDefinitionScope.PROTOTYPE)) {
-      throw new StateError(StringUtils.substitute("Only definitions with scope 'singleton' or 'prototype' can be instantiated. Definition name: {0}", [objectName]));
+    if ((objectDefinition.scope != ObjectDefinitionScope.SINGLETON) &&
+        (objectDefinition.scope != ObjectDefinitionScope.PROTOTYPE)) {
+      throw new StateError(StringUtils.substitute(
+          "Only definitions with scope 'singleton' or 'prototype' can be instantiated. Definition name: {0}",
+          [objectName]));
     }
 
     if (objectDefinition.isSingleton && (constructorArguments != null && !objectDefinition.isLazyInit)) {
@@ -424,7 +432,6 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
     return result;
   }
 
-
   void dispatchEventThroughEventBus(ObjectFactoryEvent evt) {
     if (_eventBus != null) {
       _eventBus.dispatchEvent(evt);
@@ -444,20 +451,20 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
     return result;
   }
 
-
   dynamic instantiateClass(IObjectDefinition objectDefinition, List constructorArguments, String objectName) {
     logger.finer("Instantiating class: {0}", [objectDefinition.className]);
 
     if (_autowireProcessor != null) {
       _autowireProcessor.preprocessObjectDefinition(objectDefinition);
     }
-    if(objectDefinition.func != null){
+    if (objectDefinition.func != null) {
       var obj = objectDefinition.func();
       wire(obj);
       return obj;
-    }
-    else{
-      throw new StateError(StringUtils.substitute("Failed to instantiate class '{0}' for definition with id '{1}':{2} , reflection not supported in favor of dart2js filesize.", [clazz, objectName, objectDefinition]));
+    } else {
+      throw new StateError(StringUtils.substitute(
+          "Failed to instantiate class '{0}' for definition with id '{1}':{2} , reflection not supported in favor of dart2js filesize.",
+          [clazz, objectName, objectDefinition]));
       return null;
       /*
       Type clazz = objectDefinition.clazz;
@@ -469,5 +476,4 @@ class DefaultObjectFactory extends EventDispatcher implements IObjectFactory, IE
       */
     }
   }
-
 }

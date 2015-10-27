@@ -13,112 +13,109 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- part of stagexl_spring;
+part of stagexl_spring;
 
-
-	/**
+/**
 	 *
 	 */
-	// [Event(name="objectCreated", type="org.springextensions.actionscript.ioc.factory.event.ObjectFactoryEvent")]
-	/**
+// [Event(name="objectCreated", type="org.springextensions.actionscript.ioc.factory.event.ObjectFactoryEvent")]
+/**
 	 *
 	 */
-	// [Event(name="objectRetrieved", type="org.springextensions.actionscript.ioc.factory.event.ObjectFactoryEvent")]
-	/**
+// [Event(name="objectRetrieved", type="org.springextensions.actionscript.ioc.factory.event.ObjectFactoryEvent")]
+/**
 	 *
 	 */
-	// [Event(name="objectWired", type="org.springextensions.actionscript.ioc.factory.event.ObjectFactoryEvent")]
-	/**
+// [Event(name="objectWired", type="org.springextensions.actionscript.ioc.factory.event.ObjectFactoryEvent")]
+/**
 	 * Describes an object that is capable of creating and configuring instances of other classes.
 	 * @author Christophe Herreman
 	 * @author Roland Zwaga
 	 */
- 
-abstract class IObjectFactory extends EventDispatcher implements IObjectDefinitionRegistryAware{
 
-		/**
+abstract class IObjectFactory extends EventDispatcher implements IObjectDefinitionRegistryAware {
+  /**
 		 * The <code>ApplicationDomain</code> that is associated with the current <code>IObjectFactory</code>
 		 */
-		// ApplicationDomain get applicationDomain;
-		/**
+  // ApplicationDomain get applicationDomain;
+  /**
 		 * @
 		 */
-		// void set applicationDomain(ApplicationDomain value);
+  // void set applicationDomain(ApplicationDomain value);
 
-		/**
+  /**
 		 * An <code>IInstanceCache</code> instance used to hold the singletons created by the current <code>IObjectFactory</code>.
 		 */
-		 IInstanceCache get cache;
+  IInstanceCache get cache;
 
-		/**
+  /**
 		 *
 		 */
-		 IDependencyInjector get dependencyInjector;
+  IDependencyInjector get dependencyInjector;
 
-		/**
+  /**
 		 * @
 		 */
-		 void set dependencyInjector(IDependencyInjector value);
+  void set dependencyInjector(IDependencyInjector value);
 
-		/**
+  /**
 		 * Returns <code>true</code> when the current <code>IObjectFactory</code> is fully initialized and ready for use.
 		 */
-		 bool get isReady;
+  bool get isReady;
 
-		/**
+  /**
 		 * @
 		 */
-		 void set isReady(bool value);
+  void set isReady(bool value);
 
-		/**
+  /**
 		 *
 		 */
-		 IObjectDestroyer get objectDestroyer;
+  IObjectDestroyer get objectDestroyer;
 
-		/**
+  /**
 		 * @
 		 */
-		 void set objectDestroyer(IObjectDestroyer value);
+  void set objectDestroyer(IObjectDestroyer value);
 
-		/**
+  /**
 		 *
 		 */
-		 List<IObjectPostProcessor> get objectPostProcessors;
+  List<IObjectPostProcessor> get objectPostProcessors;
 
-
-		/**
+  /**
 		 *
 		 */
-		 IPropertiesProvider get propertiesProvider;
-		/**
+  IPropertiesProvider get propertiesProvider;
+  /**
 		 * @
 		 */
-		 void set propertiesProvider(IPropertiesProvider value);
+  void set propertiesProvider(IPropertiesProvider value);
 
-		/**
+  /**
 		 */
-		// List<IReferenceResolver> get referenceResolvers;
+  // List<IReferenceResolver> get referenceResolvers;
 
-		/**
+  /**
 		 *
 		 * @param objectPostProcessor
 		 */
-		 IObjectFactory addObjectPostProcessor(IObjectPostProcessor objectPostProcessor);
+  IObjectFactory addObjectPostProcessor(IObjectPostProcessor objectPostProcessor);
 
-		/**
+  /**
 		 *
 		 * @param referenceResolver
 		 */
-		 //IObjectFactory addReferenceResolver(IReferenceResolver referenceResolver);
+  //IObjectFactory addReferenceResolver(IReferenceResolver referenceResolver);
 
-		/**
+  /**
 		 * Determines if the current <code>ObjectFactory</code> is able to create the object for the sepcified object name.
 		 * @param objectName The specified object name
 		 * @return <code>True</code> if the current <code>ObjectFactory</code> is able to create the object for the sepcified object name.
 		 */
-		 bool canCreate(String objectName);
+  bool canCreate(String objectName);
 
-		/**
+  /**
 		 * Creates an instance of the specified <code>Class</code>, wires the instance and returns it.
 		 * Useful for creating objects that have only been annotated with [Autowired] metadata and need
 		 * no object definition.
@@ -126,14 +123,14 @@ abstract class IObjectFactory extends EventDispatcher implements IObjectDefiniti
 		 * @param constructorArguments Optional <code>List</code> of constructor arguments to be used for the instance.
 		 * @return The created and wired instance of the specified <code>Class</code>.
 		 */
-		 dynamic createInstance(Type clazz, String objectName,[List constructorArguments=null]);
+  dynamic createInstance(Type clazz, String objectName, [List constructorArguments = null]);
 
-		/**
+  /**
 		 *
 		 * @param instance
 		 */
-		 void destroyObject(Object instance);
-		/**
+  void destroyObject(Object instance);
+  /**
 		 * Will retrieve an object by it's name/id If the definition is a singleton it will be retrieved from
 		 * cache if possible. If the definition defines an init method, the init method will be called after
 		 * all properties have been set.
@@ -175,18 +172,18 @@ abstract class IObjectFactory extends EventDispatcher implements IObjectDefiniti
 		 *   Person myPerson = objectFactory.getObject("myPerson");
 		 * </listing>
 		 */
-		 dynamic getObject(String name,[List constructorArguments=null]);
+  dynamic getObject(String name, [List constructorArguments = null]);
 
-		/**
+  /**
 		 *
 		 * @param objectName
 		 * @return
 		 */
-		 IObjectDefinition getObjectDefinition(String objectName);
+  IObjectDefinition getObjectDefinition(String objectName);
 
-		 dynamic manage(dynamic instance,[String objectName=null]);
+  dynamic manage(dynamic instance, [String objectName = null]);
 
-		/**
+  /**
 		 *
 		 * @param instance
 		 * @param objectDefinition
@@ -194,6 +191,6 @@ abstract class IObjectFactory extends EventDispatcher implements IObjectDefiniti
 		 * @param objectName
 		 * @return
 		 */
-		 dynamic wire(dynamic instance,[IObjectDefinition objectDefinition=null, List constructorArguments=null, String objectName=null]);
-	}
-
+  dynamic wire(dynamic instance,
+      [IObjectDefinition objectDefinition = null, List constructorArguments = null, String objectName = null]);
+}

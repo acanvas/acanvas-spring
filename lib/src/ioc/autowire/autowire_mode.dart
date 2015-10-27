@@ -15,7 +15,6 @@
  */
 part of stagexl_spring;
 
-
 /**
 	 * Enumeration for the autowire types of an object definition.
 	 * @author Martino Piccinato
@@ -23,7 +22,6 @@ part of stagexl_spring;
 	 * @docref container-documentation.html#autowiring_objects
 	 */
 class AutowireMode {
-
   static final Map TYPES = new Map();
 
   /** No autowire on the object */
@@ -65,7 +63,7 @@ class AutowireMode {
 		 * @param name the name of the scope
 		 */
   AutowireMode(String name) {
-   // Assert.state(!_enumCreated, ALREADY_CREATED_ERROR);
+    // Assert.state(!_enumCreated, ALREADY_CREATED_ERROR);
     _name = name;
     TYPES[_name.toLowerCase()] = this;
   }
@@ -94,6 +92,4 @@ class AutowireMode {
   String toString() {
     return _name;
   }
-
 }
-

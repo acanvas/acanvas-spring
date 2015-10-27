@@ -15,7 +15,6 @@
 */
 part of stagexl_spring;
 
-
 /**
 	 *
 	 */
@@ -45,8 +44,11 @@ part of stagexl_spring;
 	 * custom configured application contexts. Otherwise use the <code>DefaultApplicationContext</code> which offers some basic functionality 'out-of-the-box'.
 	 * @author Roland Zwaga
 	 */
-class SpringApplicationContext extends EventDispatcher implements IApplicationContext, IDisposable, IEventBusAware /*, IAutowireProcessorAware, IEventBusAware, IEventBusUserRegistryAware, ILoaderInfoAware*/ {
-
+class SpringApplicationContext extends EventDispatcher
+    implements
+        IApplicationContext,
+        IDisposable,
+        IEventBusAware /*, IAutowireProcessorAware, IEventBusAware, IEventBusUserRegistryAware, ILoaderInfoAware*/ {
   static const String APPLICATIONCONTEXTINITIALIZER_CHANGED_EVENT = "applicationContextInitializerChanged";
   static const String GET_ASSOCIATED_FACTORY_METHOD_NAME = "getAssociatedFactory";
   Logger LOGGER;
@@ -86,6 +88,7 @@ class SpringApplicationContext extends EventDispatcher implements IApplicationCo
   IObjectFactory get objectFactory {
     return _objectFactory;
   }
+
   void set objectFactory(IObjectFactory iof) {
     _objectFactory = iof;
   }
@@ -102,14 +105,12 @@ class SpringApplicationContext extends EventDispatcher implements IApplicationCo
     }
   }
 
-
   /**
 		 * @inheritDoc
 		 */
   IInstanceCache get cache {
     return _objectFactory.cache;
   }
-
 
   /**
 		 * @inheritDoc
@@ -240,7 +241,9 @@ class SpringApplicationContext extends EventDispatcher implements IApplicationCo
 		 * @inheritDoc
 		 */
   List<IObjectFactoryPostProcessor> get objectFactoryPostProcessors {
-    return (_objectFactoryPostProcessors != null) ? _objectFactoryPostProcessors : _objectFactoryPostProcessors = new List<IObjectFactoryPostProcessor>();
+    return (_objectFactoryPostProcessors != null)
+        ? _objectFactoryPostProcessors
+        : _objectFactoryPostProcessors = new List<IObjectFactoryPostProcessor>();
   }
 
   /**
@@ -249,7 +252,6 @@ class SpringApplicationContext extends EventDispatcher implements IApplicationCo
   List<IObjectPostProcessor> get objectPostProcessors {
     return _objectFactory.objectPostProcessors;
   }
-
 
   /**
 		 * @inheritDoc
@@ -326,9 +328,7 @@ class SpringApplicationContext extends EventDispatcher implements IApplicationCo
 
   void addIgnoredRootView(DisplayObject rootView) {
     (_ignoredRootViews != null) ? _ignoredRootViews : _ignoredRootViews = new List<DisplayObject>();
-    if (addDisplayObject(_ignoredRootViews, rootView)) {
-
-    }
+    if (addDisplayObject(_ignoredRootViews, rootView)) {}
   }
 
   /**
@@ -478,7 +478,9 @@ class SpringApplicationContext extends EventDispatcher implements IApplicationCo
 		 *
 		 */
   void load() {
-    (_applicationContextInitializer != null) ? _applicationContextInitializer : _applicationContextInitializer = new DefaultApplicationContextInitializer();
+    (_applicationContextInitializer != null)
+        ? _applicationContextInitializer
+        : _applicationContextInitializer = new DefaultApplicationContextInitializer();
     _applicationContextInitializer.addEventListener(Event.COMPLETE, handleInitializationComplete);
     _applicationContextInitializer.initialize(this);
   }
@@ -509,9 +511,7 @@ class SpringApplicationContext extends EventDispatcher implements IApplicationCo
   }
 
   void removeIgnoredRootView(DisplayObject rootView) {
-    if (removeDisplayObject(_ignoredRootViews, rootView)) {
-
-    }
+    if (removeDisplayObject(_ignoredRootViews, rootView)) {}
   }
 
   /**
@@ -524,8 +524,8 @@ class SpringApplicationContext extends EventDispatcher implements IApplicationCo
     }
   }
 
-
-  dynamic wire(dynamic instance, [IObjectDefinition objectDefinition = null, List constructorArguments = null, String objectName = null]) {
+  dynamic wire(dynamic instance,
+      [IObjectDefinition objectDefinition = null, List constructorArguments = null, String objectName = null]) {
     return _objectFactory.wire(instance, objectDefinition, constructorArguments, objectName);
   }
 
@@ -542,6 +542,7 @@ class SpringApplicationContext extends EventDispatcher implements IApplicationCo
     objectFactory.addEventListener(ObjectFactoryEvent.OBJECT_RETRIEVED, redispatch);
     objectFactory.addEventListener(ObjectFactoryEvent.OBJECT_WIRED, redispatch);
   }
+
 /*
 		  void childContextDisposedHandler(ContextEvent event) {
 			removeChildContext(event.applicationContext);
@@ -586,6 +587,7 @@ class SpringApplicationContext extends EventDispatcher implements IApplicationCo
     }
     return false;
   }
+
   void removeRootViewFromStageProcessing(DisplayObject rootView) {
     /*
 			if (stageProcessorRegistry != null) {

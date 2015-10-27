@@ -22,7 +22,6 @@ part of stagexl_spring;
 	 * @inheritDoc
 	 */
 class ApplicationContextAwareObjectPostProcessor implements IObjectPostProcessor {
-
   static final Logger logger = new Logger("ApplicationContextAwareObjectPostProcessor");
 
   IApplicationContext _applicationContext;
@@ -42,14 +41,13 @@ class ApplicationContextAwareObjectPostProcessor implements IObjectPostProcessor
 		 * @inheritDoc
 		 */
   dynamic postProcessBeforeInitialization(dynamic object, String objectName) {
-
     if ((object is IApplicationContextAware)) {
       IApplicationContextAware applicationContextAware = (object as IApplicationContextAware);
       if ((applicationContextAware != null) && (applicationContextAware.applicationContext == null)) {
-        logger.finer("Instance {0} implements IApplicationContextAware, injecting it with {1}", [object, _applicationContext]);
+        logger.finer(
+            "Instance {0} implements IApplicationContextAware, injecting it with {1}", [object, _applicationContext]);
         applicationContextAware.applicationContext = _applicationContext;
       }
-
     }
     return object;
   }

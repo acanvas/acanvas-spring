@@ -15,7 +15,7 @@
  */
 part of stagexl_spring;
 
-	/**
+/**
 	 * Classes that implement the <code>IObjectPostProcessor</code> abstract class are <em>special</em>, and so they are treated differently by the container.
 	 * All <code>IObjectPostProcessors</code> and their directly referenced objects will be instantiated on startup, as part of the special startup
 	 * phase of the ApplicationContext, then all those <code>IObjectPostProcessors</code> will be registered in a sorted fashion - and applied to
@@ -26,25 +26,23 @@ part of stagexl_spring;
 	 */
 
 abstract class IObjectPostProcessor {
-
-		/**
+  /**
 		 * This method is invoked right <em>before</em> the <code>IInitializingObject</code> and <code>initMethod</code> logic
 		 * is invoked in the wiring pipeline.
 		 * @param object The instance that is being configured by the object factory
 		 * @param objectName The name of the object as found in the <code>IObjectFactory's</code> configuration
 		 * @see org.springextensions.actionscript.ioc.factory.IInitializingObject IInitializingObject
 		 * @see org.springextensions.actionscript.ioc.IObjectDefinition#initMethod() IObjectDefinition.initMethod
-		 */ dynamic postProcessBeforeInitialization(dynamic object,String objectName)
-		;
+		 */
+  dynamic postProcessBeforeInitialization(dynamic object, String objectName);
 
-		/**
+  /**
 		 * This method is invoked right <em>after</em> the <code>IInitializingObject</code> and <code>initMethod</code> logic
 		 * is invoked in the wiring pipeline.
 		 * @param object The instance that is being configured by the object factory
 		 * @param objectName The name of the object definition as found in the <code>IObjectFactory's</code> configuration
 		 * @see org.springextensions.actionscript.ioc.factory.IInitializingObject IInitializingObject
 		 * @see org.springextensions.actionscript.ioc.IObjectDefinition#initMethod() IObjectDefinition.initMethod
-		 */ dynamic postProcessAfterInitialization(dynamic object,String objectName)
-		;
-	}
-
+		 */
+  dynamic postProcessAfterInitialization(dynamic object, String objectName);
+}

@@ -13,31 +13,26 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of stagexl_spring;
+part of stagexl_spring;
 
-	/**
+/**
 	 *
 	 * @author rolandzwaga
 	 */
-	 abstract class IBaseObjectDefinition {
-
-		/**
+abstract class IBaseObjectDefinition {
+  /**
 		 *  True if the object does not need to be eagerly pre-instantiated by the container. I.e. the object will be created
 		 *  after the first call to the <code>getObject()</code> method.
 		 *  @see org.springextensions.actionscript.ioc.factory.IObjectFactory#getObject() IObjectFactory.getObject()
 		 */
-		 bool get isLazyInit;
+  bool get isLazyInit;
 
-		 void set isLazyInit(bool value);
+  void set isLazyInit(bool value);
 
-
-		/**
+  /**
 		 * Defines the scope of the object, the object is either a singleton or a prototype.
 		 */
-		 ObjectDefinitionScope get scope;
+  ObjectDefinitionScope get scope;
 
-		 void set scope(ObjectDefinitionScope value);
-
-
-	}
-
+  void set scope(ObjectDefinitionScope value);
+}

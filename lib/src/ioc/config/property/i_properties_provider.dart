@@ -13,22 +13,20 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of stagexl_spring;
+part of stagexl_spring;
 
-	 abstract class IPropertiesProvider {
+abstract class IPropertiesProvider {
+  Map get content;
 
-		 Map get content;
+  List<String> get propertyNames;
 
-		 List<String> get propertyNames;
+  int get length;
 
-		 int get length;
+  bool hasProperty(String key);
 
-		 bool hasProperty(String key);
+  dynamic getProperty(String key);
 
-		 dynamic getProperty(String key);
+  void merge(IPropertiesProvider properties, [bool overrideProperty = false]);
 
-		 void merge(IPropertiesProvider properties,[bool overrideProperty=false]);
-
-		 void setProperty(String key,String value);
-	}
-
+  void setProperty(String key, String value);
+}

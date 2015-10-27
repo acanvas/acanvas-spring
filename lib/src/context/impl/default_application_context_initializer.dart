@@ -15,7 +15,6 @@
  */
 part of stagexl_spring;
 
-
 /**
 	 *
 	 */
@@ -24,7 +23,8 @@ part of stagexl_spring;
 	 *
 	 * @author Roland Zwaga
 	 */
-class DefaultApplicationContextInitializer extends EventDispatcher implements IApplicationContextInitializer, IDisposable {
+class DefaultApplicationContextInitializer extends EventDispatcher
+    implements IApplicationContextInitializer, IDisposable {
   static const String APPLICATION_CONTEXT_PROPERTIES_LOADER_NAME = "applicationContextTextFilesLoader";
   static const String DEFINITION_PROVIDER_QUEUE_NAME = "definitionProviderQueue";
   Logger LOGGER;
@@ -34,7 +34,7 @@ class DefaultApplicationContextInitializer extends EventDispatcher implements IA
   /**
 		 * Creates a new <code>DefaultApplicationContextInitializer</code> instance.
 		 */
-  DefaultApplicationContextInitializer([/*I*/EventDispatcher target = null]) : super(/*target*/) {
+  DefaultApplicationContextInitializer([/*I*/ EventDispatcher target = null]) : super(/*target*/) {
     LOGGER = new Logger("DefaultApplicationContextInitializer");
   }
 
@@ -93,9 +93,7 @@ class DefaultApplicationContextInitializer extends EventDispatcher implements IA
   void initialize(IApplicationContext context) {
     _applicationContext = context;
     if (!_applicationContext.isReady) {
-
       _operationQueue = new OperationQueue(DEFINITION_PROVIDER_QUEUE_NAME);
-
 
       for (IObjectDefinitionsProvider provider in _applicationContext.definitionProviders) {
         LOGGER.finer("Executing object definitions provider {0}", [provider]);
@@ -157,7 +155,6 @@ class DefaultApplicationContextInitializer extends EventDispatcher implements IA
     }
   }
 
-
   void injectEventBus() {
     if (_applicationContext is IEventBusAware) {
       if ((_applicationContext as IEventBusAware).eventBus != null) {
@@ -173,7 +170,6 @@ class DefaultApplicationContextInitializer extends EventDispatcher implements IA
       }
     }
   }
-
 
   void completeContextInitialization() {
     dispatchEvent(new Event(Event.COMPLETE));
@@ -225,7 +221,8 @@ class DefaultApplicationContextInitializer extends EventDispatcher implements IA
     if (objectDefinitionsProviderHasPropertyURIs != null) {
       loadPropertyURIs(propertyURIs);
     }
-    if ((objectDefinitionsProvider.propertiesProvider != null) && (objectDefinitionsProvider.propertiesProvider.length > 0)) {
+    if ((objectDefinitionsProvider.propertiesProvider != null) &&
+        (objectDefinitionsProvider.propertiesProvider.length > 0)) {
       LOGGER.finer("Object definitions provider returned a set of properties, adding it to the context");
       _applicationContext.propertiesProvider.merge(objectDefinitionsProvider.propertiesProvider);
     }
@@ -277,7 +274,6 @@ class DefaultApplicationContextInitializer extends EventDispatcher implements IA
     }
   }
 
-
   void registerObjectDefinitions(Map newObjectDefinitions) {
     if (_applicationContext.objectDefinitionRegistry != null) {
       for (String name in newObjectDefinitions.keys) {
@@ -290,7 +286,9 @@ class DefaultApplicationContextInitializer extends EventDispatcher implements IA
     if (_applicationContext.dependencyInjector != null) {
       for (String name in names) {
         if (!_applicationContext.objectDefinitionRegistry.containsObjectDefinition(name)) {
-          LOGGER.finer("Wiring explicit singleton named '{0}' (a cached object without a corresponding object definition)", [name]);
+          LOGGER.finer(
+              "Wiring explicit singleton named '{0}' (a cached object without a corresponding object definition)",
+              [name]);
           _applicationContext.manage(_applicationContext.cache.getInstance(name), name);
         }
       }

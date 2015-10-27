@@ -13,14 +13,13 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of stagexl_spring;
+part of stagexl_spring;
 
-	/**
+/**
 	 * Describes an object that needs a reference to an <code>IObjectDefinitionRegistry</code> instance.
 	 * @author Roland Zwaga
 	 */
-	 abstract class IObjectDefinitionRegistryAware {
-		 IObjectDefinitionRegistry get objectDefinitionRegistry;
-		 void set objectDefinitionRegistry(IObjectDefinitionRegistry value);
-	}
-
+abstract class IObjectDefinitionRegistryAware {
+  IObjectDefinitionRegistry get objectDefinitionRegistry;
+  void set objectDefinitionRegistry(IObjectDefinitionRegistry value);
+}

@@ -13,21 +13,20 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of stagexl_spring;
+part of stagexl_spring;
 
-	/**
+/**
 	 * Describes an object that can create a collection of <code>ObjectDefinitions</code>, either synchronously or asynchronously.
 	 * @author Roland Zwaga
 	 */
-	 abstract class IObjectDefinitionsProvider {
-		 IOperation createDefinitions();
-		 Map get objectDefinitions;
-		 void set objectDefinitions(Map value);
-		 List<TextFileURI> get propertyURIs;
-		 IPropertiesProvider get propertiesProvider;
-		 /*
+abstract class IObjectDefinitionsProvider {
+  IOperation createDefinitions();
+  Map get objectDefinitions;
+  void set objectDefinitions(Map value);
+  List<TextFileURI> get propertyURIs;
+  IPropertiesProvider get propertiesProvider;
+  /*
 		 IBaseObjectDefinition get defaultObjectDefinition;
 		 void set defaultObjectDefinition(IBaseObjectDefinition value);
 		  */
-	}
-
+}

@@ -13,96 +13,106 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of stagexl_spring;
+part of stagexl_spring;
 
-
-	/**
+/**
 	 * Describes the the configuration of a single instance property.
 	 * @author Roland Zwaga
 	 */
-	 class PropertyDefinition implements ICloneable {
+class PropertyDefinition implements ICloneable {
+  String _name;
+  String _namespaceURI;
+  dynamic _value;
+  bool _isStatic;
+  bool _isSimple;
+  bool _isLazy;
 
-		 String _name;
-		 String _namespaceURI;
-		 dynamic _value;
-		 bool _isStatic;
-		 bool _isSimple;
-		 bool _isLazy;
+  bool get isLazy {
+    return _isLazy;
+  }
 
+  void set isLazy(bool value) {
+    _isLazy = value;
+  }
 
-		  bool get isLazy {
-			return _isLazy;
-		}
+  bool get isSimple {
+    return _isSimple;
+  }
 
-		  void set isLazy(bool value) {
-			_isLazy = value;
-		}
+  void set isSimple(bool value) {
+    _isSimple = value;
+  }
 
-		  bool get isSimple {
-			return _isSimple;
-		}
+  String _qName;
 
-		  void set isSimple(bool value) {
-			_isSimple = value;
-		}
+  String get qName {
+    return (_qName != null) ? _qName : _qName = createQName();
+  }
 
-		 String _qName;
+  String createQName() {
+    String ns = StringUtils.hasText(_namespaceURI) ? _namespaceURI : "";
+    String prefix = StringUtils.hasText(ns) ? null : "";
+    return prefix + ":" + ns + ":" + _name;
+  }
 
-		  String get qName {
-			return (_qName != null) ? _qName :_qName =  createQName();
-		}
+  String get namespaceURI {
+    return _namespaceURI;
+  }
 
-		  String createQName() {
-			String ns = StringUtils.hasText(_namespaceURI) ? _namespaceURI : "";
-			String prefix = StringUtils.hasText(ns) ? null : "";
-			return prefix +":"+ ns +":"+ _name;
-		}
+  String get name {
+    return _name;
+  }
 
-		  String get namespaceURI {
-			return _namespaceURI;
-		}
+  void set name(String value) {
+    _name = value;
+  }
 
-		  String get name {
-			return _name;
-		}
+  dynamic get value {
+    return _value;
+  }
 
-		  void set name(String value) {
-			_name = value;
-		}
+  void set value(dynamic value) {
+    _value = value;
+  }
 
-		  dynamic get value {
-			return _value;
-		}
+  bool get isStatic {
+    return _isStatic;
+  }
 
-		  void set value(dynamic value) {
-			_value = value;
-		}
+  void set isStatic(bool value) {
+    _isStatic = value;
+  }
 
-		  bool get isStatic {
-			return _isStatic;
-		}
+  PropertyDefinition(String propertyName, dynamic propertyValue,
+      [String ns = null, bool propertyIsStatic = false, bool lazy = false])
+      : super() {
+    _name = propertyName;
+    _value = propertyValue;
+    _namespaceURI = ns;
+    _isStatic = propertyIsStatic;
+    _isLazy = lazy;
+  }
 
-		  void set isStatic(bool value) {
-			_isStatic = value;
-		}
-	 PropertyDefinition(String propertyName,dynamic propertyValue,[String ns=null, bool propertyIsStatic=false, bool lazy=false]):super() {
-			_name = propertyName;
-			_value = propertyValue;
-			_namespaceURI = ns;
-			_isStatic = propertyIsStatic;
-			_isLazy = lazy;
-		}
+  dynamic clone() {
+    PropertyDefinition prop =
+        new PropertyDefinition(this.name, this.value, this.namespaceURI, this.isStatic, this.isLazy);
+    prop.isSimple = this.isSimple;
+    return prop;
+  }
 
-		  dynamic clone() {
-			PropertyDefinition prop = new PropertyDefinition(this.name, this.value, this.namespaceURI, this.isStatic, this.isLazy);
-			prop.isSimple = this.isSimple;
-			return prop;
-		}
-
-		  String toString() {
-			return "PropertyDefinition{name:\"" + _name + "\", namespaceURI:\"" + _namespaceURI + "\", value:" + _value + ", isStatic:" + _isStatic.toString() + ", isSimple:\"" + _isSimple.toString() + ", isLazy:\"" + _isLazy.toString() + "}";
-		}
-
-
-	}
-
+  String toString() {
+    return "PropertyDefinition{name:\"" +
+        _name +
+        "\", namespaceURI:\"" +
+        _namespaceURI +
+        "\", value:" +
+        _value +
+        ", isStatic:" +
+        _isStatic.toString() +
+        ", isSimple:\"" +
+        _isSimple.toString() +
+        ", isLazy:\"" +
+        _isLazy.toString() +
+        "}";
+  }
+}

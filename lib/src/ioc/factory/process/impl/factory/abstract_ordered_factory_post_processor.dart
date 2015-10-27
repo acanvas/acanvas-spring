@@ -13,25 +13,23 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of stagexl_spring;
+part of stagexl_spring;
 
+class AbstractOrderedFactoryPostProcessor implements IObjectFactoryPostProcessor, IOrdered {
+  int _order;
+  AbstractOrderedFactoryPostProcessor(int orderPosition) : super() {
+    _order = orderPosition;
+  }
 
-	 class AbstractOrderedFactoryPostProcessor implements IObjectFactoryPostProcessor, IOrdered {
-		 int _order;
-	 AbstractOrderedFactoryPostProcessor(int orderPosition):super() {
-			_order = orderPosition;
-		}
+  IOperation postProcessObjectFactory(IObjectFactory objectFactory) {
+    throw new StateError("Not implemented in abstract base class");
+  }
 
-		  IOperation postProcessObjectFactory(IObjectFactory objectFactory) {
-			throw new StateError("Not implemented in abstract base class");
-		}
+  int get order {
+    return _order;
+  }
 
-		  int get order {
-			return _order;
-		}
-
-		  void set order(int value) {
-			_order = value;
-		}
-	}
-
+  void set order(int value) {
+    _order = value;
+  }
+}

@@ -13,46 +13,47 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of stagexl_spring;
+part of stagexl_spring;
 
-	/**
+/**
 	 *
 	 * @author Roland Zwaga
 	 */
-	 class TextFileURI {
-
-		/**
+class TextFileURI {
+  /**
 		 * Creates a new <code>TextFileURI</code> instance.
 		 * @param URI
 		 * @param prevent
 		 */
-	 TextFileURI(String URI,bool required,[bool prevent=true]):super() {
-			_textFileURI = URI;
-			_isRequired = required;
-			_preventCache = prevent;
-		}
+  TextFileURI(String URI, bool required, [bool prevent = true]) : super() {
+    _textFileURI = URI;
+    _isRequired = required;
+    _preventCache = prevent;
+  }
 
-		 bool _preventCache;
-		 bool _isRequired;
-		 String _textFileURI;
+  bool _preventCache;
+  bool _isRequired;
+  String _textFileURI;
 
+  bool get isRequired {
+    return _isRequired;
+  }
 
-		  bool get isRequired {
-			return _isRequired;
-		}
+  bool get preventCache {
+    return _preventCache;
+  }
 
-		  bool get preventCache {
-			return _preventCache;
-		}
+  String get textFileURI {
+    return _textFileURI;
+  }
 
-		  String get textFileURI {
-			return _textFileURI;
-		}
-
-		  String toString() {
-			return "TextFileURI{preventCache:" + _preventCache.toString() + ", isRequired:" + _isRequired.toString() + ", textFileURI:\"" + _textFileURI + "\"}";
-		}
-
-
-	}
-
+  String toString() {
+    return "TextFileURI{preventCache:" +
+        _preventCache.toString() +
+        ", isRequired:" +
+        _isRequired.toString() +
+        ", textFileURI:\"" +
+        _textFileURI +
+        "\"}";
+  }
+}

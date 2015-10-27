@@ -4,9 +4,8 @@ import 'dart:math';
 import 'package:stagexl_commons/stagexl_commons.dart';
 import 'package:stagexl/stagexl.dart';
 
-
 // SPRING #####
-//context 
+//context
 part 'src/context/config/i_configuration_package.dart';
 part 'src/context/config/loader_info.dart';
 

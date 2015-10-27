@@ -15,17 +15,17 @@
 */
 part of stagexl_spring;
 
-
 /**
 	 *
 	 * @author Roland Zwaga
 	 */
-class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDisposable /*, IApplicationDomainAware */{
+class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDisposable /*, IApplicationDomainAware */ {
   static const String CHARACTERS = "abcdefghijklmnopqrstuvwxyz";
   static const String FACTORY_OBJECT_PREFIX = '&';
   static const String IS_SINGLETON_FIELD_NAME = "isSingleton";
   static const String METADATA_KEY_SUFFIX = '____';
-  static const String OBJECT_DEFINITION_NAME_EXISTS_ERROR = "Object definition with name '{0}' has already been registered and no overrides are allowed.";
+  static const String OBJECT_DEFINITION_NAME_EXISTS_ERROR =
+      "Object definition with name '{0}' has already been registered and no overrides are allowed.";
 
   //static ILogger logger = getClassLogger(DefaultObjectDefinitionRegistry);
   Logger logger;
@@ -34,7 +34,7 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
     int len = 20;
     List result = new List(20);
     while (len > 0) {
-     var ran = (new Random().nextDouble()* 26).floor(); 
+      var ran = (new Random().nextDouble() * 26).floor();
       result[--len] = CHARACTERS[ran];
     }
     return result.join('');
@@ -65,7 +65,6 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
   Map _objectDefinitionNameLookup;
   List<String> _objectDefinitionNames;
   Map _objectDefinitions;
-
 
   /**
 		 * @inheritDoc
@@ -127,7 +126,6 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
     }
   }
 
-
   /**
 		 * @inheritDoc
 		 */
@@ -146,7 +144,9 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
 		 * @inheritDoc
 		 */
   List<String> getObjectDefinitionNamesForType(Type type) {
-    logger.warn(StringUtils.substitute("Failed to get Object Definition Names for Type {0} , reflection not supported in favor of dart2js filesize.", [type]));
+    logger.warn(StringUtils.substitute(
+        "Failed to get Object Definition Names for Type {0} , reflection not supported in favor of dart2js filesize.",
+        [type]));
     List<String> result;
     /*
     for (String name in _objectDefinitionNames) {
@@ -165,7 +165,9 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
 		 * @inheritDoc
 		 */
   List<IObjectDefinition> getObjectDefinitionsForType(Type type) {
-    throw new StateError(StringUtils.substitute("Failed to get Object Definition for Type {0} , reflection not supported in favor of dart2js filesize.", [type]));
+    throw new StateError(StringUtils.substitute(
+        "Failed to get Object Definition for Type {0} , reflection not supported in favor of dart2js filesize.",
+        [type]));
     List<IObjectDefinition> result;
     /*
     for (IObjectDefinition definition in _objectDefinitionList) {
@@ -192,7 +194,6 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
     return result;
   }
 
-
   /**
 		 * @inheritDoc
 		 */
@@ -214,7 +215,6 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
   bool isSingleton(String objectName) {
     return !(isPrototype(objectName));
   }
-
 
   /**
 		 * @inheritDoc
@@ -238,7 +238,7 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
       if (_objectDefinitionClasses.indexOf(cls) < 0) {
         _objectDefinitionClasses.add(cls);
       }
-     /*
+      /*
       if (ClassUtils.isImplementationOf(cls, IFactoryObject)) {
         objectName = FACTORY_OBJECT_PREFIX + objectName;
       }
@@ -246,7 +246,6 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
       objectDefinition.clazz = cls;
       objectDefinition.isInterface = false;
     }
-
 
     _objectDefinitionNameLookup[objectDefinition] = objectName;
     _objectDefinitionList.add(objectDefinition);
@@ -288,7 +287,11 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
   @override
   List<String> getSingletons() {
     List<String> names = [];
-    _objectDefinitionList.where((IObjectDefinition o){return o.isSingleton;}).forEach((IObjectDefinition o){names.add(o.name);});
+    _objectDefinitionList.where((IObjectDefinition o) {
+      return o.isSingleton;
+    }).forEach((IObjectDefinition o) {
+      names.add(o.name);
+    });
     return names;
   }
 }

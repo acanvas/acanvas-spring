@@ -13,13 +13,12 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of stagexl_spring;
+part of stagexl_spring;
 
-	/**
+/**
 	 *
 	 * @author Roland Zwaga
 	 */
-	 abstract class IPropertiesParser {
-		 void parseProperties(dynamic source,IPropertiesProvider provider);
-	}
-
+abstract class IPropertiesParser {
+  void parseProperties(dynamic source, IPropertiesProvider provider);
+}

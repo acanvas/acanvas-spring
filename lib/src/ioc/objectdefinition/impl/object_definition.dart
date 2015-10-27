@@ -8,17 +8,14 @@ class ObjectDefinition extends IObjectDefinition {
   ObjectDefinitionScope scope;
   AutowireMode autoWireMode;
   bool isLazyInit = false;
-  
-  ObjectDefinition(this._className){
-    
-  }
-  
+
+  ObjectDefinition(this._className) {}
+
   @override
   Type get clazz => _clazz;
 
   @override
   Function get func => _func;
-
 
   @override
   String get className => _className;
@@ -36,7 +33,6 @@ class ObjectDefinition extends IObjectDefinition {
   // TODO: implement constructorArguments
   @override
   List get constructorArguments => [];
-
 
   // TODO: implement isAbstract
   @override

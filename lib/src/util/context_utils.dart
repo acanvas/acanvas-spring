@@ -13,34 +13,33 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of stagexl_spring;
+part of stagexl_spring;
 
-	/**
+/**
 	 *
 	 * @author Roland Zwaga
 	 */
-	 class ContextUtils {
+class ContextUtils {
+  static const String COMMA = ',';
 
-		 static const String COMMA = ',';
+  static void disposeInstance(Object instance) {
+    if (instance is IDisposable) {
+      instance.dispose();
+    }
+  }
 
-		 static  void disposeInstance(Object instance) {
-			if (instance is IDisposable) {
-				instance.dispose();
-			}
-		}
+  static List<String> commaSeparatedPropertyValueToStringVector(String propertyValue) {
+    if (StringUtils.hasText(propertyValue)) {
+      List parts = propertyValue.split(COMMA);
+      List<String> result = new List<String>();
+      for (String name in parts) {
+        result[result.length] = StringUtils.trim(name);
+      }
+      return result;
+    }
+    return null;
+  }
 
-
-		 static List<String> commaSeparatedPropertyValueToStringVector(String propertyValue) {
-			if (StringUtils.hasText(propertyValue)) {
-				List parts = propertyValue.split(COMMA);
-				List<String> result = new List<String>();
-				for (String name in parts) {
-					result[result.length] = StringUtils.trim(name);
-				}
-				return result;
-			}
-			return null;
-		}
 /*
 		 static  String getMetadataArgument(Metadata metadata,String key) {
 			if (metadata.hasArgumentWithKey(key)) {
@@ -56,16 +55,15 @@
 			return null;
 		}
 */
-		 static  String arrayToString(List arr) {
-			if (arr == null) {
-				return "null";
-			} else {
-				List result = [];
-				for (dynamic item in arr) {
-					result[result.length] = (item != null) ? item.toString() : "null";
-				}
-				return result.join(', ');
-			}
-		}
-	}
-
+  static String arrayToString(List arr) {
+    if (arr == null) {
+      return "null";
+    } else {
+      List result = [];
+      for (dynamic item in arr) {
+        result[result.length] = (item != null) ? item.toString() : "null";
+      }
+      return result.join(', ');
+    }
+  }
+}

@@ -13,33 +13,30 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of stagexl_spring;
+part of stagexl_spring;
 
-
-	/**
+/**
 	 *
 	 * @author Roland Zwaga
 	 */
-	 class ContextEvent extends Event {
+class ContextEvent extends Event {
+  static const String AFTER_DISPOSE = "afterApplicationContextDispose";
+  static const String AFTER_INITIALIZED = "afterApplicationContextInitialized";
+  IApplicationContext _applicationContext;
 
-		 static const String AFTER_DISPOSE = "afterApplicationContextDispose";
-		 static const String AFTER_INITIALIZED = "afterApplicationContextInitialized";
-		 IApplicationContext _applicationContext;
-
-		/**
+  /**
 		 * Creates a new <code>ContextEvent</code> instance.
 		 */
-	 ContextEvent(String type,IApplicationContext context,[bool bubbles=false, bool cancelable=false]):super(type, bubbles) {
-			_applicationContext = context;
-		}
+  ContextEvent(String type, IApplicationContext context, [bool bubbles = false, bool cancelable = false])
+      : super(type, bubbles) {
+    _applicationContext = context;
+  }
 
+  IApplicationContext get applicationContext {
+    return _applicationContext;
+  }
 
-		  IApplicationContext get applicationContext {
-			return _applicationContext;
-		}
-
-		  Event clone() {
-			return new ContextEvent(type, _applicationContext, bubbles);
-		}
-	}
-
+  Event clone() {
+    return new ContextEvent(type, _applicationContext, bubbles);
+  }
+}

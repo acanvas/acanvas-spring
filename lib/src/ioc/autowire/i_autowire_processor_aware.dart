@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- part of stagexl_spring;
+part of stagexl_spring;
 
-	/**
+/**
 	 * Interface to be implemented by all objects that need a reference to
 	 * an <code>IAutowireProcessor</code> instance.
 	 * @author Roland Zwaga
 	 */
-	 abstract class IAutowireProcessorAware {
-
-		/**
+abstract class IAutowireProcessorAware {
+  /**
 		 * @param autowireProcessor the <code>IAutowireProcessor</code> instance
 		 */
-		 IAutowireProcessor get autowireProcessor;
-		/**
+  IAutowireProcessor get autowireProcessor;
+  /**
 		 * @
 		 */
-		 void set autowireProcessor(IAutowireProcessor value);
-	}
-
+  void set autowireProcessor(IAutowireProcessor value);
+}

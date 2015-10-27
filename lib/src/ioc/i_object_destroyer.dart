@@ -13,41 +13,40 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of stagexl_spring;
+part of stagexl_spring;
 
-	/**
+/**
 	 *
 	 * @author Roland Zwaga
 	 */
-	 abstract class IObjectDestroyer {
-		/**
+abstract class IObjectDestroyer {
+  /**
 		 *
 		 */
-	//	 IMetadataProcessorRegistry get metadataProcessorRegistry;
-		/**
-		 *
-		 * @
-		 */
-	//	 void set metadataProcessorRegistry(IMetadataProcessorRegistry value);
-		/**
-		 *
-		 */
-	//	 IEventBusUserRegistry get eventBusUserRegistry;
-		/**
+  //	 IMetadataProcessorRegistry get metadataProcessorRegistry;
+  /**
 		 *
 		 * @
 		 */
-		// void set eventBusUserRegistry(IEventBusUserRegistry value);
-		/**
+  //	 void set metadataProcessorRegistry(IMetadataProcessorRegistry value);
+  /**
+		 *
+		 */
+  //	 IEventBusUserRegistry get eventBusUserRegistry;
+  /**
+		 *
+		 * @
+		 */
+  // void set eventBusUserRegistry(IEventBusUserRegistry value);
+  /**
 		 *
 		 * @param instance
 		 * @param objectName
 		 */
-		 void registerInstance(Object instance,[String objectName=null]);
-		/**
+  void registerInstance(Object instance, [String objectName = null]);
+  /**
 		 *
 		 * @param instance
 		 */
-		 void destroy(Object instance);
-	}
-
+  void destroy(Object instance);
+}

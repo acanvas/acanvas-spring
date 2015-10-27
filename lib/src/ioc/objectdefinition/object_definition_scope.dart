@@ -13,74 +13,71 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- part of stagexl_spring;
+part of stagexl_spring;
 
-
-	/**
+/**
 	 * Enumeration for the scopes of an object definition.
 	 * @author Christophe Herreman
 	 */
-	 class ObjectDefinitionScope {
+class ObjectDefinitionScope {
+  static final Map TYPES = new Map();
 
-		 static final Map TYPES = new Map();
-
-		/**
+  /**
 		 * Multiple instances of the specified object can exist
 		 */
-		 static final ObjectDefinitionScope PROTOTYPE = new ObjectDefinitionScope(PROTOTYPE_NAME);
-		/**
+  static final ObjectDefinitionScope PROTOTYPE = new ObjectDefinitionScope(PROTOTYPE_NAME);
+  /**
 		 * Only one instance of the specified object can exist
 		 */
-		 static final ObjectDefinitionScope SINGLETON = new ObjectDefinitionScope(SINGLETON_NAME);
-		/**
+  static final ObjectDefinitionScope SINGLETON = new ObjectDefinitionScope(SINGLETON_NAME);
+  /**
 		 * The specified object is a stage component
 		 */
-		 static final ObjectDefinitionScope STAGE = new ObjectDefinitionScope(STAGE_NAME);
-		/**
+  static final ObjectDefinitionScope STAGE = new ObjectDefinitionScope(STAGE_NAME);
+  /**
 		 * The specified object is created remotely
 		 */
-		 static final ObjectDefinitionScope REMOTE = new ObjectDefinitionScope(REMOTE_NAME);
+  static final ObjectDefinitionScope REMOTE = new ObjectDefinitionScope(REMOTE_NAME);
 
-		 static const String PROTOTYPE_NAME = "prototype";
-		 static const String SINGLETON_NAME = "singleton";
-		 static const String STAGE_NAME = "stage";
-		 static const String REMOTE_NAME = "remote";
+  static const String PROTOTYPE_NAME = "prototype";
+  static const String SINGLETON_NAME = "singleton";
+  static const String STAGE_NAME = "stage";
+  static const String REMOTE_NAME = "remote";
 
-		 static bool _enumCreated = false;
+  static bool _enumCreated = false;
 
-		 String _name;
-		//{
-			//_enumCreated = true;
-		//}
+  String _name;
+  //{
+  //_enumCreated = true;
+  //}
 
-		/**
+  /**
 		 * Creates a new ObjectDefintionScope object.
 		 * This constructor is only used internally to set up the enum and all
 		 * calls will fail.
 		 * @param name the name of the scope
 		 */
-	  ObjectDefinitionScope(String name) {
-			//Assert.state(!_enumCreated, "The ObjectDefinitionScope enum has already been created.");
-			_name = name;
-			TYPES[_name] = this;
-		}
+  ObjectDefinitionScope(String name) {
+    //Assert.state(!_enumCreated, "The ObjectDefinitionScope enum has already been created.");
+    _name = name;
+    TYPES[_name] = this;
+  }
 
-		/**
+  /**
 		 *
 		 */
-		 static String fromName(String name) {
-			return TYPES[StringUtils.trim(name.toLowerCase())];
-		}
+  static String fromName(String name) {
+    return TYPES[StringUtils.trim(name.toLowerCase())];
+  }
 
-		/**
+  /**
 		 * Returns the name of the scope.
 		 */
-		  String get name {
-			return _name;
-		}
+  String get name {
+    return _name;
+  }
 
-		  String toString() {
-			return _name;
-		}
-	}
-
+  String toString() {
+    return _name;
+  }
+}

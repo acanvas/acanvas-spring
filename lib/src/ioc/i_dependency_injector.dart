@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- part of stagexl_spring;
+part of stagexl_spring;
 
-
-	/**
+/**
 	 * Defines the most basic service used to implement dependency injection.
 	 * @author Martino Piccinato
 	 * @author Roland Zwaga
 	 */
-	 abstract class IDependencyInjector extends /*I*/EventDispatcher {
-		/**
+abstract class IDependencyInjector extends /*I*/ EventDispatcher {
+  /**
 		 *
 		 * @param instance
 		 * @param objectDefinition
@@ -30,27 +29,28 @@
 		 * @param objectPostProcessors
 		 * @param referenceResolvers
 		 */
-		 Object wire(dynamic instance,IObjectFactory objectFactory,[IObjectDefinition objectDefinition=null, String objectName=null]);
-		/**
+  Object wire(dynamic instance, IObjectFactory objectFactory,
+      [IObjectDefinition objectDefinition = null, String objectName = null]);
+  /**
 		 *
 		 * @param objectDefinition
 		 * @param instance
 		 * @param objectFactory
 		 */
-		 void executeMethodInvocations(IObjectDefinition objectDefinition,dynamic instance,IObjectFactory objectFactory);
-		/**
+  void executeMethodInvocations(IObjectDefinition objectDefinition, dynamic instance, IObjectFactory objectFactory);
+  /**
 		 *
 		 * @param instance
 		 * @param objectDefinition
 		 */
-		 void initializeInstance(dynamic instance,[IObjectDefinition objectDefinition=null]);
-		/**
+  void initializeInstance(dynamic instance, [IObjectDefinition objectDefinition = null]);
+  /**
 		 *
 		 * @param instance
 		 * @param objectDefinition
 		 * @param objectName
 		 * @param objectFactory
 		 */
-		 void injectProperties(dynamic instance,IObjectDefinition objectDefinition,String objectName,IObjectFactory objectFactory);
-	}
-
+  void injectProperties(
+      dynamic instance, IObjectDefinition objectDefinition, String objectName, IObjectFactory objectFactory);
+}

@@ -15,19 +15,15 @@
 */
 part of stagexl_spring;
 
-
 /**
 	 *
 	 * @author Roland Zwaga
 	 */
 class DefaultObjectDefinitionsProvider extends AbstractObjectDefinitionsProvider {
-
-
   /**
 		 * Creates a new <code>AbstractObjectDefinitionsProvider</code> instance.
 		 */
-  DefaultObjectDefinitionsProvider() : super() {
-  }
+  DefaultObjectDefinitionsProvider() : super() {}
 
   @override
   IOperation createDefinitions() {

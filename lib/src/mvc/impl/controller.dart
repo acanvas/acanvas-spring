@@ -15,7 +15,6 @@
  */
 part of stagexl_spring;
 
-
 /**
 	 * Dispatched when a command object is registered with the current <code>Controller</code>.
 	 * @eventType org.springextensions.actionscript.core.mvc.event.ControllerRegistrationEvent.COMMAND_REGISTERED
@@ -37,7 +36,6 @@ part of stagexl_spring;
 	 * @inheritDoc
 	 */
 class Controller extends EventDispatcher implements IController, IApplicationContextAware {
-
   Logger LOGGER;
   IEventBus _eventBus;
   List<String> _eventTypeRegistry;
@@ -59,11 +57,11 @@ class Controller extends EventDispatcher implements IController, IApplicationCon
 
   /**
 		 * Initializes the current <code>Controller</code>
-		 */ void init() {
+		 */
+  void init() {
     _eventBus = new XLEventBus();
     clear();
   }
-
 
   IApplicationContext _applicationContext;
 
@@ -83,26 +81,27 @@ class Controller extends EventDispatcher implements IController, IApplicationCon
 
   /**
 		 * @inheritDoc
-		 */ void clear() {
+		 */
+  void clear() {
     _eventTypeRegistry = new List<String>();
   }
 
   /**
 		 * @inheritDoc
 		 */
-  void registerCommandForEventType(String eventType, String commandName, String executeMethodName, [List<String> properties = null, int priority = 0]) {
+  void registerCommandForEventType(String eventType, String commandName, String executeMethodName,
+      [List<String> properties = null, int priority = 0]) {
     //Assert.hasText(eventType, "eventType argument must not be null or empty");
     //Assert.hasText(commandName, "commandName argument must not be null or empty");
     //Assert.hasText(executeMethodName, "executeMethodName argument must not be null or empty");
-    LOGGER.info("command {0} registered for event type {1} with execute method {2} and priority {3}", [commandName, eventType, executeMethodName, priority]);
+    LOGGER.info("command {0} registered for event type {1} with execute method {2} and priority {3}",
+        [commandName, eventType, executeMethodName, priority]);
     _eventBus.addEventListener(eventType, (event) {
       (_applicationContext.getObject(commandName) as ICommand).execute(event);
     });
 
     _eventTypeRegistry.add(eventType);
-
   }
-
 
   bool _failOnCommandNotFound = false;
 
@@ -119,5 +118,4 @@ class Controller extends EventDispatcher implements IController, IApplicationCon
   void set failOnCommandNotFound(bool value) {
     _failOnCommandNotFound = value;
   }
-
 }

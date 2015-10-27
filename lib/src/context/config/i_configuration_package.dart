@@ -13,16 +13,15 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of stagexl_spring;
+part of stagexl_spring;
 
-	/**
+/**
 	 * Describes an object that is capable of configuring an <code>IApplicationContext</code>.
 	 * @author Roland Zwaga
 	 */
-	 abstract class IConfigurationPackage {
-		/**
+abstract class IConfigurationPackage {
+  /**
 		 * @param applicationContext The specified <code>IApplicationContext</code> that will be configured by the current <code>IConfigurationPackage</code>.
 		 */
-		 void execute(IApplicationContext applicationContext);
-	}
-
+  void execute(IApplicationContext applicationContext);
+}

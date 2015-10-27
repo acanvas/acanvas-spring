@@ -15,7 +15,6 @@
 */
 part of stagexl_spring;
 
-
 /**
 	 *
 	 */
@@ -41,7 +40,6 @@ part of stagexl_spring;
 	 * @author Roland Zwaga
 	 */
 class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, IDisposable {
-
   Logger logger;
 
   /**
@@ -61,6 +59,7 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
   bool get isDisposed {
     return _isDisposed;
   }
+
   @override
   List<String> getCachedNames() {
     return _cachedNames;
@@ -226,7 +225,6 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
       cacheObject.remove(name);
     }
   }
-
 
   void initialize() {
     _preparedCache = {};

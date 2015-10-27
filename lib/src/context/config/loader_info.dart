@@ -1,8 +1,7 @@
 part of stagexl_spring;
 
 //TODO make this an interface and move implementation back to rockdot
-class LoaderInfo{
-  
+class LoaderInfo {
   String php_session_id = "";
   String protocol = "";
   String host_frontend = "";

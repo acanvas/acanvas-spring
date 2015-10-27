@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- part of stagexl_spring;
+part of stagexl_spring;
 
-	/**
+/**
 	 * <p><code>KeyValuePropertiesParser</code> parses a properties source string into a <code>IPropertiesProvider</code>
 	 * instance.</p>
 	 *
@@ -45,80 +45,79 @@
 	 * @author Christophe Herreman
 	 * @version 1.0
 	 */
-	 class KeyValuePropertiesParser implements IPropertiesParser {
+class KeyValuePropertiesParser implements IPropertiesParser {
+  static const int HASH_CHARCODE = 35; //= "#";
+  static const int EXCLAMATION_MARK_CHARCODE = 33; //= "!";
+  static const String DOUBLE_BACKWARD_SLASH = '\\';
+  static const String NEWLINE_CHAR = "\n";
+  static final RegExp NEWLINE_REGEX = new RegExp(r'\\n'); // /\\n/gm;
+  static final Logger logger = new Logger("KeyValuePropertiesParser");
 
-		 static const int HASH_CHARCODE = 35; //= "#";
-		 static const int EXCLAMATION_MARK_CHARCODE = 33; //= "!";
-		 static const String DOUBLE_BACKWARD_SLASH = '\\';
-		 static const String NEWLINE_CHAR = "\n";
-		 static final RegExp NEWLINE_REGEX = new RegExp(r'\\n');// /\\n/gm;
-		 static final Logger logger = new Logger("KeyValuePropertiesParser");
-
-		/**
+  /**
 		 * Constructs a new <code>PropertiesParser</code> instance.
 		 */
-	 KeyValuePropertiesParser():super() {
-		}
+  KeyValuePropertiesParser() : super() {}
 
-		/**
+  /**
 		 * Parses the given <code>source</code> and creates a <code>Properties</code> instance from it.
 		 *
 		 * @param source the source to parse
 		 * @return the properties defined by the given <code>source</code>
 		 */
-		  void parseProperties(dynamic source,IPropertiesProvider provider) {
-			logger.finer("Parsing properties sources:");
-			MultilineString lines = new MultilineString((source.toString()));
-			num numLines = lines.numLines;
-			String key = "";
-			String value = "";
-			String formerKey = "";
-			String formerValue = "";
-			bool useNextLine = false;
+  void parseProperties(dynamic source, IPropertiesProvider provider) {
+    logger.finer("Parsing properties sources:");
+    MultilineString lines = new MultilineString((source.toString()));
+    num numLines = lines.numLines;
+    String key = "";
+    String value = "";
+    String formerKey = "";
+    String formerValue = "";
+    bool useNextLine = false;
 
-			for (int i = 0; i < numLines; i++) {
-				String line = lines.getLine(i);
-				//logger.finer("Parsing line: {0}", [line]);
-				// Trim the line
-				line = StringUtils.trim(line);
+    for (int i = 0; i < numLines; i++) {
+      String line = lines.getLine(i);
+      //logger.finer("Parsing line: {0}", [line]);
+      // Trim the line
+      line = StringUtils.trim(line);
 
-				// Ignore Comments and empty lines
-				if (isPropertyLine(line)) {
-					// Line break processing
-					if( useNextLine) {
-						key = formerKey;
-						value = formerValue + line;
-						useNextLine = false;
-					} else {
-						int sep = line.indexOf("=");
-						key = StringUtils.rightTrim(line.substring(0, sep));
-						value = line.substring(sep + 1);
-						formerKey = key;
-						formerValue = value;
-					}
-					// Trim the content
-					value = StringUtils.leftTrim(value);
+      // Ignore Comments and empty lines
+      if (isPropertyLine(line)) {
+        // Line break processing
+        if (useNextLine) {
+          key = formerKey;
+          value = formerValue + line;
+          useNextLine = false;
+        } else {
+          int sep = line.indexOf("=");
+          key = StringUtils.rightTrim(line.substring(0, sep));
+          value = line.substring(sep + 1);
+          formerKey = key;
+          formerValue = value;
+        }
+        // Trim the content
+        value = StringUtils.leftTrim(value);
 
-					// Allow normal lines
-					String end = value == "" ? "" : value.substring(value.length - 1);
-					if (end == DOUBLE_BACKWARD_SLASH) {
-						formerValue = value = value.substring(0, value.length - 1);
-						useNextLine = true;
-					} else {
-						// restore newlines since these were escaped when loaded
-						value = value.replaceAll(NEWLINE_REGEX, NEWLINE_CHAR);
-						provider.setProperty(key, value);
-					}
-				} else {
-					//logger.finer("Ignoring commented line.");
-				}
-			}
-		}
+        // Allow normal lines
+        String end = value == "" ? "" : value.substring(value.length - 1);
+        if (end == DOUBLE_BACKWARD_SLASH) {
+          formerValue = value = value.substring(0, value.length - 1);
+          useNextLine = true;
+        } else {
+          // restore newlines since these were escaped when loaded
+          value = value.replaceAll(NEWLINE_REGEX, NEWLINE_CHAR);
+          provider.setProperty(key, value);
+        }
+      } else {
+        //logger.finer("Ignoring commented line.");
+      }
+    }
+  }
 
-		  bool isPropertyLine(String line) {
-			return (line != null && line.length > 0 && line.codeUnitAt(0) != HASH_CHARCODE && line.codeUnitAt(0) != EXCLAMATION_MARK_CHARCODE && line.length != 0);
-		}
-
-	}
-
-
+  bool isPropertyLine(String line) {
+    return (line != null &&
+        line.length > 0 &&
+        line.codeUnitAt(0) != HASH_CHARCODE &&
+        line.codeUnitAt(0) != EXCLAMATION_MARK_CHARCODE &&
+        line.length != 0);
+  }
+}

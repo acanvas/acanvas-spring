@@ -13,73 +13,68 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of stagexl_spring;
+part of stagexl_spring;
 
-
-	/**
+/**
 	 *
 	 * @author Roland Zwaga
 	 */
-	 class DefaultObjectDestroyer implements IObjectDestroyer, IApplicationContextAware, IDisposable {
+class DefaultObjectDestroyer implements IObjectDestroyer, IApplicationContextAware, IDisposable {
+  Map _managedObjects;
+  bool _isDisposed;
+  IApplicationContext _applicationContext;
+  static const String NAMELESS = "nameless_object";
 
-		 Map _managedObjects;
-		 bool _isDisposed;
-		 IApplicationContext _applicationContext;
-		 static const String NAMELESS = "nameless_object";
+  Logger logger;
 
-		 Logger logger;
-
-		/**
+  /**
 		 * Creates a new <code>DefaultObjectDestroyer</code> instance.
 		 */
-	 DefaultObjectDestroyer(IApplicationContext context):super() {
-			logger = new Logger("DefaultObjectDestroyer");
-			_managedObjects = new Map();
-			_applicationContext = context;
-		}
+  DefaultObjectDestroyer(IApplicationContext context) : super() {
+    logger = new Logger("DefaultObjectDestroyer");
+    _managedObjects = new Map();
+    _applicationContext = context;
+  }
 
+  @override void destroy(Object instance) {
+    if (_managedObjects[instance] == null) {
+      logger.info("Unregistered instance {0}, ignoring it.", [instance]);
+      return;
+    }
+    ContextUtils.disposeInstance(instance);
+    String objectName = _managedObjects[instance];
+    _managedObjects.remove(instance);
+    objectName = (objectName == NAMELESS) ? null : objectName;
 
-		  @override void destroy(Object instance) {
-			if (_managedObjects[instance] == null) {
-				logger.info("Unregistered instance {0}, ignoring it.", [instance]);
-				return;
-			}
-			ContextUtils.disposeInstance(instance);
-			String objectName = _managedObjects[instance];
-			_managedObjects.remove(instance);
-			objectName = (objectName == NAMELESS) ? null : objectName;
+    logger.info("Destroyed instance {0}", [instance]);
+  }
 
+  void registerInstance(Object instance, [String objectName = null]) {
+    if (instance != null) {
+      (objectName != null) ? objectName : objectName = NAMELESS;
+      logger.info("Registered instance {0} with name {1}", [instance, objectName]);
+      _managedObjects[instance] = objectName;
+    }
+  }
 
-			logger.info("Destroyed instance {0}", [instance]);
-		}
+  bool get isDisposed {
+    return _isDisposed;
+  }
 
-		  void registerInstance(Object instance,[String objectName=null]) {
-			if (instance != null) {
-				(objectName != null) ? objectName :objectName =  NAMELESS;
-				logger.info("Registered instance {0} with name {1}", [instance, objectName]);
-				_managedObjects[instance] = objectName;
-			}
-		}
+  @override void dispose() {
+    if (!_isDisposed) {
+      _isDisposed = true;
+      _managedObjects = null;
+      _applicationContext = null;
+      logger.info("{0} has been disposed...", [this]);
+    }
+  }
 
-		  bool get isDisposed {
-			return _isDisposed;
-		}
+  IApplicationContext get applicationContext {
+    return _applicationContext;
+  }
 
-		  @override void dispose() {
-			if (!_isDisposed) {
-				_isDisposed = true;
-				_managedObjects = null;
-				_applicationContext = null;
-				logger.info("{0} has been disposed...", [this]);
-			}
-		}
-
-		  IApplicationContext get applicationContext {
-			return _applicationContext;
-		}
-
-		  void set applicationContext(IApplicationContext value) {
-			_applicationContext = value;
-		}
-	}
-
+  void set applicationContext(IApplicationContext value) {
+    _applicationContext = value;
+  }
+}

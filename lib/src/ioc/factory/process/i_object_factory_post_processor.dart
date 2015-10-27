@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- part of stagexl_spring;
+part of stagexl_spring;
 
-	/**
+/**
 	 * @author Christophe Herreman
 	 * @author Roland Zwaga
 	 */
- 
+
 abstract class IObjectFactoryPostProcessor {
-		/**
+  /**
 		 *
 		 * @param objectFactory
 		 */
-		 IOperation postProcessObjectFactory(IObjectFactory objectFactory);
-	}
-
+  IOperation postProcessObjectFactory(IObjectFactory objectFactory);
+}

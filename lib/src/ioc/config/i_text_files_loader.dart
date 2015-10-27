@@ -13,13 +13,10 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of stagexl_spring;
+part of stagexl_spring;
 
-	 abstract class ITextFilesLoader extends IOperationQueue {
+abstract class ITextFilesLoader extends IOperationQueue {
+  void addURIs(List<TextFileURI> URIs);
 
-		 void addURIs(List<TextFileURI> URIs);
-
-		 void addURI(String URI,[bool preventCache=true, bool isRequired=true]);
-
-	}
-
+  void addURI(String URI, [bool preventCache = true, bool isRequired = true]);
+}

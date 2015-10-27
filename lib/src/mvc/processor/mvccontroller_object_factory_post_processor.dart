@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- part of stagexl_spring;
+part of stagexl_spring;
 
-
-	/**
+/**
 	 * <code>IObjectFactoryPostProcessor</code> that checks the specified <code>IConfigurableListableObjectFactory</code>
 	 * if it contains an <code>MVCRouteEventsMetaDataPostProcessor</code>. If not, it creates one and adds it to
 	 * the <code>IConfigurableListableObjectFactory</code> using its <code>addObjectPostProcessor()</code> method.
@@ -67,74 +66,68 @@
 	 * <p>[Command] annotations can be stacked, so one command class can be triggered by multiple <code>Events</code>.</p>
 	 * @author Roland Zwaga
 	 */
-	 class MVCControllerObjectFactoryPostProcessor extends AbstractOrderedFactoryPostProcessor {
-	   /**
+class MVCControllerObjectFactoryPostProcessor extends AbstractOrderedFactoryPostProcessor {
+  /**
           * The object name that will be given to the controller instance in the object factory
           */
-          static const String CONTROLLER_OBJECT_NAME = "MVCControllerObjectFactoryPostProcessor";
+  static const String CONTROLLER_OBJECT_NAME = "MVCControllerObjectFactoryPostProcessor";
 
-          static const String METADATAPROCESSOR_OBJECT_NAME = "SpringActionScriptMVCRouteEventsMetaDataProcessor";
+  static const String METADATAPROCESSOR_OBJECT_NAME = "SpringActionScriptMVCRouteEventsMetaDataProcessor";
 
-          static const String COMMAND_METADATA = "Command";
+  static const String COMMAND_METADATA = "Command";
 
-          static const String EXECUTE_METHOD_METADATA_KEY = "executeMethod";
+  static const String EXECUTE_METHOD_METADATA_KEY = "executeMethod";
 
-          static const String EVENT_TYPE_METADATA_KEY = "eventType";
+  static const String EVENT_TYPE_METADATA_KEY = "eventType";
 
-          static const String EVENT_CLASS_METADATA_KEY = "eventClass";
+  static const String EVENT_CLASS_METADATA_KEY = "eventClass";
 
-          static const String PRIORITY_METADATA_KEY = "priority";
+  static const String PRIORITY_METADATA_KEY = "priority";
 
-          static const String PROPERTIES_METADATA_KEY = "properties";
+  static const String PROPERTIES_METADATA_KEY = "properties";
 
-          static const String DEFAULT_EXECUTE_METHOD_NAME = "execute";
+  static const String DEFAULT_EXECUTE_METHOD_NAME = "execute";
 
-         /**
+  /**
           * Creates a new <code>MVCControllerObjectFactoryPostProcessor</code> instance.
           */
-         MVCControllerObjectFactoryPostProcessor(int order) : super(order){
-         }
+  MVCControllerObjectFactoryPostProcessor(int order) : super(order) {}
 
-         /**
+  /**
           *
           * @param objectFactory The specified <code>IConfigurableListableObjectFactory</code> instance.
           */
-         @override IOperation postProcessObjectFactory(IObjectFactory objectFactory)
-          {
-           Assert.notNull(objectFactory, "the objectFactory argument must not be null");
-           addMVControllerInstance(objectFactory);
-           return null;
-         }
+  @override IOperation postProcessObjectFactory(IObjectFactory objectFactory) {
+    Assert.notNull(objectFactory, "the objectFactory argument must not be null");
+    addMVControllerInstance(objectFactory);
+    return null;
+  }
 
-         /**
+  /**
           * Checks if the specified <code>IConfigurableListableObjectFactory</code> instance contains an object that
           * implements the <code>IController</code> abstract class. When none is found a <code>Controller</code> instance
           * is created and registered as a singleton in the <code>IConfigurableListableObjectFactory</code> instance.
           * @param objectFactory The specified <code>IConfigurableListableObjectFactory</code> instance.
           * @return The created or retrieved <code>IController</code> instance.
-          */ void addMVControllerInstance(IObjectFactory objectFactory)
-          {
-           Assert.notNull(objectFactory, "the objectFactory argument must not be null");
-           List<String> names = objectFactory.objectDefinitionRegistry.getObjectDefinitionNamesForType(IController);
-           if (names == null) {
-             IController controller = new Controller();
-						 //objectFactory.createInstance(Controller, CONTROLLER_OBJECT_NAME);
-						 objectFactory.wire(controller);
-             objectFactory.cache.putInstance(CONTROLLER_OBJECT_NAME, controller);
-           } else {
-           }
-         }
+          */
+  void addMVControllerInstance(IObjectFactory objectFactory) {
+    Assert.notNull(objectFactory, "the objectFactory argument must not be null");
+    List<String> names = objectFactory.objectDefinitionRegistry.getObjectDefinitionNamesForType(IController);
+    if (names == null) {
+      IController controller = new Controller();
+      //objectFactory.createInstance(Controller, CONTROLLER_OBJECT_NAME);
+      objectFactory.wire(controller);
+      objectFactory.cache.putInstance(CONTROLLER_OBJECT_NAME, controller);
+    } else {}
+  }
 
-
-
-
-		/**
+  /**
 		 * Loops through all the <code>IObjectDefinitions</code> in the specified <code>IConfigurableListableObjectFactory</code> instance,
 		 * creates a <code>Type</code> instance for the classes and invokes the <code>processCommandMetaData()</code> method.
 		 * @param objectFactory The specified <code>IConfigurableListableObjectFactory</code>.
 		 * @param controller The specified <code>IController</code> instance used to register commands in.
 		 */
-          /*
+  /*
 		  void registerCommands(IObjectFactory objectFactory,IController controller) {
 			Assert.notNull(objectFactory, "the objectFactory argument must not be null");
 			Assert.notNull(controller, "the controller argument must not be null");
@@ -149,14 +142,14 @@
 			}
 		}
 */
-		/**
+  /**
 		 *
 		 * @param type The specified <code>Type</code> instance.
 		 * @param controller The specified <code>IController</code> instance used to register commands in.
 		 * @param commandName The name of the command as its registered in the application context.
 		 * @param applicationDomain The specified <code>ApplicationDomain</code> used for reflection.
 		 */
-          /*
+  /*
 		  void processCommandMetaData(Type type,IController controller,String commandName,ApplicationDomain applicationDomain) {
 			Assert.notNull(type, "the type argument must not be null");
 			Assert.notNull(controller, "the controller argument must not be null");
@@ -170,7 +163,7 @@
 		}
 		 */
 
-		/**
+  /**
 		 * Extracts all the necessary information from the specified <code>MetaData</code> and registers
 		 * the command with the specified <code>IController</code>.
 		 * @param metaData The specified <code>MetaData</code> that needs to be processed.
@@ -178,7 +171,7 @@
 		 * @param commandName The name of the command as its registered in the application context.
 		 * @param applicationDomain The specified <code>ApplicationDomain</code> used for reflection.
 		 */
-          /*
+  /*
 		  void processMetaData(Metadata metaData,IController controller,String commandName,ApplicationDomain applicationDomain) {
 			Assert.notNull(metaData, "the metaData argument must not be null");
 			Assert.notNull(controller, "the controller argument must not be null");
@@ -200,13 +193,13 @@
 		}
 		 */
 
-		/**
+  /**
 		 * Checks if the properties key was set on the specified <code>MetaData</code> instance, if so
 		 * it creates an <code>List</code> of strings from the key.
 		 * @param metaData The specified <code>MetaData</code> instance
 		 * @return An <code>List</code> of property names or <code>null</code> when the properties key was not set.
 		 */
-          /*
+  /*
 		  List<String> getPropertiesFromMetaData(Metadata metaData) {
 			Assert.notNull(metaData, "metaData argument must not be null");
 			if (metaData.hasArgumentWithKey(PROPERTIES_METADATA_KEY)) {
@@ -222,4 +215,4 @@
 			}
 		}
 		 */
-	}
+}

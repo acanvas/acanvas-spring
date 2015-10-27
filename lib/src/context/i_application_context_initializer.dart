@@ -13,39 +13,36 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
- part of stagexl_spring;
+part of stagexl_spring;
 
-
-	/**
+/**
 	 * Describes an object that can handle the loading and initialization logic of an <code>IApplicationContext</code> implementation.
 	 * @author Roland Zwaga
 	 */
-	 abstract class IApplicationContextInitializer extends /*I*/EventDispatcher {
-
-		/**
+abstract class IApplicationContextInitializer extends /*I*/ EventDispatcher {
+  /**
 		 *
 		 * @param context
 		 */
-		 void initialize(IApplicationContext context);
+  void initialize(IApplicationContext context);
 
-		/**
+  /**
 		 * An <code>IPropertiesParser</code> instance that is used to turn textfiles into property key/value pairs.
 		 */
-		 IPropertiesParser get propertiesParser;
+  IPropertiesParser get propertiesParser;
 
-		/**
+  /**
 		 * @
 		 */
-		 void set propertiesParser(IPropertiesParser value);
+  void set propertiesParser(IPropertiesParser value);
 
-		/**
+  /**
 		 *
 		 */
-		 ITextFilesLoader get textFilesLoader;
+  ITextFilesLoader get textFilesLoader;
 
-		/**
+  /**
 		 * @
 		 */
-		 void set textFilesLoader(ITextFilesLoader value);
-	}
-
+  void set textFilesLoader(ITextFilesLoader value);
+}

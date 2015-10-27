@@ -13,87 +13,83 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- part of stagexl_spring;
+part of stagexl_spring;
 
-
-	// [Event(name="instancesDependenciesUpdated", type="org.springextensions.actionscript.ioc.objectdefinition.event.ObjectDefinitionEvent")]
-	/**
+// [Event(name="instancesDependenciesUpdated", type="org.springextensions.actionscript.ioc.objectdefinition.event.ObjectDefinitionEvent")]
+/**
 	 * Represents an object definition.
 	 *
 	 * @author Christophe Herreman
 	 * @author Damir Murat
 	 * @author Roland Zwaga
 	 */
-	 abstract class IObjectDefinition extends IBaseObjectDefinition with /*, I*/EventDispatcher {
-
-		/**
+abstract class IObjectDefinition extends IBaseObjectDefinition with /*, I*/ EventDispatcher {
+  /**
 		 * The fully qualified classname of the object that the current <code>IObjectDefinition</code> describes.
 		 */
-		 String get className;
-		/**
+  String get className;
+  /**
 		 * @
 		 */
-		 void set className(String value);
+  void set className(String value);
 
-		 String get name;
-		/**
+  String get name;
+  /**
 		 * @
 		 */
-		 void set name(String value);
+  void set name(String value);
 
-		 /**
+  /**
 		 * The <code>Class</code> of the object that the current <code>IObjectDefinition</code> describes.
 		 */
-		 Type get clazz;
-		/**
+  Type get clazz;
+  /**
 		 * @
 		 */
-		 void set clazz(Type value);
+  void set clazz(Type value);
 
-		 /**
+  /**
 		 * The class-generating <code>Function</code> of the object that the current <code>IObjectDefinition</code> describes.
 		 */
-		 Function get func;
-		/**
+  Function get func;
+  /**
 		 * @
 		 */
-		 void set func(Function value);
+  void set func(Function value);
 
-		/**
+  /**
 		 * An array of arguments that will be passed to the constructor of the object.
 		 */
-		 List get constructorArguments;
-		/**
+  List get constructorArguments;
+  /**
 		 * @
 		 */
-		 void set constructorArguments(List value);
+  void set constructorArguments(List value);
 
-
-		/**
+  /**
 		 *
 		 */
-		 bool get isAbstract;
+  bool get isAbstract;
 
-		/**
+  /**
 		 * @
 		 */
-		 void set isAbstract(bool value);
+  void set isAbstract(bool value);
 
-		/**
+  /**
 		 * Determines if the class whose configuration is described by the current <code>IObjectDefinition</code> is an abstract class;
 		 */
-		 bool get isInterface;
+  bool get isInterface;
 
-		/**
+  /**
 		 * @
 		 */
-		 void set isInterface(bool value);
+  void set isInterface(bool value);
 
-		/**
+  /**
 		 * True if only one instance of this object needs to be created by the container, i.e. every subsequent call to the <code>getObject()</code>
 		 * method will return the same instance.
 		 * @see org.springextensions.actionscript.ioc.factory.IObjectFactory#getObject() IObjectFactory.getObject()
 		 */
-		 bool get isSingleton;
-	}
-
+  bool get isSingleton;
+}
