@@ -48,7 +48,7 @@ class SpringApplicationContext extends EventDispatcher
     implements
         IApplicationContext,
         IDisposable,
-        IEventBusAware /*, IAutowireProcessorAware, IEventBusAware, IEventBusUserRegistryAware, ILoaderInfoAware*/ {
+        IEventBusAware /*, IAutowireProcessorAware, IEventBusUserRegistryAware, ILoaderInfoAware*/ {
   static const String APPLICATIONCONTEXTINITIALIZER_CHANGED_EVENT = "applicationContextInitializerChanged";
   static const String GET_ASSOCIATED_FACTORY_METHOD_NAME = "getAssociatedFactory";
   Logger LOGGER;

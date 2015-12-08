@@ -52,12 +52,9 @@ class ObjectDefinition extends IObjectDefinition {
   @override
   bool get isInterface => false;
 
-  // TODO: implement isSingleton
   @override
   bool get isSingleton => scope == ObjectDefinitionScope.SINGLETON;
 
-  // TODO: implement properties
-  @override
   List<PropertyDefinition> get properties => null;
 
   @override

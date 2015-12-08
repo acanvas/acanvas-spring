@@ -59,7 +59,7 @@ class Controller extends EventDispatcher implements IController, IApplicationCon
 		 * Initializes the current <code>Controller</code>
 		 */
   void init() {
-    _eventBus = new XLEventBus();
+    _eventBus = new RdEventBus();
     clear();
   }
 
