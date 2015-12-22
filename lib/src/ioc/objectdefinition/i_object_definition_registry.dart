@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-part of stagexl_spring;
+part of rockdot_spring;
 
 /**
 	 * Defines the abstract class for an object definition registry. This abstract class contains add methods

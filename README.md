@@ -39,16 +39,16 @@ With Röckdöt for Dart, you now again have a powerful engine to conveniently de
 
 ## How was the port done?
 
-It all started with the [Actionscript to StageXL Conversion Helper](https://github.com/blockforest/stagexl-converter-pubglobal),
+It all started with the [Actionscript to StageXL Conversion Helper](https://github.com/blockforest/rockdot-converter-pubglobal),
 which automates about 90% of the braindead task of syntax conversion. Thanks to it, about 400 classes of AS3 Commons, Spring Actionscript, and Röckdöt
 found their way to Dart without pain. The rest was mere optimization.
 
 ## What are Röckdöt's Building Blocks?
-* [StageXL Röckdöt](https://github.com/blockforest/stagexl-rockdot) Plugin System, UI Lifecycle and Asset Manager, i18n, Google and Facebook Integration, Generic User Generated Content backend communication
-* [StageXL Spring](https://github.com/blockforest/stagexl-spring) IoC/DI container (ObjectFactory, ObjectFactory and Object Postprocessing, Interface Injection)
-* [StageXL Commons](https://github.com/blockforest/stagexl-commons) Async library (FrontController and Commands/Operations, also sequences)
-* [StageXL Commons](https://github.com/blockforest/stagexl-commons) EventBus (with some tweaks to Operations to make them as effective as Signals)
-* [StageXL Commons](https://github.com/blockforest/stagexl-commons) Logging
+* [StageXL Röckdöt](https://github.com/blockforest/rockdot-framework) Plugin System, UI Lifecycle and Asset Manager, i18n, Google and Facebook Integration, Generic User Generated Content backend communication
+* [StageXL Spring](https://github.com/blockforest/rockdot-spring) IoC/DI container (ObjectFactory, ObjectFactory and Object Postprocessing, Interface Injection)
+* [StageXL Commons](https://github.com/blockforest/rockdot-commons) Async library (FrontController and Commands/Operations, also sequences)
+* [StageXL Commons](https://github.com/blockforest/rockdot-commons) EventBus (with some tweaks to Operations to make them as effective as Signals)
+* [StageXL Commons](https://github.com/blockforest/rockdot-commons) Logging
 * [StageXL](https://github.com/bp74/StageXL) - Flash API for Dart
 
 ## What are Röckdöt's main Features?

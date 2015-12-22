@@ -1,4 +1,4 @@
-part of stagexl_spring;
+part of rockdot_spring;
 
 //TODO make this an interface and move implementation back to rockdot
 class LoaderInfo {

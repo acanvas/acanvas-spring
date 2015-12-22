@@ -1,4 +1,4 @@
-part of stagexl_spring;
+part of rockdot_spring;
 
 abstract class IApplicationContextAware {
   IApplicationContext get applicationContext;

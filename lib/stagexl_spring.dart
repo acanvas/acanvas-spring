@@ -1,7 +1,7 @@
-library stagexl_spring;
+library rockdot_spring;
 
 import 'dart:math';
-import 'package:stagexl_commons/stagexl_commons.dart';
+import 'package:rockdot_commons/rockdot_commons.dart';
 import 'package:stagexl/stagexl.dart';
 
 // SPRING #####

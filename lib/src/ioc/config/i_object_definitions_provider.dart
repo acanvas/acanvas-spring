@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-part of stagexl_spring;
+part of rockdot_spring;
 
 /**
 	 * Describes an object that can create a collection of <code>ObjectDefinitions</code>, either synchronously or asynchronously.
