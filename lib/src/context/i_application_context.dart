@@ -96,7 +96,7 @@ abstract class IApplicationContext extends IObjectFactory /*, IStageObjectProces
   /**
 		 *
 		 */
-  void load();
+	Future load();
 
   /**
 		 *

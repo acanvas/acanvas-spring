@@ -84,6 +84,7 @@ class SpringApplicationContext extends EventDispatcher
 		 IStageObjectProcessorRegistry _stageProcessorRegistry;
 		  */
   int _token;
+  Completer _completer;
 
   IObjectFactory get objectFactory {
     return _objectFactory;
@@ -477,12 +478,14 @@ class SpringApplicationContext extends EventDispatcher
   /**
 		 *
 		 */
-  void load() {
+  Future load() {
     (_applicationContextInitializer != null)
         ? _applicationContextInitializer
         : _applicationContextInitializer = new DefaultApplicationContextInitializer();
+    _completer = new Completer();
     _applicationContextInitializer.addEventListener(Event.COMPLETE, handleInitializationComplete);
     _applicationContextInitializer.initialize(this);
+    return _completer.future;
   }
 
   dynamic manage(dynamic instance, [String objectName = null]) {
@@ -570,6 +573,7 @@ class SpringApplicationContext extends EventDispatcher
     _definitionProviders = null;
     LOGGER.finer("Application context initialization complete");
     redispatch(event);
+    _completer?.complete();
   }
 
   void redispatch(Event event) {
