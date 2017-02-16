@@ -71,7 +71,6 @@ class SpringApplicationContext extends EventDispatcher
 
   IObjectFactory _objectFactory;
   IApplicationContextInitializer _applicationContextInitializer;
-  String _childContextManagerName;
   List<IApplicationContext> _childContexts;
   List<IObjectDefinitionsProvider> _definitionProviders;
   IEventBus _eventBus; //decided to implement own simple EventBus, as we do not need the channel stuff
@@ -82,8 +81,8 @@ class SpringApplicationContext extends EventDispatcher
   List<DisplayObject> _rootViews;
   /* //not using stage processing, so implementation was skipped
 		 IStageObjectProcessorRegistry _stageProcessorRegistry;
-		  */
   int _token;
+		  */
   Completer _completer;
 
   IObjectFactory get objectFactory {
@@ -417,7 +416,7 @@ class SpringApplicationContext extends EventDispatcher
   /**
 		 * Clears, disposes and nulls out every member of the current <code>ApplicationContext</code>.
 		 */
-  void dispose() {
+  void dispose({bool removeSelf: true}) {
     if (!_isDisposed) {
       try {
         for (IApplicationContext childContext in _childContexts) {

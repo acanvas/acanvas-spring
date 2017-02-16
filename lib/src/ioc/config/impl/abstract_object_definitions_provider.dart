@@ -20,7 +20,7 @@ part of rockdot_spring;
 	 * @author Roland Zwaga
 	 */
 class AbstractObjectDefinitionsProvider implements IObjectDefinitionsProvider, IDisposable {
-  Object _objectDefinitions;
+  Map<dynamic, dynamic> _objectDefinitions;
   IBaseObjectDefinition _defaultObjectDefinition;
   List<TextFileURI> _propertyURIs;
   IPropertiesProvider _propertiesProvider;
@@ -40,7 +40,7 @@ class AbstractObjectDefinitionsProvider implements IObjectDefinitionsProvider, I
     throw new StateError("Not implemented in abstract base class");
   }
 
-  Object get objectDefinitions {
+  Map<dynamic, dynamic> get objectDefinitions {
     return _objectDefinitions;
   }
 
@@ -68,7 +68,7 @@ class AbstractObjectDefinitionsProvider implements IObjectDefinitionsProvider, I
     return _isDisposed;
   }
 
-  void dispose() {
+  void dispose({bool removeSelf: true}) {
     if (!_isDisposed) {
       _isDisposed = true;
       _propertyURIs = null;

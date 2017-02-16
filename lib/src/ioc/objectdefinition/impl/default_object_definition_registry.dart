@@ -56,7 +56,6 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
     logger.finer("Created new DefaultObjectDefinitionRegistry with id {0}", [_id]);
   }
 
-  Map _customConfigurations;
   String _id;
   bool _isDisposed;
   List<Type> _objectDefinitionClasses;
@@ -108,7 +107,7 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
   /**
 		 * @inheritDoc
 		 */
-  void dispose() {
+  void dispose({bool removeSelf: true}) {
     if (!_isDisposed) {
       for (String name in _objectDefinitionNames) {
         IObjectDefinition objectDefinition = (_objectDefinitions[name] as IObjectDefinition);
@@ -120,7 +119,6 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
       _objectDefinitionMetadataLookup = null;
       _objectDefinitionList = null;
       _objectDefinitionNames = null;
-      _customConfigurations = null;
       _isDisposed = true;
       logger.finer("Instance {0} has been disposed...", [this]);
     }
@@ -168,15 +166,15 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
     throw new StateError(StringUtils.substitute(
         "Failed to get Object Definition for Type {0} , reflection not supported in favor of dart2js filesize.",
         [type]));
-    List<IObjectDefinition> result;
     /*
+    List<IObjectDefinition> result;
     for (IObjectDefinition definition in _objectDefinitionList) {
       if (ClassUtils.isAssignableFrom(type, definition.clazz)) {
         ((result != null) ? result : result = new List<IObjectDefinition>())[result.length] = definition;
       }
     }
-     */
     return result;
+     */
   }
 
   /**

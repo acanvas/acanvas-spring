@@ -36,7 +36,8 @@ class DefaultObjectDestroyer implements IObjectDestroyer, IApplicationContextAwa
     _applicationContext = context;
   }
 
-  @override void destroy(Object instance) {
+  @override
+  void destroy(Object instance) {
     if (_managedObjects[instance] == null) {
       logger.info("Unregistered instance {0}, ignoring it.", [instance]);
       return;
@@ -61,7 +62,8 @@ class DefaultObjectDestroyer implements IObjectDestroyer, IApplicationContextAwa
     return _isDisposed;
   }
 
-  @override void dispose() {
+  @override
+  void dispose({bool removeSelf: true}) {
     if (!_isDisposed) {
       _isDisposed = true;
       _managedObjects = null;

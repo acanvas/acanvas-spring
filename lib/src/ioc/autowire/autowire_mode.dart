@@ -47,8 +47,6 @@ class AutowireMode {
   static const String AUTODETECT_NAME = "autodetect";
   static const String ALREADY_CREATED_ERROR = "The AutowireMode enum has already been created.";
 
-  static bool _enumCreated = false;
-
   String _name;
 
   //	{

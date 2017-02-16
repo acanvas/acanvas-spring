@@ -76,7 +76,7 @@ class DefaultApplicationContextInitializer extends EventDispatcher
     _textFilesLoader = value;
   }
 
-  void dispose() {
+  void dispose({bool removeSelf: true}) {
     if (!_isDisposed) {
       _isDisposed = true;
       ContextUtils.disposeInstance(_propertiesParser);

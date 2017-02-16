@@ -50,11 +50,11 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
     initialize();
   }
 
-  Map _cache;
+  Map<String, dynamic> _cache;
   List<String> _cachedNames;
   bool _isDisposed;
   List<String> _managedNames;
-  Map _preparedCache;
+  Map<String, dynamic> _preparedCache;
 
   bool get isDisposed {
     return _isDisposed;
@@ -78,7 +78,7 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
   /**
 		 * @inheritDoc
 		 */
-  void dispose() {
+  void dispose({bool removeSelf: true}) {
     if (!isDisposed) {
       clearCacheObject(_cache);
       _cache = null;
@@ -217,8 +217,8 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
     return null;
   }
 
-  void clearCacheObject(Map cacheObject) {
-    for (String name in cacheObject) {
+  void clearCacheObject(Map<String, dynamic> cacheObject) {
+    for (String name in cacheObject.keys) {
       if (isManaged(name)) {
         ContextUtils.disposeInstance(cacheObject[name]);
       }

@@ -44,8 +44,6 @@ class ObjectDefinitionScope {
   static const String STAGE_NAME = "stage";
   static const String REMOTE_NAME = "remote";
 
-  static bool _enumCreated = false;
-
   String _name;
   //{
   //_enumCreated = true;

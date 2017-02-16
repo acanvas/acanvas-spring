@@ -97,7 +97,8 @@ class MVCControllerObjectFactoryPostProcessor extends AbstractOrderedFactoryPost
           *
           * @param objectFactory The specified <code>IConfigurableListableObjectFactory</code> instance.
           */
-  @override IOperation postProcessObjectFactory(IObjectFactory objectFactory) {
+  @override
+  IOperation postProcessObjectFactory(IObjectFactory objectFactory) {
     Assert.notNull(objectFactory, "the objectFactory argument must not be null");
     addMVControllerInstance(objectFactory);
     return null;

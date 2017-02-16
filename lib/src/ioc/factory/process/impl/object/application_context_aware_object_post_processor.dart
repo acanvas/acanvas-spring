@@ -42,7 +42,7 @@ class ApplicationContextAwareObjectPostProcessor implements IObjectPostProcessor
 		 */
   dynamic postProcessBeforeInitialization(dynamic object, String objectName) {
     if ((object is IApplicationContextAware)) {
-      IApplicationContextAware applicationContextAware = (object as IApplicationContextAware);
+      IApplicationContextAware applicationContextAware = object;
       if ((applicationContextAware != null) && (applicationContextAware.applicationContext == null)) {
         logger.finer(
             "Instance {0} implements IApplicationContextAware, injecting it with {1}", [object, _applicationContext]);

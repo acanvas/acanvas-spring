@@ -181,7 +181,7 @@ abstract class IObjectFactory extends EventDispatcher implements IObjectDefiniti
 		 */
   IObjectDefinition getObjectDefinition(String objectName);
 
-  dynamic manage(dynamic instance, [String objectName = null]);
+  dynamic manage(dynamic instance, String objectName);
 
   /**
 		 *

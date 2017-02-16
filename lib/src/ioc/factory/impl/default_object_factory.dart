@@ -226,9 +226,9 @@ class DefaultObjectFactory extends EventDispatcher
   dynamic createInstance(Type clazz, String objectName, [List constructorArguments = null]) {
     throw new StateError(StringUtils.substitute(
         "Failed to create instance of Type {0} for object name {1}, reflection not supported in favor of dart2js filesize.",
-        [type, objectName]));
-    return null;
+        [clazz, objectName]));
     /*
+    return null;
     dynamic result = ClassUtils.newInstance(clazz, constructorArguments);
     result = manage(result, objectName);
     logger.finer("Created and injected an instance of {0}", [clazz]);
@@ -242,21 +242,21 @@ class DefaultObjectFactory extends EventDispatcher
   void destroyObject(Object instance) {
     if (_objectDestroyer != null) {
       logger.finer("Destroying instance {0}...", [instance]);
-      _objectDestroyer.dispose(instance);
+      _objectDestroyer.destroy(instance);
     }
   }
 
   /**
 		 * @inheritDoc
 		 */
-  void dispose() {
+  void dispose({bool removeSelf: true}) {
     if (!_isDisposed) {
       ContextUtils.disposeInstance(_autowireProcessor);
       _autowireProcessor = null;
       if (_objectDestroyer != null) {
         List<String> names = _cache.getCachedNames();
         for (String name in names) {
-          _objectDestroyer.dispose(_cache.getInstance(name));
+          _objectDestroyer.destroy(_cache.getInstance(name));
         }
       }
       ContextUtils.disposeInstance(_objectDestroyer);
@@ -279,19 +279,9 @@ class DefaultObjectFactory extends EventDispatcher
     }
   }
 
-  dynamic manage(dynamic instance, [String objectName = null]) {
+  dynamic manage(dynamic instance, String objectName) {
     IObjectDefinition definition;
-    if (objectName == null) {
-      Type cls = reflect(instance).runtimeType;
-      List<String> names = _objectDefinitionRegistry.getObjectDefinitionNamesForType(cls);
-      if ((names != null) && (names.length == 1)) {
-        objectName = names[0];
-      } else if ((names != null) && (names.length > 1)) {
-        logger.severe("More than one object definition found for class ", [cls]);
-      } else {
-        logger.info("No object definition found for class ", [cls]);
-      }
-    }
+
     if (objectName != null) {
       definition = objectDefinitionRegistry.getObjectDefinition(objectName);
     }
@@ -464,9 +454,9 @@ class DefaultObjectFactory extends EventDispatcher
     } else {
       throw new StateError(StringUtils.substitute(
           "Failed to instantiate class '{0}' for definition with id '{1}':{2} , reflection not supported in favor of dart2js filesize.",
-          [clazz, objectName, objectDefinition]));
-      return null;
+          [objectDefinition, objectName, objectDefinition]));
       /*
+      return null;
       Type clazz = objectDefinition.clazz;
       try {
         return ClassUtils.newInstance(clazz, constructorArguments);
