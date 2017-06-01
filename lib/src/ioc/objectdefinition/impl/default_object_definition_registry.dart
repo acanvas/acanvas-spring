@@ -142,7 +142,7 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
 		 * @inheritDoc
 		 */
   List<String> getObjectDefinitionNamesForType(Type type) {
-    logger.warn(StringUtils.substitute(
+    logger.warning(StringUtils.substitute(
         "Failed to get Object Definition Names for Type {0} , reflection not supported in favor of dart2js filesize.",
         [type]));
     List<String> result;

@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:rockdot_commons/rockdot_commons.dart';
 import 'package:stagexl/stagexl.dart';
+import 'package:logging/logging.dart';
 
 // SPRING #####
 //context
