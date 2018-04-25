@@ -58,8 +58,8 @@ class TextFilesLoader extends OperationQueue implements ITextFilesLoader {
     if (isRequired != null) {
       _requiredOperations.add(loadOperation);
     }
-    loadOperation.addCompleteListener(textFileLoaderComplete);
-    loadOperation.addErrorListener(textFileLoaderError);
+    loadOperation.addCompleteListener<OperationEvent>(textFileLoaderComplete);
+    loadOperation.addErrorListener<OperationEvent>(textFileLoaderError);
     addOperation(loadOperation);
     logger.finer("Added URI '{0}', with preventCache:{1} and isRequired:{2}", [uri, preventCache, isRequired]);
   }

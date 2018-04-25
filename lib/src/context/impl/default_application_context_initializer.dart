@@ -100,15 +100,15 @@ class DefaultApplicationContextInitializer extends EventDispatcher
         IOperation operation = provider.createDefinitions();
         if (operation != null) {
           LOGGER.finer("Object definitions provider {0} is asynchronous...", [provider]);
-          operation.addCompleteListener(providerCompleteHandler, false, 0, true);
+          operation.addCompleteListener<OperationEvent>(providerCompleteHandler, false, 0, true);
           _operationQueue.addOperation(operation);
         } else {
           handleObjectDefinitionResult(provider);
         }
       }
       if (_operationQueue.total > 0) {
-        _operationQueue.addCompleteListener(providersLoadedHandler);
-        _operationQueue.addErrorListener(providersLoadErrorHandler);
+        _operationQueue.addCompleteListener<OperationEvent>(providersLoadedHandler);
+        _operationQueue.addErrorListener<OperationEvent>(providersLoadErrorHandler);
       } else {
         _operationQueue = null;
         cleanUpObjectDefinitionCreation();
@@ -186,8 +186,8 @@ class DefaultApplicationContextInitializer extends EventDispatcher
       }
     }
     if (_operationQueue.total > 0) {
-      _operationQueue.addCompleteListener(handleObjectFactoryPostProcessorsComplete, false, 0, true);
-      _operationQueue.addErrorListener(handleObjectFactoryPostProcessorsError, false, 0, true);
+      _operationQueue.addCompleteListener<OperationEvent>(handleObjectFactoryPostProcessorsComplete, false, 0, true);
+      _operationQueue.addErrorListener<OperationEvent>(handleObjectFactoryPostProcessorsError, false, 0, true);
     } else {
       finalizeObjectFactoryProcessorExecution();
     }
@@ -228,12 +228,12 @@ class DefaultApplicationContextInitializer extends EventDispatcher
     }
   }
 
-  void handleObjectFactoryPostProcessorsComplete(dynamic result) {
+  void handleObjectFactoryPostProcessorsComplete(OperationEvent result) {
     finalizeObjectFactoryProcessorExecution();
   }
 
-  void handleObjectFactoryPostProcessorsError(dynamic error) {
-    LOGGER.severe("Objectfactory post processing encountered an error: ", [error]);
+  void handleObjectFactoryPostProcessorsError(OperationEvent error) {
+    LOGGER.severe("Objectfactory post processing encountered an error: ", [error.error]);
   }
 
   void instantiateSingletons() {
@@ -257,7 +257,7 @@ class DefaultApplicationContextInitializer extends EventDispatcher
 
   ITextFilesLoader createTextFilesLoader() {
     ITextFilesLoader textFilesLoader = new TextFilesLoader(APPLICATION_CONTEXT_PROPERTIES_LOADER_NAME);
-    textFilesLoader.addCompleteListener(propertyTextFilesLoadComplete, false, 0, true);
+    textFilesLoader.addCompleteListener<OperationEvent>(propertyTextFilesLoadComplete, false, 0, true);
     _operationQueue.addOperation(textFilesLoader);
     return textFilesLoader;
   }
@@ -300,7 +300,7 @@ class DefaultApplicationContextInitializer extends EventDispatcher
     LOGGER.severe("Object definitions provider encountered an error: ", [error]);
   }
 
-  void providersLoadedHandler(OperationEvent operationEvent) {
+  void providersLoadedHandler(Event operationEvent) {
     cleanQueueAfterDefinitionProviders(_operationQueue);
     cleanUpObjectDefinitionCreation();
   }

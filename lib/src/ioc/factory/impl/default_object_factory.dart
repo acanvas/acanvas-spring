@@ -368,7 +368,7 @@ class DefaultObjectFactory extends EventDispatcher
           new ObjectFactoryEvent(ObjectFactoryEvent.OBJECT_CREATED, result, name, constructorArguments);
       dispatchEvent(objectCreatedEvent);
       dispatchEventThroughEventBus(objectCreatedEvent);
-      result = wire(result, objectDefinition, constructorArguments, objectName);
+      //result = wire(result, objectDefinition, constructorArguments, objectName);
     } catch (Error) {
       throw new StateError("Error");
     }
@@ -449,7 +449,7 @@ class DefaultObjectFactory extends EventDispatcher
     }
     if (objectDefinition.func != null) {
       var obj = objectDefinition.func();
-      wire(obj);
+      wire(obj, objectDefinition, constructorArguments, objectName);
       return obj;
     } else {
       throw new StateError(StringUtils.substitute(

@@ -1,5 +1,9 @@
 # CHANGELOG ROCKDOT_SPRING
 
+## 0.9.10 2017-04-25
+
+- Migrated to SDK 2.0.0-dev
+
 ## 0.9.9 2017-06-01
 
 - Improved Logger performance
