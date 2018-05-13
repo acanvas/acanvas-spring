@@ -463,8 +463,8 @@ class SpringApplicationContext extends EventDispatcher
   /**
 		 * @inheritDoc
 		 */
-  dynamic getObject(String name, [List constructorArguments = null]) {
-    return _objectFactory.getObject(name, constructorArguments);
+  T getObject<T extends dynamic>(String name, [List constructorArguments = null]) {
+    return _objectFactory.getObject<T>(name, constructorArguments);
   }
 
   /**
@@ -481,7 +481,7 @@ class SpringApplicationContext extends EventDispatcher
     (_applicationContextInitializer != null)
         ? _applicationContextInitializer
         : _applicationContextInitializer = new DefaultApplicationContextInitializer();
-    _completer = new Completer();
+    _completer = new Completer<dynamic>();
     _applicationContextInitializer.addEventListener(Event.COMPLETE, handleInitializationComplete);
     _applicationContextInitializer.initialize(this);
     return _completer.future;

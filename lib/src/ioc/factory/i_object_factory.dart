@@ -172,7 +172,7 @@ abstract class IObjectFactory extends EventDispatcher implements IObjectDefiniti
 		 *   Person myPerson = objectFactory.getObject("myPerson");
 		 * </listing>
 		 */
-  dynamic getObject(String name, [List constructorArguments = null]);
+  T getObject<T extends dynamic>(String name, [List constructorArguments = null]);
 
   /**
 		 *

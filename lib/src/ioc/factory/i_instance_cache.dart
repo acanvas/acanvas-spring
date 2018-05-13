@@ -36,7 +36,7 @@ abstract class IInstanceCache extends /*I*/ EventDispatcher {
      * @return The instance associated with the specified name
      * @throws org.springextensions.actionscript.ioc.objectdefinition.error.ObjectDefinitionNotFoundError Thrown when an object with the specified name does not exist
      */
-  dynamic getInstance(String name);
+  T getInstance<T extends dynamic>(String name);
 
   /**
      * Returns the names of the instances that are of the specified type.
@@ -51,7 +51,7 @@ abstract class IInstanceCache extends /*I*/ EventDispatcher {
      * @return The prepared instance associated with the specified name
      * @throws org.springextensions.actionscript.ioc.objectdefinition.error.ObjectDefinitionNotFoundError Thrown when a prepared object with the specified name does not exist
      */
-  dynamic getPreparedInstance(String name);
+  T getPreparedInstance<T extends dynamic>(String name);
 
   /**
      * Returns <code>true</code> if an instance has been associated with the specified name

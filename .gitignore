@@ -1,11 +1,5 @@
-build
-packages
+.idea/
+.dart_tool/
 .packages
-spring_dart
 pubspec.lock
 .DS_Store
-.settings
-.project
-.pub
-.idea
-.dart_tool/

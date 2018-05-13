@@ -20,7 +20,7 @@ part of rockdot_spring;
 	 * @author Roland Zwaga
 	 */
 class DefaultObjectDestroyer implements IObjectDestroyer, IApplicationContextAware, IDisposable {
-  Map _managedObjects;
+  Map<Object, String> _managedObjects;
   bool _isDisposed;
   IApplicationContext _applicationContext;
   static const String NAMELESS = "nameless_object";
@@ -32,7 +32,7 @@ class DefaultObjectDestroyer implements IObjectDestroyer, IApplicationContextAwa
 		 */
   DefaultObjectDestroyer(IApplicationContext context) : super() {
     logger = new Logger("DefaultObjectDestroyer");
-    _managedObjects = new Map();
+    _managedObjects = new Map<Object, String>();
     _applicationContext = context;
   }
 

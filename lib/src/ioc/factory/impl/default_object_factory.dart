@@ -226,7 +226,7 @@ class DefaultObjectFactory extends EventDispatcher
   dynamic createInstance(Type clazz, String objectName, [List constructorArguments = null]) {
     throw new StateError(StringUtils.substitute(
         "Failed to create instance of Type {0} for object name {1}, reflection not supported in favor of dart2js filesize.",
-        [clazz, objectName]));
+        <dynamic>[clazz, objectName]));
     /*
     return null;
     dynamic result = ClassUtils.newInstance(clazz, constructorArguments);
@@ -300,14 +300,14 @@ class DefaultObjectFactory extends EventDispatcher
   /**
 		 * @inheritDoc
 		 */
-  dynamic getObject(String name, [List constructorArguments = null]) {
-    dynamic result;
+  T getObject<T extends dynamic>(String name, [List constructorArguments = null]) {
+    T result;
     bool isFactoryDereference = (name[0] == OBJECT_FACTORY_PREFIX);
     String objectName = (isFactoryDereference ? name.substring(1) : name);
 
     // try to get the object from the explicit singleton cache
     if (_cache.hasInstance(objectName)) {
-      result = _cache.getInstance(objectName);
+      result = _cache.getInstance<T>(objectName);
     } else {
       // we don't have an object in the cache, so create it
       result = buildObject(name, constructorArguments);
@@ -346,7 +346,8 @@ class DefaultObjectFactory extends EventDispatcher
 
     //because we dont't have a dependencyinjector in dart port yet:
     for (IObjectPostProcessor processor in objectPostProcessors) {
-      logger.finer("Executing object postprocessor {0} after initialization on instance {1}", [processor, instance]);
+      logger.finer(
+          "Executing object postprocessor {0} after initialization on instance {1}", <dynamic>[processor, instance]);
       dynamic result = processor.postProcessBeforeInitialization(instance, objectName);
       result = processor.postProcessAfterInitialization(result, objectName);
       if (result != null) {
@@ -357,12 +358,12 @@ class DefaultObjectFactory extends EventDispatcher
     return instance;
   }
 
-  dynamic attemptToInstantiate(
+  T attemptToInstantiate<T extends dynamic>(
       IObjectDefinition objectDefinition, List constructorArguments, String name, String objectName) {
-    dynamic result = null;
+    T result = null;
     try {
       logger.finer("Attempting to instantiate object for definition '{0}'...", [objectName]);
-      result = instantiateClass(objectDefinition,
+      result = instantiateClass<T>(objectDefinition,
           (constructorArguments == null) ? objectDefinition.constructorArguments : constructorArguments, objectName);
       ObjectFactoryEvent objectCreatedEvent =
           new ObjectFactoryEvent(ObjectFactoryEvent.OBJECT_CREATED, result, name, constructorArguments);
@@ -375,8 +376,8 @@ class DefaultObjectFactory extends EventDispatcher
     return result;
   }
 
-  dynamic buildObject(String name, List constructorArguments) {
-    dynamic result;
+  T buildObject<T extends dynamic>(String name, List constructorArguments) {
+    T result;
     bool isFactoryDereference = (name[0] == OBJECT_FACTORY_PREFIX);
     String objectName = (isFactoryDereference ? name.substring(1) : name);
     IObjectDefinition objectDefinition = getObjectDefinition(objectName);
@@ -387,7 +388,8 @@ class DefaultObjectFactory extends EventDispatcher
 
     if (objectDefinition.isInterface) {
       throw new StateError(StringUtils.substitute(
-          "Objectdefinition {0} describes an abstract class which cannot be directly instantiated", [objectName]));
+          "Objectdefinition {0} describes an abstract class which cannot be directly instantiated",
+          <String>[objectName]));
     } else if ((objectDefinition.scope == ObjectDefinitionScope.STAGE) ||
         (objectDefinition.scope == ObjectDefinitionScope.REMOTE)) {
       logger.finer("Object definition scope is '{0}', returning null", [objectDefinition.scope]);
@@ -398,19 +400,19 @@ class DefaultObjectFactory extends EventDispatcher
         (objectDefinition.scope != ObjectDefinitionScope.PROTOTYPE)) {
       throw new StateError(StringUtils.substitute(
           "Only definitions with scope 'singleton' or 'prototype' can be instantiated. Definition name: {0}",
-          [objectName]));
+          <String>[objectName]));
     }
 
     if (objectDefinition.isSingleton && (constructorArguments != null && !objectDefinition.isLazyInit)) {
-      throw new StateError(StringUtils.substitute(NON_LAZY_SINGLETON_CTOR_ARGS_ERROR, [objectName]));
+      throw new StateError(StringUtils.substitute(NON_LAZY_SINGLETON_CTOR_ARGS_ERROR, <String>[objectName]));
     }
 
     if (objectDefinition.isSingleton) {
-      result = getInstanceFromCache(objectName);
+      result = getInstanceFromCache<T>(objectName);
     }
 
     if (result == null) {
-      result = attemptToInstantiate(objectDefinition, constructorArguments, name, objectName);
+      result = attemptToInstantiate<T>(objectDefinition, constructorArguments, name, objectName);
       if (objectDefinition.isSingleton && !cache.hasInstance(objectName)) {
         cache.putInstance(objectName, result);
       }
@@ -428,33 +430,34 @@ class DefaultObjectFactory extends EventDispatcher
     }
   }
 
-  dynamic getInstanceFromCache(String objectName) {
-    dynamic result;
+  T getInstanceFromCache<T extends dynamic>(String objectName) {
+    T result;
     if (_cache.hasInstance(objectName)) {
-      result = _cache.getInstance(objectName);
+      result = _cache.getInstance<T>(objectName);
     }
 
     // not in cache -> perhaps it is prepared as a circular reference
     if ((result == null) && (_cache.isPrepared(objectName))) {
-      result = _cache.getPreparedInstance(objectName);
+      result = _cache.getPreparedInstance<T>(objectName);
     }
     return result;
   }
 
-  dynamic instantiateClass(IObjectDefinition objectDefinition, List constructorArguments, String objectName) {
+  T instantiateClass<T extends dynamic>(
+      IObjectDefinition objectDefinition, List constructorArguments, String objectName) {
     logger.finer("Instantiating class: {0}", [objectDefinition.className]);
 
     if (_autowireProcessor != null) {
       _autowireProcessor.preprocessObjectDefinition(objectDefinition);
     }
     if (objectDefinition.func != null) {
-      var obj = objectDefinition.func();
+      T obj = objectDefinition.func();
       wire(obj, objectDefinition, constructorArguments, objectName);
       return obj;
     } else {
       throw new StateError(StringUtils.substitute(
           "Failed to instantiate class '{0}' for definition with id '{1}':{2} , reflection not supported in favor of dart2js filesize.",
-          [objectDefinition, objectName, objectDefinition]));
+          <dynamic>[objectDefinition, objectName, objectDefinition]));
       /*
       return null;
       Type clazz = objectDefinition.clazz;

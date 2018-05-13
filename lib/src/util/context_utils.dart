@@ -59,7 +59,7 @@ class ContextUtils {
     if (arr == null) {
       return "null";
     } else {
-      List result = [];
+      List<String> result = new List();
       for (dynamic item in arr) {
         result[result.length] = (item != null) ? item.toString() : "null";
       }

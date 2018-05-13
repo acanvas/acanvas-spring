@@ -1,8 +1,8 @@
 name: rockdot_spring
-version: 0.9.10
-description: Dart port of Spring Actionscript framework, targeted at Canvas and WebGL via StageXL, base of Rockdot Framewörk
+version: 0.10.0-dev
+description: Dart port of Spring Actionscript, targeted at Canvas and WebGL via StageXL, base of Rockdot Framework
 environment:
-  sdk: '>=2.0.0-dev'
+  sdk: '>=2.0.0-dev.54.0 <2.0.0'
 dependencies:
   rockdot_commons:
-    git: https://github.com/blockforest/rockdot-commons
+    git: https://github.com/block-forest/rockdot-commons

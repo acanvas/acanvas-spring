@@ -34,14 +34,14 @@ class Properties implements IPropertiesProvider {
     _propertyNames = new List<String>();
   }
 
-  Map _content;
+  Map<String, String> _content;
   List<String> _propertyNames;
 
   /**
 		 * The content of the Properties instance as an object.
 		 * @return an object containing the content of the properties
 		 */
-  Map get content {
+  Map<String, String> get content {
     return _content;
   }
 

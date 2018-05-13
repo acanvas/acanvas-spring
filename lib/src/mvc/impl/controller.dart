@@ -96,8 +96,8 @@ class Controller extends EventDispatcher implements IController, IApplicationCon
     //Assert.hasText(executeMethodName, "executeMethodName argument must not be null or empty");
     LOGGER.info("command {0} registered for event type {1} with execute method {2} and priority {3}",
         [commandName, eventType, executeMethodName, priority]);
-    _eventBus.addEventListener(eventType, (event) {
-      (_applicationContext.getObject(commandName) as ICommand).execute(event);
+    _eventBus.addEventListener<RdSignal>(eventType, (event) {
+      _applicationContext.getObject<ICommand>(commandName).execute(event);
     });
 
     _eventTypeRegistry.add(eventType);

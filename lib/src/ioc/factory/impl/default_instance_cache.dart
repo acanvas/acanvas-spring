@@ -93,9 +93,9 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
   /**
 		 * @inheritDoc
 		 */
-  dynamic getInstance(String name) {
+  T getInstance<T extends dynamic>(String name) {
     if (hasInstance(name)) {
-      return _cache[name];
+      return _cache[name] as T;
     } else {
       throw new StateError(name);
     }
@@ -104,9 +104,9 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
   /**
 		 * @inheritDoc
 		 */
-  dynamic getPreparedInstance(String name) {
+  T getPreparedInstance<T extends dynamic>(String name) {
     if (isPrepared(name)) {
-      return _preparedCache[name];
+      return _preparedCache[name] as T;
     } else {
       throw new StateError(name);
     }
@@ -183,7 +183,7 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
       _managedNames.add(name);
     }
     if (!hasInstance(name)) {
-      logger.finer("Adding instance {0} named '{1}'", [instance, name]);
+      logger.finer("Adding instance {0} named '{1}'", <dynamic>[instance, name]);
       _cachedNames.add(name);
     }
     if (_cache[name] == null) {
@@ -192,7 +192,7 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
     } else {
       dynamic prevInstance = _cache[name];
       _cache[name] = instance;
-      logger.finer("Replacing instance {0} named '{1}' with new instance {1}", [prevInstance, name, instance]);
+      logger.finer("Replacing instance {0} named '{1}' with new instance {1}", <dynamic>[prevInstance, name, instance]);
     }
   }
 
@@ -210,7 +210,7 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
       idx = _cachedNames.indexOf(name);
       if (idx > -1) {
         _cachedNames.removeAt(idx);
-        logger.finer("Removed instance {0} named '{1}'", [instance, name]);
+        logger.finer("Removed instance {0} named '{1}'", <dynamic>[instance, name]);
       }
       return instance;
     }
@@ -227,8 +227,8 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
   }
 
   void initialize() {
-    _preparedCache = {};
-    _cache = {};
+    _preparedCache = new Map<String, dynamic>();
+    _cache = new Map<String, dynamic>();
     _cachedNames = new List<String>();
     _managedNames = new List<String>();
   }

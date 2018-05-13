@@ -106,7 +106,7 @@ class PropertyDefinition implements ICloneable {
         "\", namespaceURI:\"" +
         _namespaceURI +
         "\", value:" +
-        _value +
+        _value.toString() +
         ", isStatic:" +
         _isStatic.toString() +
         ", isSimple:\"" +

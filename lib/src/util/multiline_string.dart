@@ -41,7 +41,7 @@ class MultilineString {
   String _original;
 
   /** Separation of all lines for the string. */
-  List _lines;
+  List<String> _lines;
 
   /**
 		 * Constructs a new MultilineString.
@@ -85,7 +85,7 @@ class MultilineString {
 		 *
 		 * @return content split into lines
 		 */
-  List get lines {
+  List<String> get lines {
     return new List.from(_lines);
   }
 

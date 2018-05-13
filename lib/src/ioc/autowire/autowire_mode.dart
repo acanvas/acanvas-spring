@@ -22,7 +22,7 @@ part of rockdot_spring;
 	 * @docref container-documentation.html#autowiring_objects
 	 */
 class AutowireMode {
-  static final Map TYPES = new Map();
+  static final Map<String, AutowireMode> TYPES = new Map();
 
   /** No autowire on the object */
   static final AutowireMode NO = new AutowireMode(NO_NAME);

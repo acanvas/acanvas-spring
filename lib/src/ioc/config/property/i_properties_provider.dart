@@ -16,7 +16,7 @@
 part of rockdot_spring;
 
 abstract class IPropertiesProvider {
-  Map get content;
+  Map<String, String> get content;
 
   List<String> get propertyNames;
 

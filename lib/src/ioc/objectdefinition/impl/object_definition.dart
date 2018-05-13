@@ -32,7 +32,7 @@ class ObjectDefinition extends IObjectDefinition {
 
   // TODO: implement constructorArguments
   @override
-  List get constructorArguments => [];
+  List<dynamic> get constructorArguments => <dynamic>[];
 
   // TODO: implement isAbstract
   @override

@@ -233,7 +233,7 @@ class DefaultApplicationContextInitializer extends EventDispatcher
   }
 
   void handleObjectFactoryPostProcessorsError(OperationEvent error) {
-    LOGGER.severe("Objectfactory post processing encountered an error: ", [error.error]);
+    LOGGER.severe("Objectfactory post processing encountered an error: ", <String>[error.error.toString()]);
   }
 
   void instantiateSingletons() {
@@ -244,7 +244,7 @@ class DefaultApplicationContextInitializer extends EventDispatcher
     for (String name in names) {
       if (!_applicationContext.cache.hasInstance(name)) {
         LOGGER.finer("Instantiating singleton named '{0}'", [name]);
-        _applicationContext.getObject(name);
+        _applicationContext.getObject<dynamic>(name);
       }
     }
   }
@@ -274,7 +274,7 @@ class DefaultApplicationContextInitializer extends EventDispatcher
     }
   }
 
-  void registerObjectDefinitions(Map newObjectDefinitions) {
+  void registerObjectDefinitions(Map<String, IObjectDefinition> newObjectDefinitions) {
     if (_applicationContext.objectDefinitionRegistry != null) {
       for (String name in newObjectDefinitions.keys) {
         _applicationContext.objectDefinitionRegistry.registerObjectDefinition(name, newObjectDefinitions[name]);
@@ -289,15 +289,15 @@ class DefaultApplicationContextInitializer extends EventDispatcher
           LOGGER.finer(
               "Wiring explicit singleton named '{0}' (a cached object without a corresponding object definition)",
               [name]);
-          _applicationContext.manage(_applicationContext.cache.getInstance(name), name);
+          _applicationContext.manage(_applicationContext.cache.getInstance<dynamic>(name), name);
         }
       }
     }
   }
 
-  void providersLoadErrorHandler(dynamic error) {
+  void providersLoadErrorHandler(OperationEvent error) {
     cleanQueueAfterDefinitionProviders(_operationQueue);
-    LOGGER.severe("Object definitions provider encountered an error: ", [error]);
+    LOGGER.severe("Object definitions provider encountered an error: ", [error.error.toString()]);
   }
 
   void providersLoadedHandler(Event operationEvent) {

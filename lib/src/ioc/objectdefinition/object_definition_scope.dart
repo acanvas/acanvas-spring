@@ -20,7 +20,7 @@ part of rockdot_spring;
 	 * @author Christophe Herreman
 	 */
 class ObjectDefinitionScope {
-  static final Map TYPES = new Map();
+  static final Map<String, ObjectDefinitionScope> TYPES = new Map();
 
   /**
 		 * Multiple instances of the specified object can exist
@@ -64,7 +64,7 @@ class ObjectDefinitionScope {
   /**
 		 *
 		 */
-  static String fromName(String name) {
+  static ObjectDefinitionScope fromName(String name) {
     return TYPES[StringUtils.trim(name.toLowerCase())];
   }
 

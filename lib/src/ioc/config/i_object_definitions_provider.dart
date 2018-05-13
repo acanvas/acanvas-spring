@@ -21,8 +21,8 @@ part of rockdot_spring;
 	 */
 abstract class IObjectDefinitionsProvider {
   IOperation createDefinitions();
-  Map get objectDefinitions;
-  void set objectDefinitions(Map value);
+  Map<String, IObjectDefinition> get objectDefinitions;
+  void set objectDefinitions(Map<String, IObjectDefinition> value);
   List<TextFileURI> get propertyURIs;
   IPropertiesProvider get propertiesProvider;
   /*

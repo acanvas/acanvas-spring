@@ -32,7 +32,7 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
 
   static String generateRegistryId() {
     int len = 20;
-    List result = new List(20);
+    List<String> result = new List(20);
     while (len > 0) {
       var ran = (new Random().nextDouble() * 26).floor();
       result[--len] = CHARACTERS[ran];
@@ -46,7 +46,7 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
 		 */
   DefaultObjectDefinitionRegistry() : super() {
     logger = new Logger("DefaultObjectDefinitionRegistry");
-    _objectDefinitions = {};
+    _objectDefinitions = new Map();
     _objectDefinitionList = new List<IObjectDefinition>();
     _objectDefinitionNames = new List<String>();
     _objectDefinitionClasses = new List<Type>();
@@ -60,10 +60,10 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
   bool _isDisposed;
   List<Type> _objectDefinitionClasses;
   List<IObjectDefinition> _objectDefinitionList;
-  Map _objectDefinitionMetadataLookup;
-  Map _objectDefinitionNameLookup;
+  Map<String, List<IObjectDefinition>> _objectDefinitionMetadataLookup;
+  Map<IObjectDefinition, String> _objectDefinitionNameLookup;
   List<String> _objectDefinitionNames;
-  Map _objectDefinitions;
+  Map<String, IObjectDefinition> _objectDefinitions;
 
   /**
 		 * @inheritDoc
@@ -110,7 +110,7 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
   void dispose({bool removeSelf: true}) {
     if (!_isDisposed) {
       for (String name in _objectDefinitionNames) {
-        IObjectDefinition objectDefinition = (_objectDefinitions[name] as IObjectDefinition);
+        IObjectDefinition objectDefinition = (_objectDefinitions[name]);
         ContextUtils.disposeInstance(objectDefinition);
       }
       _objectDefinitions = null;
@@ -128,14 +128,14 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
 		 * @inheritDoc
 		 */
   IObjectDefinition getObjectDefinition(String objectName) {
-    return _objectDefinitions[objectName] as IObjectDefinition;
+    return _objectDefinitions[objectName];
   }
 
   /**
 		 * @inheritDoc
 		 */
   String getObjectDefinitionName(IObjectDefinition objectDefinition) {
-    return _objectDefinitionNameLookup[objectDefinition] as String;
+    return _objectDefinitionNameLookup[objectDefinition];
   }
 
   /**
@@ -144,7 +144,7 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
   List<String> getObjectDefinitionNamesForType(Type type) {
     logger.warning(StringUtils.substitute(
         "Failed to get Object Definition Names for Type {0} , reflection not supported in favor of dart2js filesize.",
-        [type]));
+        <String>[type.toString()]));
     List<String> result;
     /*
     for (String name in _objectDefinitionNames) {
@@ -165,7 +165,7 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
   List<IObjectDefinition> getObjectDefinitionsForType(Type type) {
     throw new StateError(StringUtils.substitute(
         "Failed to get Object Definition for Type {0} , reflection not supported in favor of dart2js filesize.",
-        [type]));
+        <String>[type.toString()]));
     /*
     List<IObjectDefinition> result;
     for (IObjectDefinition definition in _objectDefinitionList) {
@@ -222,7 +222,7 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
     if (contains && allowOverride) {
       removeObjectDefinition(objectName);
     } else if (contains && !allowOverride) {
-      throw new StateError(StringUtils.substitute(OBJECT_DEFINITION_NAME_EXISTS_ERROR, [objectName]));
+      throw new StateError(StringUtils.substitute(OBJECT_DEFINITION_NAME_EXISTS_ERROR, <String>[objectName]));
     }
 
     _objectDefinitions[objectName] = objectDefinition;
