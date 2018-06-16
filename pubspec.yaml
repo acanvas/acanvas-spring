@@ -5,4 +5,4 @@ environment:
   sdk: '>=2.0.0-dev.55.0 <2.0.0'
 dependencies:
   acanvas_commons:
-    git: https://github.com/block-forest/acanvas-commons
+    git: https://github.com/acanvas/acanvas-commons
