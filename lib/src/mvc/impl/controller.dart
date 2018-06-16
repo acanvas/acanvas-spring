@@ -59,7 +59,7 @@ class Controller extends EventDispatcher implements IController, IApplicationCon
 		 * Initializes the current <code>Controller</code>
 		 */
   void init() {
-    _eventBus = new RdEventBus();
+    _eventBus = new AcEventBus();
     clear();
   }
 
@@ -96,7 +96,7 @@ class Controller extends EventDispatcher implements IController, IApplicationCon
     //Assert.hasText(executeMethodName, "executeMethodName argument must not be null or empty");
     LOGGER.info("command {0} registered for event type {1} with execute method {2} and priority {3}",
         [commandName, eventType, executeMethodName, priority]);
-    _eventBus.addEventListener<RdSignal>(eventType, (event) {
+    _eventBus.addEventListener<AcSignal>(eventType, (event) {
       _applicationContext.getObject<ICommand>(commandName).execute(event);
     });
 
