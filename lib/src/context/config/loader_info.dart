@@ -1,6 +1,6 @@
-part of rockdot_spring;
+part of acanvas_spring;
 
-//TODO make this an interface and move implementation back to rockdot
+//TODO make this an interface and move implementation back to acanvas
 class LoaderInfo {
   String php_session_id = "";
   String protocol = "";

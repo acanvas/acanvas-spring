@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-part of rockdot_spring;
+part of acanvas_spring;
 
 /**
 	 * Classes that implement the <code>IObjectPostProcessor</code> abstract class are <em>special</em>, and so they are treated differently by the container.

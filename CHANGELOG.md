@@ -1,4 +1,4 @@
-# CHANGELOG ROCKDOT_SPRING
+# CHANGELOG ACANVAS_SPRING
 
 ## 0.10.0-dev 2018-05-13
 
@@ -17,4 +17,4 @@
 
 - About time for a changelog
 - Strong mode fixes
-- Bumped minor and release version to align with other rockdot components
+- Bumped minor and release version to align with other acanvas components

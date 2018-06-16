@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-part of rockdot_spring;
+part of acanvas_spring;
 
 /**
 	 * Describes an object that can handle the loading and initialization logic of an <code>IApplicationContext</code> implementation.

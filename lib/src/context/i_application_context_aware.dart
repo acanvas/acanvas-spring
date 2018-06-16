@@ -1,4 +1,4 @@
-part of rockdot_spring;
+part of acanvas_spring;
 
 abstract class IApplicationContextAware {
   IApplicationContext get applicationContext;

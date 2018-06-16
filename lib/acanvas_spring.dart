@@ -1,8 +1,8 @@
-library rockdot_spring;
+library acanvas_spring;
 
 import 'dart:async';
 import 'dart:math';
-import 'package:rockdot_commons/rockdot_commons.dart';
+import 'package:acanvas_commons/acanvas_commons.dart';
 import 'package:stagexl/stagexl.dart';
 import 'package:logging/logging.dart';
 

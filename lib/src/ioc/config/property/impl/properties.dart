@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-part of rockdot_spring;
+part of acanvas_spring;
 
 /**
 	 * The <code>Properties</code> class represents a collection of properties
