@@ -1,37 +1,39 @@
-## Spring Framework for Dart and StageXL
+# Acanvas Spring
 
-Port of [Spring Actionscript](http://www.springactionscript.org/) to StageXL/Dart.
+*Acanvas Spring – for Dart 2.0 and StageXL.*
 
-[Architecture Diagram](http://acanvas.sounddesignz.com/template/assets/home/acanvas_spring_architecture.png).
+*Acanvas Spring* is part of the *[Acanvas Framework](http://acanvas.sounddesignz.com/acanvas-framework/)* layered architecture [(diagram)](http://acanvas.sounddesignz.com/template/assets/home/acanvas_spring_architecture.png).
 
-### Note that this will never become a full port!
+Build your own *Acanvas* project now – with [Acanvas Generator](https://github.com/acanvas/acanvas-generator)!
+* Blazing fast IoC/DI/MVC UI framework for WebGL and Canvas2D, written in Dart.
+* Write web apps, games, or both, in pure Dart. No HTML, no CSS, no JS.
 
-#### What's there
-* ApplicationContext
-* ObjectFactory, InstanceCache, PostProcessing, PropertyProvider
-* IoC - Interface Injection
-* Micro MVC library
 
-#### What's not there
-* XMLApplicationContext - would screw up minification and introspection; Dart doesn't have a mature XML parser anyways
-* Stageprocessing - would screw up minification, and the author doesn't like magic functionality, anyways
-* Metadata-based injection - would screw up minification, and the author doesn't like magic functionality, anyways
-* Type-based injection - would screw up minification, and the author doesn't like magic functionality, anyways
+### Features
 
-## What's it good for
+*Acanvas Spring* is a port of [Spring Actionscript](http://www.springactionscript.org/), an official Spring Framework implementation, to Dart 2.0 and StagelXL.
 
-Acanvas Spring is the backbone of [Acanvas framework](https://github.com/blockforest/acanvas-framework).
+* *ApplicationContext* - Add any object to the project's runtime context, and by Interface injection and Interface postprocessing, wire them into *Acanvas Spring* or *Acanvas Framework*.
+  * *ObjectFactory* - Creates and manages objects.
+  * *InstanceCache* - So much better than singletons. 
+  * *PropertyProvider* - Load and access language or configuration properties conveniently.
+* *Inversion of Control*
+  * *Interface Injection* - Inject other *Acanvas Spring* objects into your object based on the Interfaces it implements.
+  * *PostProcessing* - Have other *Acanvas Spring* objects postprocess your object based on its Interfaces, object name, or type.
+* *Micro MVC library* - The Controller is implemented as front controller dispatching to *Commands* and *Command Sequences* via *Signals*.
 
-Acanvas for Dart is a blazing fast IoC/DI/MVC framework for WebGL and Canvas2D, based on StageXL.
-It lets you write apps as well as games (or a mix of the two) in pure Dart. You read that right: No HTML, no CSS.
 
 ### Examples
 
-* [Full Framework Demo](http://acanvas.sounddesignz.com/template/) - Generated with [Acanvas CLI](https://github.com/block-forest/acanvas-generator)
-* [DartBook](http://acanvas.sounddesignz.com/dartbook/) - [Source](https://github.com/nilsdoehring/dartbook)
-* [Box2D](http://acanvas.sounddesignz.com/box2d/) - [Source](https://github.com/block-forest/acanvas-physics/tree/master/lib/src/Examples)
-* [BabylonJS StageXL Wrapper](http://acanvas.sounddesignz.com/dart/babylonjs-interop/) - [Source](https://github.com/block-forest/babylonjs-dart-facade/tree/master/example)
-* [THREE.js StageXL Wrapper](http://acanvas.sounddesignz.com/dart/threejs-interop/) - [Source](https://github.com/block-forest/threejs-dart-facade/tree/master/example)
-* [Material Design - Buttons (Commons only, just 92 KiB!)](http://acanvas.sounddesignz.com/stagexl-commons/paper_buttons.html) - [Source](https://github.com/block-forest/acanvas-commons/blob/master/web/material_buttons.dart)
-* [Material Design - Controls (Commons only)](http://acanvas.sounddesignz.com/stagexl-commons/paper_radio.html) - [Source](https://github.com/block-forest/acanvas-commons/blob/master/web/material_radio.dart)
-* [Material Design - Input (Commons only)](http://acanvas.sounddesignz.com/stagexl-commons/paper_input.html) - [Source](https://github.com/block-forest/acanvas-commons/blob/master/web/material_input.dart)
+* The [Acanvas Framework Demo](http://acanvas.sounddesignz.com/acanvas-framework/) wouldn't be possible without *Acanvas Spring*.
+* The best way to learn how to use *Acanvas Spring* and *Acanvas Framework* by generating a project with [Acanvas Generator](https://github.com/acanvas/acanvas-generator).
+
+### Limitations
+
+Acanvas Spring is targeted for use in Dart 2.0 web projects, and as such is omitting all Spring functionality that would negatively affect file size, especially those requiring *reflection*.
+As such, not present in *Acanvas Spring* are:
+
+* *XMLApplicationContext* - Additional impediment: Dart offers only basic XML libraries.
+* *Stageprocessing* - Additional impediment: CPU resource heavy.
+* Configuration with *Annotations* and *Metadata*.
+* Instantiation and Injection based on class *Type*.
