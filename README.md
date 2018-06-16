@@ -4,7 +4,7 @@
 
 *Acanvas Spring* is part of the *[Acanvas Framework](http://acanvas.sounddesignz.com/acanvas-framework/)* layered architecture [(diagram)](http://acanvas.sounddesignz.com/template/assets/home/acanvas_spring_architecture.png).
 
-Build your own *Acanvas* project now – with [Acanvas Generator](https://github.com/acanvas/acanvas-generator)!
+Build your own *Acanvas* project now – with *[Acanvas Generator](https://github.com/acanvas/acanvas-generator)*!
 * Blazing fast IoC/DI/MVC UI framework for WebGL and Canvas2D, written in Dart.
 * Write web apps, games, or both, in pure Dart. No HTML, no CSS, no JS.
 
