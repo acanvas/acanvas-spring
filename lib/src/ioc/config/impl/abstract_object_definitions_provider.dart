@@ -19,7 +19,8 @@ part of acanvas_spring;
 	 *
 	 * @author Roland Zwaga
 	 */
-class AbstractObjectDefinitionsProvider implements IObjectDefinitionsProvider, IDisposable {
+class AbstractObjectDefinitionsProvider
+    implements IObjectDefinitionsProvider, IDisposable {
   Map<String, IObjectDefinition> _objectDefinitions;
   IBaseObjectDefinition _defaultObjectDefinition;
   List<TextFileURI> _propertyURIs;

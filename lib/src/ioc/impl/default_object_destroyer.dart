@@ -19,7 +19,8 @@ part of acanvas_spring;
 	 *
 	 * @author Roland Zwaga
 	 */
-class DefaultObjectDestroyer implements IObjectDestroyer, IApplicationContextAware, IDisposable {
+class DefaultObjectDestroyer
+    implements IObjectDestroyer, IApplicationContextAware, IDisposable {
   Map<Object, String> _managedObjects;
   bool _isDisposed;
   IApplicationContext _applicationContext;
@@ -53,7 +54,8 @@ class DefaultObjectDestroyer implements IObjectDestroyer, IApplicationContextAwa
   void registerInstance(Object instance, [String objectName = null]) {
     if (instance != null) {
       (objectName != null) ? objectName : objectName = NAMELESS;
-      logger.info("Registered instance {0} with name {1}", [instance, objectName]);
+      logger.info(
+          "Registered instance {0} with name {1}", [instance, objectName]);
       _managedObjects[instance] = objectName;
     }
   }

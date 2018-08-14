@@ -33,7 +33,8 @@ part of acanvas_spring;
 	 * @author Roland Zwaga
 	 */
 
-abstract class IObjectFactory extends EventDispatcher implements IObjectDefinitionRegistryAware {
+abstract class IObjectFactory extends EventDispatcher
+    implements IObjectDefinitionRegistryAware {
   /**
 		 * The <code>ApplicationDomain</code> that is associated with the current <code>IObjectFactory</code>
 		 */
@@ -100,7 +101,8 @@ abstract class IObjectFactory extends EventDispatcher implements IObjectDefiniti
 		 *
 		 * @param objectPostProcessor
 		 */
-  IObjectFactory addObjectPostProcessor(IObjectPostProcessor objectPostProcessor);
+  IObjectFactory addObjectPostProcessor(
+      IObjectPostProcessor objectPostProcessor);
 
   /**
 		 *
@@ -123,7 +125,8 @@ abstract class IObjectFactory extends EventDispatcher implements IObjectDefiniti
 		 * @param constructorArguments Optional <code>List</code> of constructor arguments to be used for the instance.
 		 * @return The created and wired instance of the specified <code>Class</code>.
 		 */
-  dynamic createInstance(Type clazz, String objectName, [List constructorArguments = null]);
+  dynamic createInstance(Type clazz, String objectName,
+      [List constructorArguments = null]);
 
   /**
 		 *
@@ -172,7 +175,8 @@ abstract class IObjectFactory extends EventDispatcher implements IObjectDefiniti
 		 *   Person myPerson = objectFactory.getObject("myPerson");
 		 * </listing>
 		 */
-  T getObject<T extends dynamic>(String name, [List constructorArguments = null]);
+  T getObject<T extends dynamic>(String name,
+      [List constructorArguments = null]);
 
   /**
 		 *
@@ -192,5 +196,7 @@ abstract class IObjectFactory extends EventDispatcher implements IObjectDefiniti
 		 * @return
 		 */
   dynamic wire(dynamic instance,
-      [IObjectDefinition objectDefinition = null, List constructorArguments = null, String objectName = null]);
+      [IObjectDefinition objectDefinition = null,
+      List constructorArguments = null,
+      String objectName = null]);
 }

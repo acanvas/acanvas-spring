@@ -19,7 +19,10 @@ part of acanvas_spring;
 	 *
 	 * @author Roland Zwaga
 	 */
-class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDisposable /*, IApplicationDomainAware */ {
+class DefaultObjectDefinitionRegistry
+    implements
+        IObjectDefinitionRegistry,
+        IDisposable /*, IApplicationDomainAware */ {
   static const String CHARACTERS = "abcdefghijklmnopqrstuvwxyz";
   static const String FACTORY_OBJECT_PREFIX = '&';
   static const String IS_SINGLETON_FIELD_NAME = "isSingleton";
@@ -53,7 +56,8 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
     _objectDefinitionMetadataLookup = new Map();
     _objectDefinitionNameLookup = new Map();
     _id = generateRegistryId();
-    logger.finer("Created new DefaultObjectDefinitionRegistry with id {0}", [_id]);
+    logger.finer(
+        "Created new DefaultObjectDefinitionRegistry with id {0}", [_id]);
   }
 
   String _id;
@@ -180,13 +184,17 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
   /**
 		 * @inheritDoc
 		 */
-  List<IObjectDefinition> getObjectDefinitionsWithMetadata(List<String> metadataNames) {
+  List<IObjectDefinition> getObjectDefinitionsWithMetadata(
+      List<String> metadataNames) {
     List<IObjectDefinition> result;
     for (String name in metadataNames) {
       name = name.toLowerCase() + METADATA_KEY_SUFFIX;
       List<IObjectDefinition> list = _objectDefinitionMetadataLookup[name];
       if (list != null) {
-        result = ((result != null) ? result : result = new List<IObjectDefinition>())..addAll(list);
+        result = ((result != null)
+            ? result
+            : result = new List<IObjectDefinition>())
+          ..addAll(list);
       }
     }
     return result;
@@ -204,7 +212,9 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
 		 */
   bool isPrototype(String objectName) {
     IObjectDefinition objectDefinition = getObjectDefinition(objectName);
-    return (objectDefinition != null) ? (objectDefinition.scope == ObjectDefinitionScope.PROTOTYPE) : false;
+    return (objectDefinition != null)
+        ? (objectDefinition.scope == ObjectDefinitionScope.PROTOTYPE)
+        : false;
   }
 
   /**
@@ -217,12 +227,15 @@ class DefaultObjectDefinitionRegistry implements IObjectDefinitionRegistry, IDis
   /**
 		 * @inheritDoc
 		 */
-  void registerObjectDefinition(String objectName, IObjectDefinition objectDefinition, [bool allowOverride = true]) {
+  void registerObjectDefinition(
+      String objectName, IObjectDefinition objectDefinition,
+      [bool allowOverride = true]) {
     bool contains = containsObjectDefinition(objectName);
     if (contains && allowOverride) {
       removeObjectDefinition(objectName);
     } else if (contains && !allowOverride) {
-      throw new StateError(StringUtils.substitute(OBJECT_DEFINITION_NAME_EXISTS_ERROR, <String>[objectName]));
+      throw new StateError(StringUtils.substitute(
+          OBJECT_DEFINITION_NAME_EXISTS_ERROR, <String>[objectName]));
     }
 
     _objectDefinitions[objectName] = objectDefinition;

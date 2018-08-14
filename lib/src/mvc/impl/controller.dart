@@ -35,7 +35,8 @@ part of acanvas_spring;
 	 * as its command factory.</p>
 	 * @inheritDoc
 	 */
-class Controller extends EventDispatcher implements IController, IApplicationContextAware {
+class Controller extends EventDispatcher
+    implements IController, IApplicationContextAware {
   Logger LOGGER;
   IEventBus _eventBus;
   List<String> _eventTypeRegistry;
@@ -89,12 +90,14 @@ class Controller extends EventDispatcher implements IController, IApplicationCon
   /**
 		 * @inheritDoc
 		 */
-  void registerCommandForEventType(String eventType, String commandName, String executeMethodName,
+  void registerCommandForEventType(
+      String eventType, String commandName, String executeMethodName,
       [List<String> properties = null, int priority = 0]) {
     //Assert.hasText(eventType, "eventType argument must not be null or empty");
     //Assert.hasText(commandName, "commandName argument must not be null or empty");
     //Assert.hasText(executeMethodName, "executeMethodName argument must not be null or empty");
-    LOGGER.info("command {0} registered for event type {1} with execute method {2} and priority {3}",
+    LOGGER.info(
+        "command {0} registered for event type {1} with execute method {2} and priority {3}",
         [commandName, eventType, executeMethodName, priority]);
     _eventBus.addEventListener<AcSignal>(eventType, (event) {
       _applicationContext.getObject<ICommand>(commandName).execute(event);

@@ -25,16 +25,20 @@ part of acanvas_spring;
 	 */
 class DefaultApplicationContextInitializer extends EventDispatcher
     implements IApplicationContextInitializer, IDisposable {
-  static const String APPLICATION_CONTEXT_PROPERTIES_LOADER_NAME = "applicationContextTextFilesLoader";
-  static const String DEFINITION_PROVIDER_QUEUE_NAME = "definitionProviderQueue";
+  static const String APPLICATION_CONTEXT_PROPERTIES_LOADER_NAME =
+      "applicationContextTextFilesLoader";
+  static const String DEFINITION_PROVIDER_QUEUE_NAME =
+      "definitionProviderQueue";
   Logger LOGGER;
   static const String NEWLINE_CHAR = "\n";
-  static const String OBJECT_FACTORY_POST_PROCESSOR_QUEUE_NAME = "objectFactoryPostProcessorQueue";
+  static const String OBJECT_FACTORY_POST_PROCESSOR_QUEUE_NAME =
+      "objectFactoryPostProcessorQueue";
 
   /**
 		 * Creates a new <code>DefaultApplicationContextInitializer</code> instance.
 		 */
-  DefaultApplicationContextInitializer([/*I*/ EventDispatcher target = null]) : super(/*target*/) {
+  DefaultApplicationContextInitializer([/*I*/ EventDispatcher target = null])
+      : super(/*target*/) {
     LOGGER = new Logger("DefaultApplicationContextInitializer");
   }
 
@@ -95,20 +99,25 @@ class DefaultApplicationContextInitializer extends EventDispatcher
     if (!_applicationContext.isReady) {
       _operationQueue = new OperationQueue(DEFINITION_PROVIDER_QUEUE_NAME);
 
-      for (IObjectDefinitionsProvider provider in _applicationContext.definitionProviders) {
+      for (IObjectDefinitionsProvider provider
+          in _applicationContext.definitionProviders) {
         LOGGER.finer("Executing object definitions provider {0}", [provider]);
         IOperation operation = provider.createDefinitions();
         if (operation != null) {
-          LOGGER.finer("Object definitions provider {0} is asynchronous...", [provider]);
-          operation.addCompleteListener<OperationEvent>(providerCompleteHandler, false, 0, true);
+          LOGGER.finer(
+              "Object definitions provider {0} is asynchronous...", [provider]);
+          operation.addCompleteListener<OperationEvent>(
+              providerCompleteHandler, false, 0, true);
           _operationQueue.addOperation(operation);
         } else {
           handleObjectDefinitionResult(provider);
         }
       }
       if (_operationQueue.total > 0) {
-        _operationQueue.addCompleteListener<OperationEvent>(providersLoadedHandler);
-        _operationQueue.addErrorListener<OperationEvent>(providersLoadErrorHandler);
+        _operationQueue
+            .addCompleteListener<OperationEvent>(providersLoadedHandler);
+        _operationQueue
+            .addErrorListener<OperationEvent>(providersLoadErrorHandler);
       } else {
         _operationQueue = null;
         cleanUpObjectDefinitionCreation();
@@ -123,7 +132,8 @@ class DefaultApplicationContextInitializer extends EventDispatcher
   void cleanUpObjectDefinitionCreation() {
     ContextUtils.disposeInstance(_propertiesParser);
     _propertiesParser = null;
-    for (IObjectDefinitionsProvider definitionProvider in _applicationContext.definitionProviders) {
+    for (IObjectDefinitionsProvider definitionProvider
+        in _applicationContext.definitionProviders) {
       ContextUtils.disposeInstance(definitionProvider);
     }
     _applicationContext.definitionProviders.length = 0;
@@ -132,7 +142,8 @@ class DefaultApplicationContextInitializer extends EventDispatcher
     _textFilesLoader = null;
     _applicationContext.isReady = true;
     injectContextParts();
-    _applicationContext.dispatchEvent(new ContextEvent(ContextEvent.AFTER_INITIALIZED, _applicationContext));
+    _applicationContext.dispatchEvent(
+        new ContextEvent(ContextEvent.AFTER_INITIALIZED, _applicationContext));
     executeObjectFactoryPostProcessors();
   }
 
@@ -145,13 +156,18 @@ class DefaultApplicationContextInitializer extends EventDispatcher
     if (_applicationContext.objectDestroyer != null) {
       return;
     }
-    List<String> names = _applicationContext.objectDefinitionRegistry.getObjectDefinitionNamesForType(IObjectDestroyer);
+    List<String> names = _applicationContext.objectDefinitionRegistry
+        .getObjectDefinitionNamesForType(IObjectDestroyer);
     if (names == null) {
-      _applicationContext.objectDestroyer = new DefaultObjectDestroyer(_applicationContext);
+      _applicationContext.objectDestroyer =
+          new DefaultObjectDestroyer(_applicationContext);
     } else if (names.length == 1) {
-      _applicationContext.objectDestroyer = _applicationContext.getObject(names[0]);
+      _applicationContext.objectDestroyer =
+          _applicationContext.getObject(names[0]);
     } else {
-      throw new StateError("Multiple IObjectDestroyer implementations found in context: " + names.join(','));
+      throw new StateError(
+          "Multiple IObjectDestroyer implementations found in context: " +
+              names.join(','));
     }
   }
 
@@ -160,13 +176,17 @@ class DefaultApplicationContextInitializer extends EventDispatcher
       if ((_applicationContext as IEventBusAware).eventBus != null) {
         return;
       }
-      List<String> names = _applicationContext.objectDefinitionRegistry.getObjectDefinitionNamesForType(IEventBus);
+      List<String> names = _applicationContext.objectDefinitionRegistry
+          .getObjectDefinitionNamesForType(IEventBus);
       if (names == null) {
         (_applicationContext as IEventBusAware).eventBus = new AcEventBus();
       } else if (names.length == 1) {
-        (_applicationContext as IEventBusAware).eventBus = _applicationContext.getObject(names[0]);
+        (_applicationContext as IEventBusAware).eventBus =
+            _applicationContext.getObject(names[0]);
       } else {
-        throw new StateError("Multiple IEventBus implementations found in context: " + names.join(','));
+        throw new StateError(
+            "Multiple IEventBus implementations found in context: " +
+                names.join(','));
       }
     }
   }
@@ -176,25 +196,33 @@ class DefaultApplicationContextInitializer extends EventDispatcher
   }
 
   void executeObjectFactoryPostProcessors() {
-    _operationQueue = new OperationQueue(OBJECT_FACTORY_POST_PROCESSOR_QUEUE_NAME);
-    for (IObjectFactoryPostProcessor postprocessor in _applicationContext.objectFactoryPostProcessors) {
-      LOGGER.finer("Executing object factory postprocessor {0}", [postprocessor]);
-      IOperation operation = postprocessor.postProcessObjectFactory(_applicationContext);
+    _operationQueue =
+        new OperationQueue(OBJECT_FACTORY_POST_PROCESSOR_QUEUE_NAME);
+    for (IObjectFactoryPostProcessor postprocessor
+        in _applicationContext.objectFactoryPostProcessors) {
+      LOGGER
+          .finer("Executing object factory postprocessor {0}", [postprocessor]);
+      IOperation operation =
+          postprocessor.postProcessObjectFactory(_applicationContext);
       if (operation != null) {
-        LOGGER.finer("Objectfactory postprocessor {0} is asynchronous...", [postprocessor]);
+        LOGGER.finer("Objectfactory postprocessor {0} is asynchronous...",
+            [postprocessor]);
         _operationQueue.addOperation(operation);
       }
     }
     if (_operationQueue.total > 0) {
-      _operationQueue.addCompleteListener<OperationEvent>(handleObjectFactoryPostProcessorsComplete, false, 0, true);
-      _operationQueue.addErrorListener<OperationEvent>(handleObjectFactoryPostProcessorsError, false, 0, true);
+      _operationQueue.addCompleteListener<OperationEvent>(
+          handleObjectFactoryPostProcessorsComplete, false, 0, true);
+      _operationQueue.addErrorListener<OperationEvent>(
+          handleObjectFactoryPostProcessorsError, false, 0, true);
     } else {
       finalizeObjectFactoryProcessorExecution();
     }
   }
 
   void finalizeObjectFactoryProcessorExecution() {
-    for (IObjectFactoryPostProcessor postprocessor in _applicationContext.objectFactoryPostProcessors) {
+    for (IObjectFactoryPostProcessor postprocessor
+        in _applicationContext.objectFactoryPostProcessors) {
       ContextUtils.disposeInstance(postprocessor);
     }
     if (_applicationContext.objectFactoryPostProcessors != null) {
@@ -209,22 +237,26 @@ class DefaultApplicationContextInitializer extends EventDispatcher
     completeContextInitialization();
   }
 
-  void handleObjectDefinitionResult(IObjectDefinitionsProvider objectDefinitionsProvider) {
+  void handleObjectDefinitionResult(
+      IObjectDefinitionsProvider objectDefinitionsProvider) {
     if (objectDefinitionsProvider == null) {
       return;
     }
     registerObjectDefinitions(objectDefinitionsProvider.objectDefinitions);
 
     List<TextFileURI> propertyURIs = objectDefinitionsProvider.propertyURIs;
-    bool objectDefinitionsProviderHasPropertyURIs = (propertyURIs != null) && (propertyURIs.length > 0);
+    bool objectDefinitionsProviderHasPropertyURIs =
+        (propertyURIs != null) && (propertyURIs.length > 0);
 
     if (objectDefinitionsProviderHasPropertyURIs != null) {
       loadPropertyURIs(propertyURIs);
     }
     if ((objectDefinitionsProvider.propertiesProvider != null) &&
         (objectDefinitionsProvider.propertiesProvider.length > 0)) {
-      LOGGER.finer("Object definitions provider returned a set of properties, adding it to the context");
-      _applicationContext.propertiesProvider.merge(objectDefinitionsProvider.propertiesProvider);
+      LOGGER.finer(
+          "Object definitions provider returned a set of properties, adding it to the context");
+      _applicationContext.propertiesProvider
+          .merge(objectDefinitionsProvider.propertiesProvider);
     }
   }
 
@@ -233,14 +265,17 @@ class DefaultApplicationContextInitializer extends EventDispatcher
   }
 
   void handleObjectFactoryPostProcessorsError(OperationEvent error) {
-    LOGGER.severe("Objectfactory post processing encountered an error: ", <String>[error.error.toString()]);
+    LOGGER.severe("Objectfactory post processing encountered an error: ",
+        <String>[error.error.toString()]);
   }
 
   void instantiateSingletons() {
-    if ((_applicationContext.cache == null) || (_applicationContext.objectDefinitionRegistry == null)) {
+    if ((_applicationContext.cache == null) ||
+        (_applicationContext.objectDefinitionRegistry == null)) {
       return;
     }
-    List<String> names = _applicationContext.objectDefinitionRegistry.getSingletons();
+    List<String> names =
+        _applicationContext.objectDefinitionRegistry.getSingletons();
     for (String name in names) {
       if (!_applicationContext.cache.hasInstance(name)) {
         LOGGER.finer("Instantiating singleton named '{0}'", [name]);
@@ -251,13 +286,17 @@ class DefaultApplicationContextInitializer extends EventDispatcher
 
   void loadPropertyURIs(List<TextFileURI> propertyURIs) {
     LOGGER.finer("Loading property URI's");
-    (_textFilesLoader != null) ? _textFilesLoader : _textFilesLoader = createTextFilesLoader();
+    (_textFilesLoader != null)
+        ? _textFilesLoader
+        : _textFilesLoader = createTextFilesLoader();
     _textFilesLoader.addURIs(propertyURIs);
   }
 
   ITextFilesLoader createTextFilesLoader() {
-    ITextFilesLoader textFilesLoader = new TextFilesLoader(APPLICATION_CONTEXT_PROPERTIES_LOADER_NAME);
-    textFilesLoader.addCompleteListener<OperationEvent>(propertyTextFilesLoadComplete, false, 0, true);
+    ITextFilesLoader textFilesLoader =
+        new TextFilesLoader(APPLICATION_CONTEXT_PROPERTIES_LOADER_NAME);
+    textFilesLoader.addCompleteListener<OperationEvent>(
+        propertyTextFilesLoadComplete, false, 0, true);
     _operationQueue.addOperation(textFilesLoader);
     return textFilesLoader;
   }
@@ -267,17 +306,23 @@ class DefaultApplicationContextInitializer extends EventDispatcher
     if (propertySources != null) {
       Properties properties = new Properties();
       String source = propertySources.join(NEWLINE_CHAR);
-      (propertiesParser != null) ? propertiesParser : propertiesParser = new KeyValuePropertiesParser();
-      LOGGER.finer("External properties files loaded, starting to parse it using {0}", [propertiesParser]);
+      (propertiesParser != null)
+          ? propertiesParser
+          : propertiesParser = new KeyValuePropertiesParser();
+      LOGGER.finer(
+          "External properties files loaded, starting to parse it using {0}",
+          [propertiesParser]);
       propertiesParser.parseProperties(source, properties);
       _applicationContext.propertiesProvider.merge(properties);
     }
   }
 
-  void registerObjectDefinitions(Map<String, IObjectDefinition> newObjectDefinitions) {
+  void registerObjectDefinitions(
+      Map<String, IObjectDefinition> newObjectDefinitions) {
     if (_applicationContext.objectDefinitionRegistry != null) {
       for (String name in newObjectDefinitions.keys) {
-        _applicationContext.objectDefinitionRegistry.registerObjectDefinition(name, newObjectDefinitions[name]);
+        _applicationContext.objectDefinitionRegistry
+            .registerObjectDefinition(name, newObjectDefinitions[name]);
       }
     }
   }
@@ -285,11 +330,13 @@ class DefaultApplicationContextInitializer extends EventDispatcher
   void wireExplicitSingletons(List<String> names) {
     if (_applicationContext.dependencyInjector != null) {
       for (String name in names) {
-        if (!_applicationContext.objectDefinitionRegistry.containsObjectDefinition(name)) {
+        if (!_applicationContext.objectDefinitionRegistry
+            .containsObjectDefinition(name)) {
           LOGGER.finer(
               "Wiring explicit singleton named '{0}' (a cached object without a corresponding object definition)",
               [name]);
-          _applicationContext.manage(_applicationContext.cache.getInstance<dynamic>(name), name);
+          _applicationContext.manage(
+              _applicationContext.cache.getInstance<dynamic>(name), name);
         }
       }
     }
@@ -297,7 +344,8 @@ class DefaultApplicationContextInitializer extends EventDispatcher
 
   void providersLoadErrorHandler(OperationEvent error) {
     cleanQueueAfterDefinitionProviders(_operationQueue);
-    LOGGER.severe("Object definitions provider encountered an error: ", [error.error.toString()]);
+    LOGGER.severe("Object definitions provider encountered an error: ",
+        [error.error.toString()]);
   }
 
   void providersLoadedHandler(Event operationEvent) {

@@ -29,7 +29,8 @@ abstract class IAutowireProcessor {
 		 * @param objectDefinition The <code>IObjectDefinition</code> associated with the object that needs to be created.
 		 * @param objectName The name of the object as it is registered in a container.
 		 */
-  void autoWire(Object object, [IObjectDefinition objectDefinition = null, String objectName = null]);
+  void autoWire(Object object,
+      [IObjectDefinition objectDefinition = null, String objectName = null]);
 
   /**
 		 * <p>Method that can be invoked by an <code>IObjectFactory</code> implementation for any type of pre-processing

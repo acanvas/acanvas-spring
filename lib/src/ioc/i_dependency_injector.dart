@@ -37,13 +37,15 @@ abstract class IDependencyInjector extends /*I*/ EventDispatcher {
 		 * @param instance
 		 * @param objectFactory
 		 */
-  void executeMethodInvocations(IObjectDefinition objectDefinition, dynamic instance, IObjectFactory objectFactory);
+  void executeMethodInvocations(IObjectDefinition objectDefinition,
+      dynamic instance, IObjectFactory objectFactory);
   /**
 		 *
 		 * @param instance
 		 * @param objectDefinition
 		 */
-  void initializeInstance(dynamic instance, [IObjectDefinition objectDefinition = null]);
+  void initializeInstance(dynamic instance,
+      [IObjectDefinition objectDefinition = null]);
   /**
 		 *
 		 * @param instance
@@ -51,6 +53,6 @@ abstract class IDependencyInjector extends /*I*/ EventDispatcher {
 		 * @param objectName
 		 * @param objectFactory
 		 */
-  void injectProperties(
-      dynamic instance, IObjectDefinition objectDefinition, String objectName, IObjectFactory objectFactory);
+  void injectProperties(dynamic instance, IObjectDefinition objectDefinition,
+      String objectName, IObjectFactory objectFactory);
 }

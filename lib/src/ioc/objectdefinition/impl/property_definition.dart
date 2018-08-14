@@ -94,8 +94,8 @@ class PropertyDefinition implements ICloneable {
   }
 
   dynamic clone() {
-    PropertyDefinition prop =
-        new PropertyDefinition(this.name, this.value, this.namespaceURI, this.isStatic, this.isLazy);
+    PropertyDefinition prop = new PropertyDefinition(
+        this.name, this.value, this.namespaceURI, this.isStatic, this.isLazy);
     prop.isSimple = this.isSimple;
     return prop;
   }

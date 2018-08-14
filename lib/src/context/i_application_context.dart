@@ -20,7 +20,8 @@ part of acanvas_spring;
 	 * @author Roland Zwaga
 	 */
 
-abstract class IApplicationContext extends IObjectFactory /*, IStageObjectProcessorRegistryAware */ {
+abstract class IApplicationContext
+    extends IObjectFactory /*, IStageObjectProcessorRegistryAware */ {
   /**
 		 * Returns a <code>Vector</code> of <code>IApplicationContexts</code> that have been registered as a child of the current <code>IApplicationContext</code>.
 		 */
@@ -67,7 +68,8 @@ abstract class IApplicationContext extends IObjectFactory /*, IStageObjectProces
 		 *
 		 * @param provider
 		 */
-  IApplicationContext addDefinitionProvider(IObjectDefinitionsProvider provider);
+  IApplicationContext addDefinitionProvider(
+      IObjectDefinitionsProvider provider);
 
   /**
 		 *
@@ -79,7 +81,8 @@ abstract class IApplicationContext extends IObjectFactory /*, IStageObjectProces
 		 *
 		 * @param objectFactoryPostProcessor
 		 */
-  IApplicationContext addObjectFactoryPostProcessor(IObjectFactoryPostProcessor objectFactoryPostProcessor);
+  IApplicationContext addObjectFactoryPostProcessor(
+      IObjectFactoryPostProcessor objectFactoryPostProcessor);
 
   /**
 		 *

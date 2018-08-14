@@ -39,7 +39,8 @@ part of acanvas_spring;
 	 *
 	 * @author Roland Zwaga
 	 */
-class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, IDisposable {
+class DefaultInstanceCache extends EventDispatcher
+    implements IInstanceCache, IDisposable {
   Logger logger;
 
   /**
@@ -173,7 +174,8 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
 		 */
   void putInstance(String name, dynamic instance, [bool isManaged = true]) {
     if ((instance == null)) {
-      throw new StateError("Null or undefined values are not allowed to be added to the instance cache");
+      throw new StateError(
+          "Null or undefined values are not allowed to be added to the instance cache");
     }
     int idx = _managedNames.indexOf(name);
     if (idx > -1) {
@@ -183,7 +185,8 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
       _managedNames.add(name);
     }
     if (!hasInstance(name)) {
-      logger.finer("Adding instance {0} named '{1}'", <dynamic>[instance, name]);
+      logger
+          .finer("Adding instance {0} named '{1}'", <dynamic>[instance, name]);
       _cachedNames.add(name);
     }
     if (_cache[name] == null) {
@@ -192,7 +195,8 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
     } else {
       dynamic prevInstance = _cache[name];
       _cache[name] = instance;
-      logger.finer("Replacing instance {0} named '{1}' with new instance {1}", <dynamic>[prevInstance, name, instance]);
+      logger.finer("Replacing instance {0} named '{1}' with new instance {1}",
+          <dynamic>[prevInstance, name, instance]);
     }
   }
 
@@ -210,7 +214,8 @@ class DefaultInstanceCache extends EventDispatcher implements IInstanceCache, ID
       idx = _cachedNames.indexOf(name);
       if (idx > -1) {
         _cachedNames.removeAt(idx);
-        logger.finer("Removed instance {0} named '{1}'", <dynamic>[instance, name]);
+        logger.finer(
+            "Removed instance {0} named '{1}'", <dynamic>[instance, name]);
       }
       return instance;
     }

@@ -30,7 +30,8 @@ part of acanvas_spring;
 	 */
 class MultilineString {
   /** Character code for the WINDOWS line break. */
-  static final String WIN_BREAK = new String.fromCharCodes([13]) + new String.fromCharCodes([10]);
+  static final String WIN_BREAK =
+      new String.fromCharCodes([13]) + new String.fromCharCodes([10]);
 
   /** Character code for the APPLE line break. */
   static final String MAC_BREAK = new String.fromCharCodes([13]);
@@ -52,7 +53,12 @@ class MultilineString {
 
   void initMultiString(String string) {
     _original = string;
-    _lines = string.split(WIN_BREAK).join(NEWLINE_CHAR).split(MAC_BREAK).join(NEWLINE_CHAR).split(NEWLINE_CHAR);
+    _lines = string
+        .split(WIN_BREAK)
+        .join(NEWLINE_CHAR)
+        .split(MAC_BREAK)
+        .join(NEWLINE_CHAR)
+        .split(NEWLINE_CHAR);
   }
 
   /**

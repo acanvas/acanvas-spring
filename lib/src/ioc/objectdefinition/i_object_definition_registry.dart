@@ -112,7 +112,8 @@ abstract class IObjectDefinitionRegistry {
 		 * @param metadataNames
 		 * @return
 		 */
-  List<IObjectDefinition> getObjectDefinitionsWithMetadata(List<String> metadataNames);
+  List<IObjectDefinition> getObjectDefinitionsWithMetadata(
+      List<String> metadataNames);
 
   /**
 		 * @param type
@@ -184,7 +185,9 @@ abstract class IObjectDefinitionRegistry {
 		 * @param objectName the name under which the object definition should be stored
 		 * @param objectDefinition the object definition to store
 		 */
-  void registerObjectDefinition(String objectName, IObjectDefinition objectDefinition, [bool allowOverride = true]);
+  void registerObjectDefinition(
+      String objectName, IObjectDefinition objectDefinition,
+      [bool allowOverride = true]);
 
   /**
 		 * Removes the definition with the given name from the registry

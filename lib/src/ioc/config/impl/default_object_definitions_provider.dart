@@ -19,7 +19,8 @@ part of acanvas_spring;
 	 *
 	 * @author Roland Zwaga
 	 */
-class DefaultObjectDefinitionsProvider extends AbstractObjectDefinitionsProvider {
+class DefaultObjectDefinitionsProvider
+    extends AbstractObjectDefinitionsProvider {
   /**
 		 * Creates a new <code>AbstractObjectDefinitionsProvider</code> instance.
 		 */

@@ -21,8 +21,10 @@ part of acanvas_spring;
 	 * @author Christophe Herreman
 	 * @inheritDoc
 	 */
-class ApplicationContextAwareObjectPostProcessor implements IObjectPostProcessor {
-  static final Logger logger = new Logger("ApplicationContextAwareObjectPostProcessor");
+class ApplicationContextAwareObjectPostProcessor
+    implements IObjectPostProcessor {
+  static final Logger logger =
+      new Logger("ApplicationContextAwareObjectPostProcessor");
 
   IApplicationContext _applicationContext;
 
@@ -30,7 +32,8 @@ class ApplicationContextAwareObjectPostProcessor implements IObjectPostProcessor
 		 * Creates a new <code>ApplicationContextAwareProcessor</code> instance.
 		 * @param applicationContext The <code>IApplicationContext</code> instance that will be injected.
 		 */
-  ApplicationContextAwareObjectPostProcessor(IApplicationContext applicationContext) {
+  ApplicationContextAwareObjectPostProcessor(
+      IApplicationContext applicationContext) {
     //Assert.notNull(applicationContext, "applicationContext argument must not be null");
     _applicationContext = applicationContext;
   }
@@ -43,9 +46,11 @@ class ApplicationContextAwareObjectPostProcessor implements IObjectPostProcessor
   dynamic postProcessBeforeInitialization(dynamic object, String objectName) {
     if ((object is IApplicationContextAware)) {
       IApplicationContextAware applicationContextAware = object;
-      if ((applicationContextAware != null) && (applicationContextAware.applicationContext == null)) {
+      if ((applicationContextAware != null) &&
+          (applicationContextAware.applicationContext == null)) {
         logger.finer(
-            "Instance {0} implements IApplicationContextAware, injecting it with {1}", [object, _applicationContext]);
+            "Instance {0} implements IApplicationContextAware, injecting it with {1}",
+            [object, _applicationContext]);
         applicationContextAware.applicationContext = _applicationContext;
       }
     }

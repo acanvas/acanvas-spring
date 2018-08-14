@@ -49,15 +49,20 @@ class SpringApplicationContext extends EventDispatcher
         IApplicationContext,
         IDisposable,
         IEventBusAware /*, IAutowireProcessorAware, IEventBusUserRegistryAware, ILoaderInfoAware*/ {
-  static const String APPLICATIONCONTEXTINITIALIZER_CHANGED_EVENT = "applicationContextInitializerChanged";
-  static const String GET_ASSOCIATED_FACTORY_METHOD_NAME = "getAssociatedFactory";
+  static const String APPLICATIONCONTEXTINITIALIZER_CHANGED_EVENT =
+      "applicationContextInitializerChanged";
+  static const String GET_ASSOCIATED_FACTORY_METHOD_NAME =
+      "getAssociatedFactory";
   Logger LOGGER;
-  static const String MXMODULES_MODULE_MANAGER_CLASS_NAME = "mx.modules.ModuleManager";
+  static const String MXMODULES_MODULE_MANAGER_CLASS_NAME =
+      "mx.modules.ModuleManager";
 
   /**
 		 * Creates a new <code>ApplicationContext</code> instance.
 		 */
-  SpringApplicationContext([List<DisplayObject> rootViews = null, IObjectFactory objFactory = null]) : super() {
+  SpringApplicationContext(
+      [List<DisplayObject> rootViews = null, IObjectFactory objFactory = null])
+      : super() {
     if (objFactory == null) {
       objectFactory = createDefaultObjectFactory();
     }
@@ -73,7 +78,8 @@ class SpringApplicationContext extends EventDispatcher
   IApplicationContextInitializer _applicationContextInitializer;
   List<IApplicationContext> _childContexts;
   List<IObjectDefinitionsProvider> _definitionProviders;
-  IEventBus _eventBus; //decided to implement own simple EventBus, as we do not need the channel stuff
+  IEventBus
+      _eventBus; //decided to implement own simple EventBus, as we do not need the channel stuff
   List<DisplayObject> _ignoredRootViews;
   bool _isDisposed;
   LoaderInfo _loaderInfo;
@@ -137,7 +143,9 @@ class SpringApplicationContext extends EventDispatcher
 		 * @inheritDoc
 		 */
   IEventBus get eventBus {
-    return (_objectFactory is IEventBusAware) ? (_objectFactory as IEventBusAware).eventBus : _eventBus;
+    return (_objectFactory is IEventBusAware)
+        ? (_objectFactory as IEventBusAware).eventBus
+        : _eventBus;
   }
 
   /**
@@ -243,7 +251,8 @@ class SpringApplicationContext extends EventDispatcher
   List<IObjectFactoryPostProcessor> get objectFactoryPostProcessors {
     return (_objectFactoryPostProcessors != null)
         ? _objectFactoryPostProcessors
-        : _objectFactoryPostProcessors = new List<IObjectFactoryPostProcessor>();
+        : _objectFactoryPostProcessors =
+            new List<IObjectFactoryPostProcessor>();
   }
 
   /**
@@ -327,21 +336,25 @@ class SpringApplicationContext extends EventDispatcher
 	 */
 
   void addIgnoredRootView(DisplayObject rootView) {
-    (_ignoredRootViews != null) ? _ignoredRootViews : _ignoredRootViews = new List<DisplayObject>();
+    (_ignoredRootViews != null)
+        ? _ignoredRootViews
+        : _ignoredRootViews = new List<DisplayObject>();
     if (addDisplayObject(_ignoredRootViews, rootView)) {}
   }
 
   /**
 		 * @inheritDoc
 		 */
-  IApplicationContext addObjectFactoryPostProcessor(IObjectFactoryPostProcessor objectFactoryPostProcessor) {
+  IApplicationContext addObjectFactoryPostProcessor(
+      IObjectFactoryPostProcessor objectFactoryPostProcessor) {
     if (objectFactoryPostProcessors.indexOf(objectFactoryPostProcessor) < 0) {
       //if (objectFactoryPostProcessor is IApplicationDomainAware) {
       //	(objectFactoryPostProcessor as IApplicationDomainAware).applicationDomain = applicationDomain;
       //}
       objectFactoryPostProcessors.add(objectFactoryPostProcessor);
       _objectFactoryPostProcessors.sort(OrderedUtils.orderedCompareFunction);
-      LOGGER.finer("Object factory postprocessor {0} added", [objectFactoryPostProcessor]);
+      LOGGER.finer("Object factory postprocessor {0} added",
+          [objectFactoryPostProcessor]);
     }
     return this;
   }
@@ -349,7 +362,8 @@ class SpringApplicationContext extends EventDispatcher
   /**
 		 * @inheritDoc
 		 */
-  IObjectFactory addObjectPostProcessor(IObjectPostProcessor objectPostProcessor) {
+  IObjectFactory addObjectPostProcessor(
+      IObjectPostProcessor objectPostProcessor) {
     LOGGER.finer("Object postprocessor {0} added", [objectPostProcessor]);
     return _objectFactory.addObjectPostProcessor(objectPostProcessor);
   }
@@ -395,15 +409,19 @@ class SpringApplicationContext extends EventDispatcher
 		 */
   IApplicationContext configure(IConfigurationPackage configurationPackage) {
     configurationPackage.execute(this);
-    LOGGER.finer("Configuration package {0} executed on current application context", [configurationPackage]);
+    LOGGER.finer(
+        "Configuration package {0} executed on current application context",
+        [configurationPackage]);
     return this;
   }
 
   /**
 		 * @inheritDoc
 		 */
-  dynamic createInstance(Type clazz, String objectName, [List constructorArguments = null]) {
-    return _objectFactory.createInstance(clazz, objectName, constructorArguments);
+  dynamic createInstance(Type clazz, String objectName,
+      [List constructorArguments = null]) {
+    return _objectFactory.createInstance(
+        clazz, objectName, constructorArguments);
   }
 
   /**
@@ -448,7 +466,8 @@ class SpringApplicationContext extends EventDispatcher
 					}
 					_stageProcessorRegistry = null;
           */
-        for (IObjectFactoryPostProcessor factoryPostProcessor in _objectFactoryPostProcessors) {
+        for (IObjectFactoryPostProcessor factoryPostProcessor
+            in _objectFactoryPostProcessors) {
           ContextUtils.disposeInstance(factoryPostProcessor);
         }
         _objectFactoryPostProcessors = null;
@@ -463,7 +482,8 @@ class SpringApplicationContext extends EventDispatcher
   /**
 		 * @inheritDoc
 		 */
-  T getObject<T extends dynamic>(String name, [List constructorArguments = null]) {
+  T getObject<T extends dynamic>(String name,
+      [List constructorArguments = null]) {
     return _objectFactory.getObject<T>(name, constructorArguments);
   }
 
@@ -480,9 +500,11 @@ class SpringApplicationContext extends EventDispatcher
   Future load() {
     (_applicationContextInitializer != null)
         ? _applicationContextInitializer
-        : _applicationContextInitializer = new DefaultApplicationContextInitializer();
+        : _applicationContextInitializer =
+            new DefaultApplicationContextInitializer();
     _completer = new Completer<dynamic>();
-    _applicationContextInitializer.addEventListener(Event.COMPLETE, handleInitializationComplete);
+    _applicationContextInitializer.addEventListener(
+        Event.COMPLETE, handleInitializationComplete);
     _applicationContextInitializer.initialize(this);
     return _completer.future;
   }
@@ -527,8 +549,11 @@ class SpringApplicationContext extends EventDispatcher
   }
 
   dynamic wire(dynamic instance,
-      [IObjectDefinition objectDefinition = null, List constructorArguments = null, String objectName = null]) {
-    return _objectFactory.wire(instance, objectDefinition, constructorArguments, objectName);
+      [IObjectDefinition objectDefinition = null,
+      List constructorArguments = null,
+      String objectName = null]) {
+    return _objectFactory.wire(
+        instance, objectDefinition, constructorArguments, objectName);
   }
 
   bool addDisplayObject(List<DisplayObject> list, DisplayObject displayObject) {
@@ -540,8 +565,10 @@ class SpringApplicationContext extends EventDispatcher
   }
 
   void addFactoryListeners(IObjectFactory objectFactory) {
-    objectFactory.addEventListener(ObjectFactoryEvent.OBJECT_CREATED, redispatch);
-    objectFactory.addEventListener(ObjectFactoryEvent.OBJECT_RETRIEVED, redispatch);
+    objectFactory.addEventListener(
+        ObjectFactoryEvent.OBJECT_CREATED, redispatch);
+    objectFactory.addEventListener(
+        ObjectFactoryEvent.OBJECT_RETRIEVED, redispatch);
     objectFactory.addEventListener(ObjectFactoryEvent.OBJECT_WIRED, redispatch);
   }
 
@@ -565,7 +592,8 @@ class SpringApplicationContext extends EventDispatcher
 		}
 */
   void handleInitializationComplete(Event event) {
-    _applicationContextInitializer.removeEventListener(Event.COMPLETE, handleInitializationComplete);
+    _applicationContextInitializer.removeEventListener(
+        Event.COMPLETE, handleInitializationComplete);
     ContextUtils.disposeInstance(_applicationContextInitializer);
     _applicationContextInitializer = null;
     _objectFactoryPostProcessors = null;
@@ -579,7 +607,8 @@ class SpringApplicationContext extends EventDispatcher
     dispatchEvent(event);
   }
 
-  bool removeDisplayObject(List<DisplayObject> _rootViews, DisplayObject rootView) {
+  bool removeDisplayObject(
+      List<DisplayObject> _rootViews, DisplayObject rootView) {
     if (_rootViews == null) {
       return false;
     }
@@ -663,7 +692,8 @@ class SpringApplicationContext extends EventDispatcher
    */
 
   @override
-  IApplicationContext addDefinitionProvider(IObjectDefinitionsProvider provider) {
+  IApplicationContext addDefinitionProvider(
+      IObjectDefinitionsProvider provider) {
     if (definitionProviders.indexOf(provider) < 0) {
       if (provider is IApplicationContextAware) {
         (provider as IApplicationContextAware).applicationContext = this;
@@ -676,7 +706,8 @@ class SpringApplicationContext extends EventDispatcher
 
   IObjectFactory createDefaultObjectFactory() {
     DefaultObjectFactory defaultObjectFactory = new DefaultObjectFactory();
-    defaultObjectFactory.objectDefinitionRegistry = new DefaultObjectDefinitionRegistry();
+    defaultObjectFactory.objectDefinitionRegistry =
+        new DefaultObjectDefinitionRegistry();
     defaultObjectFactory.cache = new DefaultInstanceCache();
     return defaultObjectFactory;
   }

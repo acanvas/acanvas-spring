@@ -26,7 +26,8 @@ abstract class IController extends /*I*/ EventDispatcher {
 		 * @param eventType The specified event type.
 		 * @param commandName The specified command name.
 		 */
-  void registerCommandForEventType(String eventType, String commandName, String executeMethodName,
+  void registerCommandForEventType(
+      String eventType, String commandName, String executeMethodName,
       [List<String> properties = null, int priority = 0]);
   /**
 		 * Registers the specified command name for the specified event <code>Class</code>.

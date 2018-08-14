@@ -82,9 +82,11 @@ class Properties implements IPropertiesProvider {
       logger.finer("Invalid properties argument: $properties, ignoring merge");
       return;
     }
-    logger.finer("Merging properties from {0} with override set to {1}", [properties, overrideProperty]);
+    logger.finer("Merging properties from {0} with override set to {1}",
+        [properties, overrideProperty]);
     for (String key in properties.content.keys) {
-      if (_content[key] == null || (_content[key] != null && overrideProperty)) {
+      if (_content[key] == null ||
+          (_content[key] != null && overrideProperty)) {
         setProperty(key, properties.content[key]);
         /*addPropertyName(key);
 					_content[key] = properties.content[key];*/

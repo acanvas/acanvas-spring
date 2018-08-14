@@ -45,7 +45,8 @@ class AutowireMode {
   static const String BYTYPE_NAME = "byType";
   static const String CONSTRUCTOR_NAME = "constructor";
   static const String AUTODETECT_NAME = "autodetect";
-  static const String ALREADY_CREATED_ERROR = "The AutowireMode enum has already been created.";
+  static const String ALREADY_CREATED_ERROR =
+      "The AutowireMode enum has already been created.";
 
   String _name;
 

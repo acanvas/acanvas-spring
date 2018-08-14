@@ -23,7 +23,8 @@ part of acanvas_spring;
 	 * @author Damir Murat
 	 * @author Roland Zwaga
 	 */
-abstract class IObjectDefinition extends IBaseObjectDefinition with /*, I*/ EventDispatcher {
+abstract class IObjectDefinition extends IBaseObjectDefinition
+    with /*, I*/ EventDispatcher {
   /**
 		 * The fully qualified classname of the object that the current <code>IObjectDefinition</code> describes.
 		 */

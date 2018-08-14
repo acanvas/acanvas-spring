@@ -15,7 +15,8 @@
 */
 part of acanvas_spring;
 
-class AbstractOrderedFactoryPostProcessor implements IObjectFactoryPostProcessor, IOrdered {
+class AbstractOrderedFactoryPostProcessor
+    implements IObjectFactoryPostProcessor, IOrdered {
   int _order;
   AbstractOrderedFactoryPostProcessor(int orderPosition) : super() {
     _order = orderPosition;

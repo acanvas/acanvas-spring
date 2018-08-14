@@ -32,11 +32,16 @@ part of acanvas_spring;
 	 * @author Roland Zwaga
 	 */
 class DefaultObjectFactory extends EventDispatcher
-    implements IObjectFactory, IEventBusAware, IAutowireProcessorAware, IDisposable {
+    implements
+        IObjectFactory,
+        IEventBusAware,
+        IAutowireProcessorAware,
+        IDisposable {
   static const String OBJECT_FACTORY_PREFIX = "&";
   static const String NON_LAZY_SINGLETON_CTOR_ARGS_ERROR =
       "The object definition for '{0}' is not lazy. Constructor arguments can only be supplied for lazy instantiating objects.";
-  static const String OBJECT_DEFINITION_NOT_FOUND_ERROR = "An object definition for '{0}' was not found.";
+  static const String OBJECT_DEFINITION_NOT_FOUND_ERROR =
+      "An object definition for '{0}' was not found.";
 
   Logger logger;
 
@@ -201,7 +206,8 @@ class DefaultObjectFactory extends EventDispatcher
   /**
 		 * @inheritDoc
 		 */
-  IObjectFactory addObjectPostProcessor(IObjectPostProcessor objectPostProcessor) {
+  IObjectFactory addObjectPostProcessor(
+      IObjectPostProcessor objectPostProcessor) {
     if (objectPostProcessor != null) {
       if (objectPostProcessors.indexOf(objectPostProcessor) < 0) {
         objectPostProcessors.add(objectPostProcessor);
@@ -217,13 +223,15 @@ class DefaultObjectFactory extends EventDispatcher
 		 * @inheritDoc
 		 */
   bool canCreate(String objectName) {
-    return ((_objectDefinitionRegistry.containsObjectDefinition(objectName)) || (cache.hasInstance(objectName)));
+    return ((_objectDefinitionRegistry.containsObjectDefinition(objectName)) ||
+        (cache.hasInstance(objectName)));
   }
 
   /**
 		 * @inheritDoc
 		 */
-  dynamic createInstance(Type clazz, String objectName, [List constructorArguments = null]) {
+  dynamic createInstance(Type clazz, String objectName,
+      [List constructorArguments = null]) {
     throw new StateError(StringUtils.substitute(
         "Failed to create instance of Type {0} for object name {1}, reflection not supported in favor of dart2js filesize.",
         <dynamic>[clazz, objectName]));
@@ -290,7 +298,8 @@ class DefaultObjectFactory extends EventDispatcher
       _objectDestroyer.registerInstance(instance, objectName);
     }
     if ((definition != null) &&
-        ((definition.scope == ObjectDefinitionScope.SINGLETON || definition.scope == ObjectDefinitionScope.REMOTE)) &&
+        ((definition.scope == ObjectDefinitionScope.SINGLETON ||
+            definition.scope == ObjectDefinitionScope.REMOTE)) &&
         (!cache.hasInstance(objectName))) {
       cache.putInstance(objectName, instance);
     }
@@ -300,7 +309,8 @@ class DefaultObjectFactory extends EventDispatcher
   /**
 		 * @inheritDoc
 		 */
-  T getObject<T extends dynamic>(String name, [List constructorArguments = null]) {
+  T getObject<T extends dynamic>(String name,
+      [List constructorArguments = null]) {
     T result;
     bool isFactoryDereference = (name[0] == OBJECT_FACTORY_PREFIX);
     String objectName = (isFactoryDereference ? name.substring(1) : name);
@@ -314,8 +324,11 @@ class DefaultObjectFactory extends EventDispatcher
     }
 
     if (result != null) {
-      ObjectFactoryEvent evt =
-          new ObjectFactoryEvent(ObjectFactoryEvent.OBJECT_RETRIEVED, result, name, constructorArguments);
+      ObjectFactoryEvent evt = new ObjectFactoryEvent(
+          ObjectFactoryEvent.OBJECT_RETRIEVED,
+          result,
+          name,
+          constructorArguments);
       dispatchEvent(evt);
       dispatchEventThroughEventBus(evt);
     }
@@ -333,22 +346,30 @@ class DefaultObjectFactory extends EventDispatcher
   }
 
   dynamic wire(dynamic instance,
-      [IObjectDefinition objectDefinition = null, List constructorArguments = null, String objectName = null]) {
+      [IObjectDefinition objectDefinition = null,
+      List constructorArguments = null,
+      String objectName = null]) {
     if (dependencyInjector != null) {
-      dynamic wiredResult = dependencyInjector.wire(instance, this, objectDefinition, objectName);
+      dynamic wiredResult =
+          dependencyInjector.wire(instance, this, objectDefinition, objectName);
       if (wiredResult != null) {
         instance = wiredResult;
       }
-      ObjectFactoryEvent objectWiredEvent =
-          new ObjectFactoryEvent(ObjectFactoryEvent.OBJECT_WIRED, instance, objectName, constructorArguments);
+      ObjectFactoryEvent objectWiredEvent = new ObjectFactoryEvent(
+          ObjectFactoryEvent.OBJECT_WIRED,
+          instance,
+          objectName,
+          constructorArguments);
       dispatchEvent(objectWiredEvent);
     }
 
     //because we dont't have a dependencyinjector in dart port yet:
     for (IObjectPostProcessor processor in objectPostProcessors) {
       logger.finer(
-          "Executing object postprocessor {0} after initialization on instance {1}", <dynamic>[processor, instance]);
-      dynamic result = processor.postProcessBeforeInitialization(instance, objectName);
+          "Executing object postprocessor {0} after initialization on instance {1}",
+          <dynamic>[processor, instance]);
+      dynamic result =
+          processor.postProcessBeforeInitialization(instance, objectName);
       result = processor.postProcessAfterInitialization(result, objectName);
       if (result != null) {
         instance = result;
@@ -358,15 +379,23 @@ class DefaultObjectFactory extends EventDispatcher
     return instance;
   }
 
-  T attemptToInstantiate<T extends dynamic>(
-      IObjectDefinition objectDefinition, List constructorArguments, String name, String objectName) {
+  T attemptToInstantiate<T extends dynamic>(IObjectDefinition objectDefinition,
+      List constructorArguments, String name, String objectName) {
     T result = null;
     try {
-      logger.finer("Attempting to instantiate object for definition '{0}'...", [objectName]);
-      result = instantiateClass<T>(objectDefinition,
-          (constructorArguments == null) ? objectDefinition.constructorArguments : constructorArguments, objectName);
-      ObjectFactoryEvent objectCreatedEvent =
-          new ObjectFactoryEvent(ObjectFactoryEvent.OBJECT_CREATED, result, name, constructorArguments);
+      logger.finer("Attempting to instantiate object for definition '{0}'...",
+          [objectName]);
+      result = instantiateClass<T>(
+          objectDefinition,
+          (constructorArguments == null)
+              ? objectDefinition.constructorArguments
+              : constructorArguments,
+          objectName);
+      ObjectFactoryEvent objectCreatedEvent = new ObjectFactoryEvent(
+          ObjectFactoryEvent.OBJECT_CREATED,
+          result,
+          name,
+          constructorArguments);
       dispatchEvent(objectCreatedEvent);
       dispatchEventThroughEventBus(objectCreatedEvent);
       //result = wire(result, objectDefinition, constructorArguments, objectName);
@@ -392,7 +421,8 @@ class DefaultObjectFactory extends EventDispatcher
           <String>[objectName]));
     } else if ((objectDefinition.scope == ObjectDefinitionScope.STAGE) ||
         (objectDefinition.scope == ObjectDefinitionScope.REMOTE)) {
-      logger.finer("Object definition scope is '{0}', returning null", [objectDefinition.scope]);
+      logger.finer("Object definition scope is '{0}', returning null",
+          [objectDefinition.scope]);
       return null;
     }
 
@@ -403,8 +433,10 @@ class DefaultObjectFactory extends EventDispatcher
           <String>[objectName]));
     }
 
-    if (objectDefinition.isSingleton && (constructorArguments != null && !objectDefinition.isLazyInit)) {
-      throw new StateError(StringUtils.substitute(NON_LAZY_SINGLETON_CTOR_ARGS_ERROR, <String>[objectName]));
+    if (objectDefinition.isSingleton &&
+        (constructorArguments != null && !objectDefinition.isLazyInit)) {
+      throw new StateError(StringUtils.substitute(
+          NON_LAZY_SINGLETON_CTOR_ARGS_ERROR, <String>[objectName]));
     }
 
     if (objectDefinition.isSingleton) {
@@ -412,7 +444,8 @@ class DefaultObjectFactory extends EventDispatcher
     }
 
     if (result == null) {
-      result = attemptToInstantiate<T>(objectDefinition, constructorArguments, name, objectName);
+      result = attemptToInstantiate<T>(
+          objectDefinition, constructorArguments, name, objectName);
       if (objectDefinition.isSingleton && !cache.hasInstance(objectName)) {
         cache.putInstance(objectName, result);
       }
@@ -443,8 +476,8 @@ class DefaultObjectFactory extends EventDispatcher
     return result;
   }
 
-  T instantiateClass<T extends dynamic>(
-      IObjectDefinition objectDefinition, List constructorArguments, String objectName) {
+  T instantiateClass<T extends dynamic>(IObjectDefinition objectDefinition,
+      List constructorArguments, String objectName) {
     logger.finer("Instantiating class: {0}", [objectDefinition.className]);
 
     if (_autowireProcessor != null) {

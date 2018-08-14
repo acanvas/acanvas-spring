@@ -25,19 +25,23 @@ class ObjectDefinitionScope {
   /**
 		 * Multiple instances of the specified object can exist
 		 */
-  static final ObjectDefinitionScope PROTOTYPE = new ObjectDefinitionScope(PROTOTYPE_NAME);
+  static final ObjectDefinitionScope PROTOTYPE =
+      new ObjectDefinitionScope(PROTOTYPE_NAME);
   /**
 		 * Only one instance of the specified object can exist
 		 */
-  static final ObjectDefinitionScope SINGLETON = new ObjectDefinitionScope(SINGLETON_NAME);
+  static final ObjectDefinitionScope SINGLETON =
+      new ObjectDefinitionScope(SINGLETON_NAME);
   /**
 		 * The specified object is a stage component
 		 */
-  static final ObjectDefinitionScope STAGE = new ObjectDefinitionScope(STAGE_NAME);
+  static final ObjectDefinitionScope STAGE =
+      new ObjectDefinitionScope(STAGE_NAME);
   /**
 		 * The specified object is created remotely
 		 */
-  static final ObjectDefinitionScope REMOTE = new ObjectDefinitionScope(REMOTE_NAME);
+  static final ObjectDefinitionScope REMOTE =
+      new ObjectDefinitionScope(REMOTE_NAME);
 
   static const String PROTOTYPE_NAME = "prototype";
   static const String SINGLETON_NAME = "singleton";

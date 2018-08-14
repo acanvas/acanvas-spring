@@ -27,7 +27,8 @@ class ContextEvent extends Event {
   /**
 		 * Creates a new <code>ContextEvent</code> instance.
 		 */
-  ContextEvent(String type, IApplicationContext context, [bool bubbles = false, bool cancelable = false])
+  ContextEvent(String type, IApplicationContext context,
+      [bool bubbles = false, bool cancelable = false])
       : super(type, bubbles) {
     _applicationContext = context;
   }

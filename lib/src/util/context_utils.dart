@@ -28,7 +28,8 @@ class ContextUtils {
     }
   }
 
-  static List<String> commaSeparatedPropertyValueToStringVector(String propertyValue) {
+  static List<String> commaSeparatedPropertyValueToStringVector(
+      String propertyValue) {
     if (StringUtils.hasText(propertyValue)) {
       List parts = propertyValue.split(COMMA);
       List<String> result = new List<String>();

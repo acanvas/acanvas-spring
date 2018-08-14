@@ -66,13 +66,16 @@ part of acanvas_spring;
 	 * <p>[Command] annotations can be stacked, so one command class can be triggered by multiple <code>Events</code>.</p>
 	 * @author Roland Zwaga
 	 */
-class MVCControllerObjectFactoryPostProcessor extends AbstractOrderedFactoryPostProcessor {
+class MVCControllerObjectFactoryPostProcessor
+    extends AbstractOrderedFactoryPostProcessor {
   /**
           * The object name that will be given to the controller instance in the object factory
           */
-  static const String CONTROLLER_OBJECT_NAME = "MVCControllerObjectFactoryPostProcessor";
+  static const String CONTROLLER_OBJECT_NAME =
+      "MVCControllerObjectFactoryPostProcessor";
 
-  static const String METADATAPROCESSOR_OBJECT_NAME = "SpringActionScriptMVCRouteEventsMetaDataProcessor";
+  static const String METADATAPROCESSOR_OBJECT_NAME =
+      "SpringActionScriptMVCRouteEventsMetaDataProcessor";
 
   static const String COMMAND_METADATA = "Command";
 
@@ -99,7 +102,8 @@ class MVCControllerObjectFactoryPostProcessor extends AbstractOrderedFactoryPost
           */
   @override
   IOperation postProcessObjectFactory(IObjectFactory objectFactory) {
-    Assert.notNull(objectFactory, "the objectFactory argument must not be null");
+    Assert.notNull(
+        objectFactory, "the objectFactory argument must not be null");
     addMVControllerInstance(objectFactory);
     return null;
   }
@@ -112,8 +116,10 @@ class MVCControllerObjectFactoryPostProcessor extends AbstractOrderedFactoryPost
           * @return The created or retrieved <code>IController</code> instance.
           */
   void addMVControllerInstance(IObjectFactory objectFactory) {
-    Assert.notNull(objectFactory, "the objectFactory argument must not be null");
-    List<String> names = objectFactory.objectDefinitionRegistry.getObjectDefinitionNamesForType(IController);
+    Assert.notNull(
+        objectFactory, "the objectFactory argument must not be null");
+    List<String> names = objectFactory.objectDefinitionRegistry
+        .getObjectDefinitionNamesForType(IController);
     if (names == null) {
       IController controller = new Controller();
       //objectFactory.createInstance(Controller, CONTROLLER_OBJECT_NAME);

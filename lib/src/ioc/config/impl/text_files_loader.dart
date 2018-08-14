@@ -46,7 +46,8 @@ class TextFilesLoader extends OperationQueue implements ITextFilesLoader {
 		 */
   void addURIs(List<TextFileURI> uris) {
     for (TextFileURI propertyURI in uris) {
-      addURI(propertyURI.textFileURI, propertyURI.preventCache, propertyURI.isRequired);
+      addURI(propertyURI.textFileURI, propertyURI.preventCache,
+          propertyURI.isRequired);
     }
   }
 
@@ -54,14 +55,16 @@ class TextFilesLoader extends OperationQueue implements ITextFilesLoader {
 		 * @inheritDoc
 		 */
   void addURI(String uri, [bool preventCache = true, bool isRequired = true]) {
-    LoadURLOperation loadOperation = new LoadURLOperation(name, formatURL(uri, preventCache));
+    LoadURLOperation loadOperation =
+        new LoadURLOperation(name, formatURL(uri, preventCache));
     if (isRequired != null) {
       _requiredOperations.add(loadOperation);
     }
     loadOperation.addCompleteListener<OperationEvent>(textFileLoaderComplete);
     loadOperation.addErrorListener<OperationEvent>(textFileLoaderError);
     addOperation(loadOperation);
-    logger.finer("Added URI '{0}', with preventCache:{1} and isRequired:{2}", [uri, preventCache, isRequired]);
+    logger.finer("Added URI '{0}', with preventCache:{1} and isRequired:{2}",
+        [uri, preventCache, isRequired]);
   }
 
   /**
@@ -94,7 +97,8 @@ class TextFilesLoader extends OperationQueue implements ITextFilesLoader {
   void textFileLoaderError(OperationEvent event) {
     _failedOperation = event.operation;
     cleanUpLoadURLOperation(event.operation);
-    logger.severe("Failed to load {0}", [(event.operation as LoadURLOperation).url]);
+    logger.severe(
+        "Failed to load {0}", [(event.operation as LoadURLOperation).url]);
   }
 
   /**
@@ -115,8 +119,10 @@ class TextFilesLoader extends OperationQueue implements ITextFilesLoader {
 		 */
   static String formatURL(String url, bool preventCache) {
     if (preventCache != null) {
-      String parameterAppendChar = (url.indexOf(QUESTION_MARK) < 0) ? QUESTION_MARK : AMPERSAND;
-      url += (parameterAppendChar + (new Random().nextDouble() * 1000000).round().toString());
+      String parameterAppendChar =
+          (url.indexOf(QUESTION_MARK) < 0) ? QUESTION_MARK : AMPERSAND;
+      url += (parameterAppendChar +
+          (new Random().nextDouble() * 1000000).round().toString());
     }
     return url;
   }

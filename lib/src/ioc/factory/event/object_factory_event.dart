@@ -44,7 +44,9 @@ class ObjectFactoryEvent extends Event {
 		 * @param constructorArgs The constructor arguments passed to the object factory for the specified instance.
 		 */
   ObjectFactoryEvent(String type, dynamic instance, String name,
-      [List constructorArgs = null, bool bubbles = false, bool cancelable = false])
+      [List constructorArgs = null,
+      bool bubbles = false,
+      bool cancelable = false])
       : super(type, bubbles) {
     _objectInstance = instance;
     _objectName = name;
@@ -77,6 +79,7 @@ class ObjectFactoryEvent extends Event {
 		 * @return An exact copy of the current <code>ObjectFactoryEvent</code>.
 		 */
   Event clone() {
-    return new ObjectFactoryEvent(type, _objectInstance, _objectName, _constructorArguments, bubbles);
+    return new ObjectFactoryEvent(
+        type, _objectInstance, _objectName, _constructorArguments, bubbles);
   }
 }
