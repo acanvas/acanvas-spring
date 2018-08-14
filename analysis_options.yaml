@@ -1,11 +1,16 @@
 analyzer:
-  strong-mode:
-    # enables dart 2 type system (see https://www.dartlang.org/guides/language/analysis-options#performing-additional-type-checks)
-    implicit-casts: false
-    implicit-dynamic: false
   errors:
     unused_element: info
     unused_import: error
     unused_local_variable: error
     dead_code: error
     override_on_non_overriding_method: error
+# Lint rules and documentation, see http://dart-lang.github.io/linter/lints
+linter:
+  rules:
+  - cancel_subscriptions
+  - hash_and_equals
+  - iterable_contains_unrelated_type
+  - list_remove_unrelated_type
+  - test_types_in_equals
+  - valid_regexps
